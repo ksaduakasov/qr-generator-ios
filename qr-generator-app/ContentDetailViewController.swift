@@ -46,10 +46,6 @@ class ContentDetailViewController: UIViewController {
             make.height.width.equalTo(50)
         }
         
-        
-       
-        
-        
     }
     
     @objc func saveButtonTapped() {
