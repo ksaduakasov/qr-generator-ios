@@ -7,13 +7,14 @@
 import UIKit
 import SnapKit
 import QRCode
+import RealmSwift
 
 class TextViewController: UIViewController {
     
+    let realm = try! Realm()
+    
     let qrImageView = UIImageView()
     var data = ""
-    var foregroundColor: UIColor = .black
-    var backgroundColor: UIColor = .clear
     
     var textColor = UIColor()
     var textFont = UIFont()
@@ -46,12 +47,14 @@ class TextViewController: UIViewController {
     let discardButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return button
     }()
     
     let confirmButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return button
     }()
     
@@ -132,8 +135,6 @@ class TextViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         textField.delegate = self
-        
-        textView.backgroundColor = .white
 
         qrImageView.image = generateQRCode(from: data)
         view.addSubview(qrImageView)
@@ -144,11 +145,20 @@ class TextViewController: UIViewController {
             make.height.equalTo(300)
         }
         
+        let colorData = realm.objects(QRCodeColor.self)
+        if colorData.count != 0 {
+            let color = colorData.first!
+            textView.backgroundColor = UIColor(hexString: color.backgroundColor)
+        } else {
+            textView.backgroundColor = .white
+        }
+        view.backgroundColor = .white
+        
         view.addSubview(textView)
         textView.snp.makeConstraints { make in
             make.top.equalTo(qrImageView.snp.bottom)
             make.left.right.equalToSuperview().inset(50)
-            make.height.equalTo(30)
+            make.height.equalTo(35)
         }
         
         textView.addSubview(textLabel)
@@ -246,8 +256,72 @@ class TextViewController: UIViewController {
     
     func generateQRCode(from string: String) -> UIImage? {
         let doc = QRCode.Document(utf8String: data, errorCorrection: .high)
+        let colorData = realm.objects(QRCodeColor.self)
+        if colorData.count != 0 {
+            let color = colorData.first!
+            doc.design.backgroundColor(UIColor(hexString: color.backgroundColor).cgColor)
+            doc.design.style.onPixels = QRCode.FillStyle.Solid((UIColor(hexString: color.foregroundColor).cgColor))
+        }
+        let dotsData = realm.objects(QRCodeDots.self)
+        if dotsData.count != 0 {
+            let dot = dotsData.first!
+            switch dot.dots {
+            case "square":
+                doc.design.shape.onPixels = QRCode.PixelShape.Square()
+            case "circle":
+                doc.design.shape.onPixels = QRCode.PixelShape.Circle()
+            case "curvePixel":
+                doc.design.shape.onPixels = QRCode.PixelShape.CurvePixel()
+            case "squircle":
+                doc.design.shape.onPixels = QRCode.PixelShape.Squircle()
+            case "pointy":
+                doc.design.shape.onPixels = QRCode.PixelShape.Pointy()
+            default:
+                print(-1)
+            }
+        }
+        
+        let eyesData = realm.objects(QRCodeEyes.self)
+        if eyesData.count != 0 {
+            let eye = eyesData.first!
+            switch eye.eyes {
+            case "eye_square":
+                doc.design.shape.eye = QRCode.EyeShape.Square()
+            case "eye_circle":
+                doc.design.shape.eye = QRCode.EyeShape.Circle()
+            case "eye_barsHorizontal":
+                doc.design.shape.eye = QRCode.EyeShape.BarsHorizontal()
+            case "eye_barsVertical":
+                doc.design.shape.eye = QRCode.EyeShape.BarsVertical()
+            case "eye_corneredPixels":
+                doc.design.shape.eye = QRCode.EyeShape.CorneredPixels()
+            case "eye_leaf":
+                doc.design.shape.eye = QRCode.EyeShape.Leaf()
+            case "eye_pixels":
+                doc.design.shape.eye = QRCode.EyeShape.Pixels()
+            case "eye_roundedouter":
+                doc.design.shape.eye = QRCode.EyeShape.RoundedOuter()
+            case "eye_roundedpointingin":
+                doc.design.shape.eye = QRCode.EyeShape.RoundedPointingIn()
+            case "eye_roundedRect":
+                doc.design.shape.eye = QRCode.EyeShape.RoundedRect()
+            case "eye_squircle":
+                doc.design.shape.eye = QRCode.EyeShape.Squircle()
+            default:
+                print(-1)
+            }
+        }
+        
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
+    }
+    
+    @objc func goBack() {
+        dismiss(animated: true)
+    }
+    
+    @objc func saveChanges() {
+        
     }
 }
 

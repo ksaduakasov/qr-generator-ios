@@ -12,6 +12,12 @@ class TemplateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+//        realm.beginWrite()
+//        realm.delete(realm.objects(QRCodePreferences.self))
+//        try! realm.commitWrite()
+//        realm.beginWrite()
+//        realm.add(qrCode)
+//        try! realm.commitWrite()
         
     }
 

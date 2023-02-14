@@ -28,6 +28,12 @@
 		E8858CD02994F6C100E30828 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CCF2994F6C100E30828 /* TemplateViewController.swift */; };
 		E8858CD22994F6CC00E30828 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CD12994F6CC00E30828 /* TextViewController.swift */; };
 		E8858CD42994F80700E30828 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CD32994F80700E30828 /* ColorCell.swift */; };
+		E8EA9467299B984900CB36D9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9466299B984900CB36D9 /* UIColor.swift */; };
+		E8EA9469299BA08300CB36D9 /* QRCodeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9468299BA08300CB36D9 /* QRCodeColor.swift */; };
+		E8EA946B299BA08B00CB36D9 /* QRCodeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA946A299BA08B00CB36D9 /* QRCodeDots.swift */; };
+		E8EA946D299BA09200CB36D9 /* QRCodeEyes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA946C299BA09200CB36D9 /* QRCodeEyes.swift */; };
+		E8EA946F299BA09800CB36D9 /* QRCodeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA946E299BA09800CB36D9 /* QRCodeText.swift */; };
+		E8EA9471299BF71300CB36D9 /* RealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9470299BF71300CB36D9 /* RealmData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +61,12 @@
 		E8858CCF2994F6C100E30828 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		E8858CD12994F6CC00E30828 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		E8858CD32994F80700E30828 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		E8EA9466299B984900CB36D9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E8EA9468299BA08300CB36D9 /* QRCodeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeColor.swift; sourceTree = "<group>"; };
+		E8EA946A299BA08B00CB36D9 /* QRCodeDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDots.swift; sourceTree = "<group>"; };
+		E8EA946C299BA09200CB36D9 /* QRCodeEyes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeEyes.swift; sourceTree = "<group>"; };
+		E8EA946E299BA09800CB36D9 /* QRCodeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeText.swift; sourceTree = "<group>"; };
+		E8EA9470299BF71300CB36D9 /* RealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +99,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E831588F299B969B00BA51ED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E8EA9468299BA08300CB36D9 /* QRCodeColor.swift */,
+				E8EA946A299BA08B00CB36D9 /* QRCodeDots.swift */,
+				E8EA946C299BA09200CB36D9 /* QRCodeEyes.swift */,
+				E8EA946E299BA09800CB36D9 /* QRCodeText.swift */,
+				E8EA9470299BF71300CB36D9 /* RealmData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E8858C9A2994F46B00E30828 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +132,7 @@
 		E8858CA52994F46B00E30828 /* qr-generator-app */ = {
 			isa = PBXGroup;
 			children = (
+				E8EA9465299B983F00CB36D9 /* Extensions */,
 				E8858CBC2994F5D500E30828 /* QRCustomization */,
 				E8858CBB2994F4C100E30828 /* Resources */,
 				E8858CBA2994F49B00E30828 /* Application */,
@@ -141,6 +166,7 @@
 		E8858CBC2994F5D500E30828 /* QRCustomization */ = {
 			isa = PBXGroup;
 			children = (
+				E831588F299B969B00BA51ED /* Models */,
 				E8858CC52994F67800E30828 /* Cells */,
 				E8858CC72994F69A00E30828 /* ColorViewController.swift */,
 				E8858CC92994F6A300E30828 /* DotsViewController.swift */,
@@ -162,6 +188,14 @@
 				E831588D29981EE300BA51ED /* FontCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		E8EA9465299B983F00CB36D9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E8EA9466299B984900CB36D9 /* UIColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,20 +321,26 @@
 				E8858CC22994F61D00E30828 /* QRContentViewController.swift in Sources */,
 				E8858CBE2994F5F500E30828 /* WelcomeViewController.swift in Sources */,
 				E8858CA72994F46B00E30828 /* AppDelegate.swift in Sources */,
+				E8EA946B299BA08B00CB36D9 /* QRCodeDots.swift in Sources */,
 				E8858CCC2994F6AC00E30828 /* EyesViewController.swift in Sources */,
 				E831588E29981EE300BA51ED /* FontCell.swift in Sources */,
+				E8EA9469299BA08300CB36D9 /* QRCodeColor.swift in Sources */,
 				E831588C29981ED900BA51ED /* FontColorCell.swift in Sources */,
 				E8858CC42994F62E00E30828 /* ContentDetailViewController.swift in Sources */,
+				E8EA9467299B984900CB36D9 /* UIColor.swift in Sources */,
+				E8EA946F299BA09800CB36D9 /* QRCodeText.swift in Sources */,
 				E8858CD02994F6C100E30828 /* TemplateViewController.swift in Sources */,
 				E8858CCA2994F6A300E30828 /* DotsViewController.swift in Sources */,
 				E8858CC82994F69A00E30828 /* ColorViewController.swift in Sources */,
 				E8858CCE2994F6BB00E30828 /* LogoViewController.swift in Sources */,
 				E83158882997B1AC00BA51ED /* DotsCell.swift in Sources */,
+				E8EA946D299BA09200CB36D9 /* QRCodeEyes.swift in Sources */,
 				E8858CA92994F46B00E30828 /* SceneDelegate.swift in Sources */,
 				E8858CC02994F60D00E30828 /* QRViewController.swift in Sources */,
 				E8858CD42994F80700E30828 /* ColorCell.swift in Sources */,
 				E8858CD22994F6CC00E30828 /* TextViewController.swift in Sources */,
 				E831588A299811D900BA51ED /* EyesCell.swift in Sources */,
+				E8EA9471299BF71300CB36D9 /* RealmData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
