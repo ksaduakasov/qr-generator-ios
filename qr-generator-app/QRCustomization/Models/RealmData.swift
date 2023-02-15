@@ -10,9 +10,18 @@ import UIKit
 import QRCode
 import RealmSwift
 
-let realm = try! Realm()
+
 
 class RealmData {
+    lazy var realm:Realm = {
+        let config = Realm.Configuration(
+            schemaVersion: 2)
+        // Use this configuration when opening realms
+        Realm.Configuration.defaultConfiguration = config
+        let realm = try! Realm()
+        return try! Realm()
+    }()
+    
     init() {
         
     }
@@ -58,7 +67,7 @@ class RealmData {
             case "pointy":
                 doc.design.shape.onPixels = QRCode.PixelShape.Pointy()
             default:
-                print(-1)
+                print("hello from getDots function")
             }
         }
     }
@@ -105,7 +114,7 @@ class RealmData {
             case "eye_squircle":
                 doc.design.shape.eye = QRCode.EyeShape.Squircle()
             default:
-                print(-1)
+                print("hello from geteyes function")
             }
         }
     }
@@ -151,4 +160,49 @@ class RealmData {
         logoObject.logo = logoImage
         try! realm.commitWrite()
     }
+    
+    func getText(_ textView: UIView, _ textLabel: UILabel) {
+        let colorData = realm.objects(QRCodeColor.self)
+        if colorData.count != 0 {
+            let color = colorData.first!
+            textView.backgroundColor = UIColor(hexString: color.backgroundColor)
+        } else {
+            textView.backgroundColor = .white
+        }
+        
+        let textData = realm.objects(QRCodeText.self)
+        if textData.count != 0 {
+            let text = textData.first!
+            if !text.textContent.isEmpty {
+                textView.isHidden = false
+                textLabel.text = text.textContent
+                textLabel.textColor = UIColor(hexString: text.textColor)
+                textLabel.font = UIFont(name: text.textFont, size: 20)
+            } else {
+                textView.isHidden = true
+            }
+            
+        } else {
+            textView.isHidden = true
+        }
+    }
+    
+    func addText(_ textContent: String, _ textColor: String, _ textFont: String) {
+        let qrWithText = QRCodeText()
+        qrWithText.textContent = textContent
+        qrWithText.textColor = textColor
+        qrWithText.textFont = textFont
+        realm.beginWrite()
+        realm.add(qrWithText)
+        try! realm.commitWrite()
+    }
+    
+    func updateText(_ textObject: QRCodeText, _ textContent: String, _ textColor: String, _ textFont: String) {
+        realm.beginWrite()
+        textObject.textContent = textContent
+        textObject.textColor = textColor
+        textObject.textFont = textFont
+        try! realm.commitWrite()
+    }
+    
 }

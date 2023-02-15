@@ -34,7 +34,15 @@ class DotsViewController: UIViewController {
     let qrImageView: UIImageView = UIImageView()
     var data = ""
     
-    var dotsSelected: String = ""
+    let textView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
+    }()
+    
+    let textLabel = UILabel()
+    
+    var dotsSelected: String = String()
     
     let functionalView: UIView = {
         let view = UIView()
@@ -86,11 +94,25 @@ class DotsViewController: UIViewController {
     
     func setupUI() {
         setupQRImageView()
+        setupTextView()
+        setupTextLabel()
         setupFunctionalView()
         setupControlView()
         setupDiscardButton()
         setupConfirmButton()
         setupPointsCollectionView()
+        
+        setupDotsFromRealm()
+    }
+    
+    func setupDotsFromRealm() {
+        let dotsData = realmData.realm.objects(QRCodeDots.self)
+        if dotsData.count != 0 {
+            let dots = dotsData.first!
+            self.dotsSelected = dots.dots
+        } else {
+            self.dotsSelected = ""
+        }
     }
     
     
@@ -100,6 +122,8 @@ class DotsViewController: UIViewController {
         realmData.getDots(doc)
         realmData.getEyes(doc)
         realmData.getLogo(doc)
+        realmData.getText(self.textView, self.textLabel)
+
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -110,6 +134,8 @@ class DotsViewController: UIViewController {
         doc.design.shape.onPixels = pattern
         realmData.getEyes(doc)
         realmData.getLogo(doc)
+        realmData.getText(self.textView, self.textLabel)
+
         let changed = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: changed!)
     }
@@ -119,7 +145,7 @@ class DotsViewController: UIViewController {
     }
     
     @objc func saveChanges() {
-        let dotsData = realm.objects(QRCodeDots.self)
+        let dotsData = realmData.realm.objects(QRCodeDots.self)
         if dotsData.count == 0 {
             realmData.addDots(dotsSelected)
         } else {

@@ -20,20 +20,7 @@ extension TextViewController {
         }
     }
     
-    func setupTextViewColor() {
-        let colorData = realm.objects(QRCodeColor.self)
-        if colorData.count != 0 {
-            let color = colorData.first!
-            textView.backgroundColor = UIColor(hexString: color.backgroundColor)
-        } else {
-            textView.backgroundColor = .white
-        }
-        view.backgroundColor = .white
-    }
-    
     func setupTextView() {
-        setupTextViewColor()
-        
         view.addSubview(textView)
         textView.snp.makeConstraints { make in
             make.top.equalTo(qrImageView.snp.bottom)
@@ -48,6 +35,17 @@ extension TextViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(20)
         }
+    }
+    
+    func setupTextViewColor() {
+        let colorData = realmData.realm.objects(QRCodeColor.self)
+        if colorData.count != 0 {
+            let color = colorData.first!
+            textView.backgroundColor = UIColor(hexString: color.backgroundColor)
+        } else {
+            textView.backgroundColor = .white
+        }
+        view.backgroundColor = .white
     }
     
     func setupFunctionalView() {
@@ -198,8 +196,10 @@ extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension TextViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let updatedText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
-        textLabel.text = updatedText
-        textView.isHidden = updatedText.isEmpty
+        enteredText = updatedText
+        print(enteredText)
+        textLabel.text = enteredText
+        textView.isHidden = enteredText.isEmpty
         return true
     }
 }

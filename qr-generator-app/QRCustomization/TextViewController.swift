@@ -9,27 +9,31 @@ import SnapKit
 import QRCode
 import RealmSwift
 
+protocol TextDelegate {
+    func qrTextChanged(textContent: String, textColor: String, textFont: String)
+}
+
 class TextViewController: UIViewController {
     
     var realmData = RealmData()
+    
+    var delegate: TextDelegate?
 
     let qrImageView = UIImageView()
     var data = ""
     
+    var enteredText = String()
     var selectedTextColor = UIColor()
     var selectedTextFont = UIFont()
     
+    var textViewBackgroundColor: String = ""
     let textView: UIView = {
         let view = UIView()
         view.isHidden = true
         return view
     }()
     
-    let textLabel: UILabel = {
-        let label = UILabel()
-        label.text = "hello"
-        return label
-    }()
+    let textLabel = UILabel()
     
     let functionalView: UIView = {
         let view = UIView()
@@ -153,6 +157,23 @@ class TextViewController: UIViewController {
         setupFontColorCollectionView()
         setupFontLabel()
         setupFontCollectionView()
+        
+        setupTextFromRealm()
+    }
+    
+    func setupTextFromRealm() {
+        let textData = realmData.realm.objects(QRCodeText.self)
+        if textData.count != 0 {
+            let text = textData.first!
+            enteredText = text.textContent
+            print(self.enteredText.isEmpty)
+            selectedTextColor = UIColor(hexString: text.textColor)
+            selectedTextFont = UIFont(name: text.textFont, size: 20)!
+        } else {
+            enteredText = ""
+            selectedTextColor = .black
+            selectedTextFont = UIFont(name: "Arial", size: 20)!
+        }
     }
     
     
@@ -162,6 +183,7 @@ class TextViewController: UIViewController {
         realmData.getDots(doc)
         realmData.getEyes(doc)
         realmData.getLogo(doc)
+        realmData.getText(self.textView, self.textLabel)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -171,7 +193,16 @@ class TextViewController: UIViewController {
     }
     
     @objc func saveChanges() {
-        
+        print()
+        let textData = realmData.realm.objects(QRCodeText.self)
+        if textData.count == 0 {
+            realmData.addText(enteredText, selectedTextColor.hexString, selectedTextFont.fontName)
+        } else {
+            let text = textData.first!
+            realmData.updateText(text, enteredText, selectedTextColor.hexString, selectedTextFont.fontName)
+        }
+        delegate?.qrTextChanged(textContent: enteredText, textColor: selectedTextColor.hexString, textFont: selectedTextFont.description)
+        dismiss(animated: true)
     }
 }
 

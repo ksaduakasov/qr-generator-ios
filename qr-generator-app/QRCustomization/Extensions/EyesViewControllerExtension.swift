@@ -21,11 +21,28 @@ extension EyesViewController {
         }
     }
     
+    func setupTextView() {
+        view.addSubview(textView)
+        textView.snp.makeConstraints { make in
+            make.top.equalTo(qrImageView.snp.bottom)
+            make.left.right.equalToSuperview().inset(50)
+            make.height.equalTo(35)
+        }
+    }
+    
+    func setupTextLabel() {
+        textView.addSubview(textLabel)
+        textLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(20)
+        }
+    }
+    
     func setupFunctionalView() {
         view.addSubview(functionalView)
         
         functionalView.snp.makeConstraints { make in
-            make.top.equalTo(qrImageView.snp.bottom).offset(10)
+            make.top.equalTo(textView.snp.bottom).offset(10)
             make.bottom.equalToSuperview()
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right)

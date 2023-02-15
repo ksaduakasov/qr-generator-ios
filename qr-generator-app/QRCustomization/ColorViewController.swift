@@ -100,7 +100,7 @@ class ColorViewController: UIViewController {
     }
     
     func setupColorsFromRealm() {
-        let colorData = realm.objects(QRCodeColor.self)
+        let colorData = realmData.realm.objects(QRCodeColor.self)
         if colorData.count != 0 {
             let color = colorData.first!
             self.backgroundColor = UIColor(hexString: color.backgroundColor)
@@ -139,7 +139,7 @@ class ColorViewController: UIViewController {
     }
     
     @objc func saveChanges() {
-        let colorData = realm.objects(QRCodeColor.self)
+        let colorData = realmData.realm.objects(QRCodeColor.self)
         if colorData.count == 0 {
             realmData.addColor(backgroundColor, foregroundColor)
         } else {

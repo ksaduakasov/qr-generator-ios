@@ -23,6 +23,14 @@ class LogoViewController: UIViewController {
     var data = ""
     var selectedLogo: UIImage?
     
+    let textView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
+    }()
+    
+    let textLabel = UILabel()
+    
     let functionalView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
@@ -72,11 +80,26 @@ class LogoViewController: UIViewController {
     
     func setupUI() {
         setupQRImageView()
+        setupTextView()
+        setupTextLabel()
         setupFunctionalView()
         setupControlView()
         setupDiscardButton()
         setupConfirmButton()
         setupLogoCollectionView()
+        setupLogoFromRealm()
+    }
+    
+    func setupLogoFromRealm() {
+        let logoData = realmData.realm.objects(QRCodeLogo.self)
+        if logoData.count != 0 {
+            let logo = logoData.first!
+            if let logo = logo.logo {
+                self.selectedLogo = UIImage(data: logo)
+            }
+        } else {
+            self.selectedLogo = nil
+        }
     }
     
     
@@ -86,6 +109,7 @@ class LogoViewController: UIViewController {
         realmData.getDots(doc)
         realmData.getEyes(doc)
         realmData.getLogo(doc)
+        realmData.getText(self.textView, self.textLabel)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -95,6 +119,7 @@ class LogoViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getText(self.textView, self.textLabel)
         if imageName.isEmpty {
             doc.logoTemplate = nil
         } else {
@@ -112,7 +137,7 @@ class LogoViewController: UIViewController {
     
     @objc func saveChanges() {
         guard let logo = selectedLogo else {
-            let logoData = realm.objects(QRCodeLogo.self)
+            let logoData = realmData.realm.objects(QRCodeLogo.self)
             if logoData.count == 0 {
                 realmData.addLogo(nil)
             } else {
@@ -125,7 +150,7 @@ class LogoViewController: UIViewController {
         }
         let imageData = logo.jpegData(compressionQuality: 1.0)
         
-        let logoData = realm.objects(QRCodeLogo.self)
+        let logoData = realmData.realm.objects(QRCodeLogo.self)
         if logoData.count == 0 {
             realmData.addLogo(imageData ?? nil)
         } else {

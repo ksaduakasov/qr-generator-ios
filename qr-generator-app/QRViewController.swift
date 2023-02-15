@@ -15,6 +15,14 @@ class QRViewController: UIViewController {
     let qrImageView = UIImageView()
     var data = ""
     
+    let textView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
+    }()
+    
+    let textLabel = UILabel()
+    
     var realmData = RealmData()
     
     var backgroundColor: String?
@@ -22,7 +30,9 @@ class QRViewController: UIViewController {
     var dots: QRCodePixelShapeGenerator?
     var eyes: QRCodeEyeShapeGenerator?
     var logo: Data?
-    var text = ""
+    var textContent = ""
+    var textColor = ""
+    var textFont = ""
     
     let greenView = UIView()
     let buttonTitles = ["Template", "Color", "Dots", "Eyes", "Logo", "Text"]
@@ -37,6 +47,8 @@ class QRViewController: UIViewController {
     
     func setupUI() {
         setupImageView()
+        setupTextView()
+        setupTextLabel()
         setupGreenView()
         setupButtonStructure()
         setupButtonConstraints()
@@ -70,6 +82,7 @@ class QRViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }

@@ -22,6 +22,14 @@ class EyesViewController: UIViewController {
     let qrImageView = UIImageView()
     var data = ""
     
+    let textView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
+    }()
+    
+    let textLabel = UILabel()
+    
     var eyesSelected: String = ""
     
     let functionalView: UIView = {
@@ -75,11 +83,24 @@ class EyesViewController: UIViewController {
     
     func setupUI() {
         setupQRImageView()
+        setupTextView()
+        setupTextLabel()
         setupFunctionalView()
         setupControlView()
         setupDiscardButton()
         setupConfirmButton()
         setupEyesCollectionView()
+        setupEyesFromRealm()
+    }
+    
+    func setupEyesFromRealm() {
+        let eyesData = realmData.realm.objects(QRCodeEyes.self)
+        if eyesData.count != 0 {
+            let eyes = eyesData.first!
+            self.eyesSelected = eyes.eyes
+        } else {
+            self.eyesSelected = ""
+        }
     }
     
     
@@ -89,6 +110,8 @@ class EyesViewController: UIViewController {
         realmData.getDots(doc)
         realmData.getEyes(doc)
         realmData.getLogo(doc)
+        realmData.getText(self.textView, self.textLabel)
+
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -98,6 +121,7 @@ class EyesViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getLogo(doc)
+        realmData.getText(self.textView, self.textLabel)
 
         doc.design.shape.eye = pattern
         let changed = doc.cgImage(CGSize(width: 800, height: 800))
@@ -109,7 +133,7 @@ class EyesViewController: UIViewController {
     }
     
     @objc func saveChanges() {
-        let eyesData = realm.objects(QRCodeEyes.self)
+        let eyesData = realmData.realm.objects(QRCodeEyes.self)
         if eyesData.count == 0 {
             realmData.addEyes(eyesSelected)
         } else {

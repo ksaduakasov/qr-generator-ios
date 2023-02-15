@@ -10,7 +10,14 @@ import RealmSwift
 
 class WelcomeViewController: UIViewController {
     
-    let realm = try! Realm()
+    lazy var realm:Realm = {
+        let config = Realm.Configuration(
+            schemaVersion: 2)
+        // Use this configuration when opening realms
+        Realm.Configuration.defaultConfiguration = config
+        let realm = try! Realm()
+        return try! Realm()
+    }()
     
     let button: UIButton = {
         let button = UIButton()

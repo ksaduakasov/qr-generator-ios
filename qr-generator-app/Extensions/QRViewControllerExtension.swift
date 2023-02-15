@@ -21,6 +21,23 @@ extension QRViewController {
         }
     }
     
+    func setupTextView() {
+        view.addSubview(textView)
+        textView.snp.makeConstraints { make in
+            make.top.equalTo(qrImageView.snp.bottom)
+            make.left.right.equalToSuperview().inset(50)
+            make.height.equalTo(35)
+        }
+    }
+    
+    func setupTextLabel() {
+        textView.addSubview(textLabel)
+        textLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(20)
+        }
+    }
+    
     func setupGreenView() {
         greenView.backgroundColor = .green
         greenView.layer.cornerRadius = 20
@@ -111,6 +128,7 @@ extension QRViewController {
         let textVC = TextViewController()
         textVC.modalPresentationStyle = .fullScreen
         textVC.data = data
+        textVC.delegate = self
         present(textVC, animated: true)
     }
 }
@@ -131,6 +149,26 @@ extension QRViewController: ColorDelegate {
             inset: 8) : nil
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         qrImageView.image = UIImage(cgImage: generated!)
+        
+        let textData = realmData.realm.objects(QRCodeText.self)
+        if textData.count != 0 {
+            let text = textData.first!
+            
+            self.textContent = text.textContent
+            self.textColor = text.textColor
+            self.textFont = text.textFont
+            if !self.textContent.isEmpty {
+                self.textView.isHidden = false
+                self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                self.textLabel.text = self.textContent
+                self.textLabel.textColor = UIColor(hexString: self.textColor)
+                self.textLabel.font = UIFont(name: self.textFont, size: 20)
+            } else {
+                self.textView.isHidden = true
+            }
+        } else {
+            self.textView.isHidden = true
+        }
     }
 }
 
@@ -154,7 +192,7 @@ extension QRViewController: DotsDelegate {
             self.dots = QRCode.PixelShape.Pointy()
             doc.design.shape.onPixels = self.dots!
         default:
-            print(-1)
+            print("hello from qrDotsChanged function")
         }
         doc.design.backgroundColor(UIColor(hexString: backgroundColor ?? UIColor.white.hexString).cgColor)
         doc.design.style.onPixels = QRCode.FillStyle.Solid((UIColor(hexString: foregroundColor ?? UIColor.black.hexString).cgColor))
@@ -163,6 +201,26 @@ extension QRViewController: DotsDelegate {
             doc.logoTemplate = nil
             let generated = doc.cgImage(CGSize(width: 800, height: 800))
             qrImageView.image = UIImage(cgImage: generated!)
+            
+            let textData = realmData.realm.objects(QRCodeText.self)
+            if textData.count != 0 {
+                let text = textData.first!
+                
+                self.textContent = text.textContent
+                self.textColor = text.textColor
+                self.textFont = text.textFont
+                if !self.textContent.isEmpty {
+                    self.textView.isHidden = false
+                    self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                    self.textLabel.text = self.textContent
+                    self.textLabel.textColor = UIColor(hexString: self.textColor)
+                    self.textLabel.font = UIFont(name: self.textFont, size: 20)
+                } else {
+                    self.textView.isHidden = true
+                }
+            } else {
+                self.textView.isHidden = true
+            }
             return
         }
         doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
@@ -170,6 +228,26 @@ extension QRViewController: DotsDelegate {
             inset: 8)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         qrImageView.image = UIImage(cgImage: generated!)
+        
+        let textData = realmData.realm.objects(QRCodeText.self)
+        if textData.count != 0 {
+            let text = textData.first!
+            
+            self.textContent = text.textContent
+            self.textColor = text.textColor
+            self.textFont = text.textFont
+            if !self.textContent.isEmpty {
+                self.textView.isHidden = false
+                self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                self.textLabel.text = self.textContent
+                self.textLabel.textColor = UIColor(hexString: self.textColor)
+                self.textLabel.font = UIFont(name: self.textFont, size: 20)
+            } else {
+                self.textView.isHidden = true
+            }
+        } else {
+            self.textView.isHidden = true
+        }
     }
 }
 
@@ -211,7 +289,7 @@ extension QRViewController: EyesDelegate {
             self.eyes = QRCode.EyeShape.Squircle()
             doc.design.shape.eye = self.eyes!
         default:
-            print(-1)
+            print("hello from qrEyesChanged function")
         }
         
         doc.design.backgroundColor(UIColor(hexString: backgroundColor ?? UIColor.white.hexString).cgColor)
@@ -221,6 +299,26 @@ extension QRViewController: EyesDelegate {
             doc.logoTemplate = nil
             let generated = doc.cgImage(CGSize(width: 800, height: 800))
             qrImageView.image = UIImage(cgImage: generated!)
+            
+            let textData = realmData.realm.objects(QRCodeText.self)
+            if textData.count != 0 {
+                let text = textData.first!
+                
+                self.textContent = text.textContent
+                self.textColor = text.textColor
+                self.textFont = text.textFont
+                if !self.textContent.isEmpty {
+                    self.textView.isHidden = false
+                    self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                    self.textLabel.text = self.textContent
+                    self.textLabel.textColor = UIColor(hexString: self.textColor)
+                    self.textLabel.font = UIFont(name: self.textFont, size: 20)
+                } else {
+                    self.textView.isHidden = true
+                }
+            } else {
+                self.textView.isHidden = true
+            }
             return
         }
         doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
@@ -228,6 +326,26 @@ extension QRViewController: EyesDelegate {
             inset: 8)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         qrImageView.image = UIImage(cgImage: generated!)
+        
+        let textData = realmData.realm.objects(QRCodeText.self)
+        if textData.count != 0 {
+            let text = textData.first!
+            
+            self.textContent = text.textContent
+            self.textColor = text.textColor
+            self.textFont = text.textFont
+            if !self.textContent.isEmpty {
+                self.textView.isHidden = false
+                self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                self.textLabel.text = self.textContent
+                self.textLabel.textColor = UIColor(hexString: self.textColor)
+                self.textLabel.font = UIFont(name: self.textFont, size: 20)
+            } else {
+                self.textView.isHidden = true
+            }
+        } else {
+            self.textView.isHidden = true
+        }
     }
     
 }
@@ -244,6 +362,26 @@ extension QRViewController: LogoDelegate {
             doc.logoTemplate = nil
             let generated = doc.cgImage(CGSize(width: 800, height: 800))
             qrImageView.image = UIImage(cgImage: generated!)
+            
+            let textData = realmData.realm.objects(QRCodeText.self)
+            if textData.count != 0 {
+                let text = textData.first!
+                
+                self.textContent = text.textContent
+                self.textColor = text.textColor
+                self.textFont = text.textFont
+                if !self.textContent.isEmpty {
+                    self.textView.isHidden = false
+                    self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                    self.textLabel.text = self.textContent
+                    self.textLabel.textColor = UIColor(hexString: self.textColor)
+                    self.textLabel.font = UIFont(name: self.textFont, size: 20)
+                } else {
+                    self.textView.isHidden = true
+                }
+            } else {
+                self.textView.isHidden = true
+            }
             return
         }
         self.logo = logo
@@ -252,6 +390,93 @@ extension QRViewController: LogoDelegate {
             inset: 8)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         qrImageView.image = UIImage(cgImage: generated!)
+        
+        let textData = realmData.realm.objects(QRCodeText.self)
+        if textData.count != 0 {
+            let text = textData.first!
+            
+            self.textContent = text.textContent
+            self.textColor = text.textColor
+            self.textFont = text.textFont
+            if !self.textContent.isEmpty {
+                self.textView.isHidden = false
+                self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                self.textLabel.text = self.textContent
+                self.textLabel.textColor = UIColor(hexString: self.textColor)
+                self.textLabel.font = UIFont(name: self.textFont, size: 20)
+            } else {
+                self.textView.isHidden = true
+            }
+        } else {
+            self.textView.isHidden = true
+        }
+    }
+    
+}
+
+extension QRViewController: TextDelegate {
+    func qrTextChanged(textContent: String, textColor: String, textFont: String) {
+        
+        let doc = QRCode.Document(utf8String: data, errorCorrection: .high)
+        doc.design.backgroundColor(UIColor(hexString: backgroundColor ?? UIColor.white.hexString).cgColor)
+        doc.design.style.onPixels = QRCode.FillStyle.Solid((UIColor(hexString: foregroundColor ?? UIColor.black.hexString).cgColor))
+        doc.design.shape.onPixels = self.dots ?? QRCode.PixelShape.Square()
+        doc.design.shape.eye = self.eyes ?? QRCode.EyeShape.Square()
+        guard let logo = logo else {
+            self.logo = nil
+            doc.logoTemplate = nil
+            let generated = doc.cgImage(CGSize(width: 800, height: 800))
+            qrImageView.image = UIImage(cgImage: generated!)
+            
+            let textData = realmData.realm.objects(QRCodeText.self)
+            if textData.count != 0 {
+                let text = textData.first!
+                
+                self.textContent = text.textContent
+                self.textColor = text.textColor
+                self.textFont = text.textFont
+                if !self.textContent.isEmpty {
+                    self.textView.isHidden = false
+                    self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                    self.textLabel.text = self.textContent
+                    self.textLabel.textColor = UIColor(hexString: self.textColor)
+                    self.textLabel.font = UIFont(name: self.textFont, size: 20)
+                } else {
+                    self.textView.isHidden = true
+                }
+            } else {
+                self.textView.isHidden = true
+            }
+            return
+        }
+        self.logo = logo
+        doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
+            image: (UIImage(data: self.logo!)?.cgImage)!,
+            inset: 8)
+        
+        let generated = doc.cgImage(CGSize(width: 800, height: 800))
+        qrImageView.image = UIImage(cgImage: generated!)
+        
+        
+        let textData = realmData.realm.objects(QRCodeText.self)
+        if textData.count != 0 {
+            let text = textData.first!
+            
+            self.textContent = text.textContent
+            self.textColor = text.textColor
+            self.textFont = text.textFont
+            if !self.textContent.isEmpty {
+                self.textView.isHidden = false
+                self.textView.backgroundColor = UIColor(hexString: backgroundColor ?? UIColor.white.hexString)
+                self.textLabel.text = self.textContent
+                self.textLabel.textColor = UIColor(hexString: self.textColor)
+                self.textLabel.font = UIFont(name: self.textFont, size: 20)
+            } else {
+                self.textView.isHidden = true
+            }
+        } else {
+            self.textView.isHidden = true
+        }
     }
     
     
