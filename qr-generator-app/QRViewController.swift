@@ -11,7 +11,7 @@ import QRCode
 import RealmSwift
 
 class QRViewController: UIViewController {
-        
+    
     let qrImageView = UIImageView()
     var data = ""
     
@@ -41,8 +41,16 @@ class QRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+
+            // Set the UIBarButtonItem as the left bar button item for the navigation item
+            navigationItem.leftBarButtonItem = backButton
         setupUI()
+    }
+    
+    @objc func backButtonTapped() {
+        // Handle the back button tap
+        showQuitAlert()
     }
     
     func setupUI() {
@@ -52,6 +60,26 @@ class QRViewController: UIViewController {
         setupGreenView()
         setupButtonStructure()
         setupButtonConstraints()
+    }
+    
+    func showQuitAlert() {
+        let alert = UIAlertController(title: "Your QR code is not saved.", message: "All changes will be lost. Are you sure to quit?", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "No, get back", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        let quitAction = UIAlertAction(title: "Yes, quit", style: .destructive) { _ in
+            // Delete all data from Realm
+            let realm = try! Realm()
+            try! realm.write {
+                realm.deleteAll()
+            }
+            self.navigationController?.popToRootViewController(animated: true)
+
+        }
+        alert.addAction(quitAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     
