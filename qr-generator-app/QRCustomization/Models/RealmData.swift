@@ -123,4 +123,32 @@ class RealmData {
         eyes.eyes = eyesSelected
         try! realm.commitWrite()
     }
+    
+    func getLogo(_ doc: QRCode.Document) {
+        let logoData = realm.objects(QRCodeLogo.self)
+        if logoData.count != 0 {
+            let logo = logoData.first!
+            guard let logo = logo.logo else {
+                doc.logoTemplate = nil
+                return
+            }
+            doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
+                image: (UIImage(data: logo)?.cgImage)!,
+                inset: 8)
+        }
+    }
+    
+    func addLogo(_ logo: Data?) {
+        let qrWithLogo = QRCodeLogo()
+        qrWithLogo.logo = logo
+        realm.beginWrite()
+        realm.add(qrWithLogo)
+        try! realm.commitWrite()
+    }
+    
+    func updateLogo(_ logoObject: QRCodeLogo, _ logoImage: Data?) {
+        realm.beginWrite()
+        logoObject.logo = logoImage
+        try! realm.commitWrite()
+    }
 }

@@ -42,6 +42,7 @@
 		E8EA947D299C0D9500CB36D9 /* TextViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA947C299C0D9500CB36D9 /* TextViewControllerExtension.swift */; };
 		E8EA9480299C0EB200CB36D9 /* QRViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA947F299C0EB200CB36D9 /* QRViewControllerExtension.swift */; };
 		E8EA9482299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9481299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift */; };
+		E8EA9484299CE28700CB36D9 /* QRCodeLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9483299CE28700CB36D9 /* QRCodeLogo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		E8EA947C299C0D9500CB36D9 /* TextViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA947F299C0EB200CB36D9 /* QRViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA9481299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewControllerExtension.swift; sourceTree = "<group>"; };
+		E8EA9483299CE28700CB36D9 /* QRCodeLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeLogo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				E8EA946C299BA09200CB36D9 /* QRCodeEyes.swift */,
 				E8EA946E299BA09800CB36D9 /* QRCodeText.swift */,
 				E8EA9470299BF71300CB36D9 /* RealmData.swift */,
+				E8EA9483299CE28700CB36D9 /* QRCodeLogo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				E8EA946D299BA09200CB36D9 /* QRCodeEyes.swift in Sources */,
 				E8858CA92994F46B00E30828 /* SceneDelegate.swift in Sources */,
 				E8EA947D299C0D9500CB36D9 /* TextViewControllerExtension.swift in Sources */,
+				E8EA9484299CE28700CB36D9 /* QRCodeLogo.swift in Sources */,
 				E8858CC02994F60D00E30828 /* QRViewController.swift in Sources */,
 				E8858CD42994F80700E30828 /* ColorCell.swift in Sources */,
 				E8858CD22994F6CC00E30828 /* TextViewController.swift in Sources */,

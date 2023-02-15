@@ -88,6 +88,7 @@ class EyesViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -96,6 +97,8 @@ class EyesViewController: UIViewController {
         let doc = QRCode.Document(utf8String: data, errorCorrection: .high)
         realmData.getColor(doc)
         realmData.getDots(doc)
+        realmData.getLogo(doc)
+
         doc.design.shape.eye = pattern
         let changed = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: changed!)

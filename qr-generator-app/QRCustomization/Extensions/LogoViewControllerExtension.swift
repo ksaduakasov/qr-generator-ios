@@ -76,19 +76,29 @@ extension LogoViewController {
 
 extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return logoPatterns.count
+        return logoTemplates.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
-        cell.imageView.image = UIImage(named: logoPatterns[indexPath.item])
+        if indexPath.row == 0 {
+            cell.imageView.image = UIImage(systemName: "nosign")
+        } else {
+            cell.imageView.image = UIImage(named: logoTemplates[indexPath.item])
+        }
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        qrImageView.image = QRWithLogo(logoPatterns[indexPath.row])
+        if indexPath.row == 0 {
+            selectedLogo = nil
+            qrImageView.image = QRWithLogo("")
+        } else {
+            selectedLogo = UIImage(named: logoTemplates[indexPath.row])
+            qrImageView.image = QRWithLogo(logoTemplates[indexPath.row])
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

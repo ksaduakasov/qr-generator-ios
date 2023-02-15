@@ -6,8 +6,11 @@
 //
 import UIKit
 import SnapKit
+import RealmSwift
 
 class WelcomeViewController: UIViewController {
+    
+    let realm = try! Realm()
     
     let button: UIButton = {
         let button = UIButton()
@@ -20,7 +23,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        print(realm.configuration.fileURL!)
         setupUI()
     }
     

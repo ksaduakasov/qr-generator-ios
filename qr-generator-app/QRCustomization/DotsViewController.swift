@@ -99,6 +99,7 @@ class DotsViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -108,6 +109,7 @@ class DotsViewController: UIViewController {
         realmData.getColor(doc)
         doc.design.shape.onPixels = pattern
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
         let changed = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: changed!)
     }

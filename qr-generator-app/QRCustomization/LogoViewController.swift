@@ -9,12 +9,19 @@ import UIKit
 import QRCode
 import RealmSwift
 
+protocol LogoDelegate {
+    func qrLogoChanged(logo: Data?)
+}
+
 class LogoViewController: UIViewController {
     
     var realmData = RealmData()
-
+    
+    var delegate: LogoDelegate?
+    
     let qrImageView = UIImageView()
     var data = ""
+    var selectedLogo: UIImage?
     
     let functionalView: UIView = {
         let view = UIView()
@@ -54,7 +61,7 @@ class LogoViewController: UIViewController {
         return cv
     }()
     
-    let logoPatterns: [String] = ["eye_square","eye_circle", "eye_barsHorizontal", "eye_barsVertical", "eye_corneredPixels", "eye_leaf", "eye_pixels", "eye_roundedouter", "eye_roundedpointingin", "eye_roundedRect", "eye_squircle", "square","circle","curvePixel","roundedRect","horizontal","vertical","roundedPath","squircle","pointy", "eye_colorstyles"]
+    let logoTemplates: [String] = ["eye_square","eye_circle", "eye_barsHorizontal", "eye_barsVertical", "eye_corneredPixels", "eye_leaf", "eye_pixels", "eye_roundedouter", "eye_roundedpointingin", "eye_roundedRect", "eye_squircle", "square","circle","curvePixel","roundedRect","horizontal","vertical","roundedPath","squircle","pointy", "eye_colorstyles"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +85,7 @@ class LogoViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -87,9 +95,13 @@ class LogoViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
-        doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
-            image: (UIImage(named: imageName)?.cgImage)!,
-            inset: 8)
+        if imageName.isEmpty {
+            doc.logoTemplate = nil
+        } else {
+            doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
+                image: (UIImage(named: imageName)?.cgImage)!,
+                inset: 8)
+        }
         let qrCodeWithLogo = doc.uiImage(dimension: 300)
         return qrCodeWithLogo
     }
@@ -99,7 +111,29 @@ class LogoViewController: UIViewController {
     }
     
     @objc func saveChanges() {
+        guard let logo = selectedLogo else {
+            let logoData = realm.objects(QRCodeLogo.self)
+            if logoData.count == 0 {
+                realmData.addLogo(nil)
+            } else {
+                let logo = logoData.first!
+                realmData.updateLogo(logo, nil)
+            }
+            delegate?.qrLogoChanged(logo: nil)
+            dismiss(animated: true)
+            return
+        }
+        let imageData = logo.jpegData(compressionQuality: 1.0)
         
+        let logoData = realm.objects(QRCodeLogo.self)
+        if logoData.count == 0 {
+            realmData.addLogo(imageData ?? nil)
+        } else {
+            let logo = logoData.first!
+            realmData.updateLogo(logo, imageData)
+        }
+        delegate?.qrLogoChanged(logo: imageData)
+        dismiss(animated: true)
     }
-
+    
 }

@@ -103,6 +103,7 @@ extension QRViewController {
         let logoVC = LogoViewController()
         logoVC.modalPresentationStyle = .fullScreen
         logoVC.data = data
+        logoVC.delegate = self
         present(logoVC, animated: true)
     }
     
@@ -115,7 +116,6 @@ extension QRViewController {
 }
 
 
-//MARK: -implement reverse order bug
 extension QRViewController: ColorDelegate {
     func qrColorChanged(backgroundColor: String, foregroundColor: String) {
         self.backgroundColor = backgroundColor
@@ -126,7 +126,9 @@ extension QRViewController: ColorDelegate {
         
         doc.design.shape.onPixels = self.dots ?? QRCode.PixelShape.Square()
         doc.design.shape.eye = self.eyes ?? QRCode.EyeShape.Square()
-        
+        doc.logoTemplate = self.logo != nil ? QRCode.LogoTemplate.SquareCenter(
+            image: (UIImage(data: self.logo!)?.cgImage)!,
+            inset: 8) : nil
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         qrImageView.image = UIImage(cgImage: generated!)
     }
@@ -157,6 +159,15 @@ extension QRViewController: DotsDelegate {
         doc.design.backgroundColor(UIColor(hexString: backgroundColor ?? UIColor.white.hexString).cgColor)
         doc.design.style.onPixels = QRCode.FillStyle.Solid((UIColor(hexString: foregroundColor ?? UIColor.black.hexString).cgColor))
         doc.design.shape.eye = self.eyes ?? QRCode.EyeShape.Square()
+        guard let logo = self.logo else {
+            doc.logoTemplate = nil
+            let generated = doc.cgImage(CGSize(width: 800, height: 800))
+            qrImageView.image = UIImage(cgImage: generated!)
+            return
+        }
+        doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
+            image: (UIImage(data: self.logo!)?.cgImage)!,
+            inset: 8)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         qrImageView.image = UIImage(cgImage: generated!)
     }
@@ -206,8 +217,42 @@ extension QRViewController: EyesDelegate {
         doc.design.backgroundColor(UIColor(hexString: backgroundColor ?? UIColor.white.hexString).cgColor)
         doc.design.style.onPixels = QRCode.FillStyle.Solid((UIColor(hexString: foregroundColor ?? UIColor.black.hexString).cgColor))
         doc.design.shape.onPixels = self.dots ?? QRCode.PixelShape.Square()
-        
+        guard let logo = self.logo else {
+            doc.logoTemplate = nil
+            let generated = doc.cgImage(CGSize(width: 800, height: 800))
+            qrImageView.image = UIImage(cgImage: generated!)
+            return
+        }
+        doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
+            image: (UIImage(data: self.logo!)?.cgImage)!,
+            inset: 8)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         qrImageView.image = UIImage(cgImage: generated!)
     }
+    
+}
+
+extension QRViewController: LogoDelegate {
+    func qrLogoChanged(logo: Data?) {
+        let doc = QRCode.Document(utf8String: data, errorCorrection: .high)
+        doc.design.backgroundColor(UIColor(hexString: backgroundColor ?? UIColor.white.hexString).cgColor)
+        doc.design.style.onPixels = QRCode.FillStyle.Solid((UIColor(hexString: foregroundColor ?? UIColor.black.hexString).cgColor))
+        doc.design.shape.onPixels = self.dots ?? QRCode.PixelShape.Square()
+        doc.design.shape.eye = self.eyes ?? QRCode.EyeShape.Square()
+        guard let logo = logo else {
+            self.logo = nil
+            doc.logoTemplate = nil
+            let generated = doc.cgImage(CGSize(width: 800, height: 800))
+            qrImageView.image = UIImage(cgImage: generated!)
+            return
+        }
+        self.logo = logo
+        doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
+            image: (UIImage(data: self.logo!)?.cgImage)!,
+            inset: 8)
+        let generated = doc.cgImage(CGSize(width: 800, height: 800))
+        qrImageView.image = UIImage(cgImage: generated!)
+    }
+    
+    
 }

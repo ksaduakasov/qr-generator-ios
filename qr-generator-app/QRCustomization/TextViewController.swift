@@ -161,6 +161,7 @@ class TextViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }

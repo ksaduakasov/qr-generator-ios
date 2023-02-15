@@ -22,9 +22,8 @@ class ColorViewController: UIViewController {
     let qrImageView = UIImageView()
     var data = ""
     
-    //- MARK: Retrive them from database by default
-    var foregroundColor: UIColor = .black
-    var backgroundColor: UIColor = .white
+    var foregroundColor = UIColor()
+    var backgroundColor = UIColor()
     
     let functionalView: UIView = {
         let view = UIView()
@@ -96,6 +95,20 @@ class ColorViewController: UIViewController {
         setupConfirmButton()
         setupColorSelectionSegmentedControl()
         setupcolorsCollectionView()
+        
+        setupColorsFromRealm()
+    }
+    
+    func setupColorsFromRealm() {
+        let colorData = realm.objects(QRCodeColor.self)
+        if colorData.count != 0 {
+            let color = colorData.first!
+            self.backgroundColor = UIColor(hexString: color.backgroundColor)
+            self.foregroundColor = UIColor(hexString: color.foregroundColor)
+        } else {
+            self.backgroundColor = UIColor.white
+            self.foregroundColor = UIColor.black
+        }
     }
     
     
@@ -104,6 +117,7 @@ class ColorViewController: UIViewController {
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -114,6 +128,7 @@ class ColorViewController: UIViewController {
         doc.design.style.onPixels = QRCode.FillStyle.Solid(foregroundColor.cgColor)
         realmData.getDots(doc)
         realmData.getEyes(doc)
+        realmData.getLogo(doc)
 
         let changed = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: changed!)

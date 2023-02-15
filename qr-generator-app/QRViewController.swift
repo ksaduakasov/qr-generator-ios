@@ -8,17 +8,20 @@ import UIKit
 import SnapKit
 import CoreImage
 import QRCode
+import RealmSwift
 
 class QRViewController: UIViewController {
         
     let qrImageView = UIImageView()
     var data = ""
     
+    var realmData = RealmData()
+    
     var backgroundColor: String?
     var foregroundColor: String?
     var dots: QRCodePixelShapeGenerator?
     var eyes: QRCodeEyeShapeGenerator?
-    var logo = ""
+    var logo: Data?
     var text = ""
     
     let greenView = UIView()
@@ -64,6 +67,9 @@ class QRViewController: UIViewController {
     
     func generateQRCode(from string: String) -> UIImage? {
         let doc = QRCode.Document(utf8String: data, errorCorrection: .high)
+        realmData.getColor(doc)
+        realmData.getDots(doc)
+        realmData.getEyes(doc)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
