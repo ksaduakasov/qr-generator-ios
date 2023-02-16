@@ -14,9 +14,10 @@ extension TextViewController {
         view.addSubview(qrImageView)
         
         qrImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.right.equalToSuperview().inset(50)
-            make.height.equalTo(300)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(view.bounds.height/15)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(1.5)
+            make.height.equalTo(qrImageView.snp.width)
         }
     }
     
@@ -24,8 +25,9 @@ extension TextViewController {
         view.addSubview(textView)
         textView.snp.makeConstraints { make in
             make.top.equalTo(qrImageView.snp.bottom)
-            make.left.right.equalToSuperview().inset(50)
-            make.height.equalTo(35)
+            make.left.equalTo(qrImageView.snp.left)
+            make.right.equalTo(qrImageView.snp.right)
+            make.height.equalTo(qrImageView.snp.height).dividedBy(10)
         }
     }
     
@@ -49,21 +51,24 @@ extension TextViewController {
     }
     
     func setupFunctionalView() {
+        functionalView.backgroundColor = .systemGray6
         view.addSubview(functionalView)
         
         functionalView.snp.makeConstraints { make in
-            make.top.equalTo(textView.snp.bottom).offset(10)
+            make.top.equalTo(qrImageView.snp.bottom).offset(view.bounds.height / 10)
             make.bottom.equalToSuperview()
+            
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
         }
     }
     
     func setupControlView() {
+        controlView.backgroundColor = .white
         functionalView.addSubview(controlView)
         controlView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.height.equalTo(30)
+            make.top.equalToSuperview()
+            make.height.equalToSuperview().dividedBy(8)
             make.left.right.equalToSuperview()
         }
     }
@@ -90,65 +95,68 @@ extension TextViewController {
         functionalView.addSubview(textField)
         textField.snp.makeConstraints { make in
             make.top.equalTo(controlView.snp.bottom).offset(30)
-            make.height.equalTo(40)
+            make.height.equalToSuperview().dividedBy(9)
             make.left.right.equalToSuperview().inset(20)
-        }
-    }
-    
-    func setupColorView() {
-        functionalView.addSubview(colorView)
-        colorView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(textField.snp.bottom)
-            make.height.equalTo(100)
-        }
-    }
-    
-    func setupFontView() {
-        functionalView.addSubview(fontView)
-        fontView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(colorView.snp.bottom).offset(10)
-            make.height.equalTo(160)
-
         }
     }
     
     func setupColorLabel() {
-        colorView.addSubview(colorLabel)
+        functionalView.addSubview(colorLabel)
         colorLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.height.equalTo(15)
+            make.top.equalTo(textField.snp.bottom).offset(10)
+            make.left.equalToSuperview().inset(20)
         }
     }
-    
+
+    func setupColorView() {
+        colorView.backgroundColor = .clear
+        functionalView.addSubview(colorView)
+        colorView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(colorLabel.snp.bottom)
+            make.height.equalToSuperview().dividedBy(8)
+        }
+    }
+
+
     func setupFontColorCollectionView() {
         fontColorCollectionView.dataSource = self
         fontColorCollectionView.delegate = self
+        fontColorCollectionView.backgroundColor = .clear
         colorView.addSubview(fontColorCollectionView)
         fontColorCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(colorLabel.snp.bottom).offset(10)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(65)
+            make.edges.equalToSuperview()
         }
     }
+    
     
     func setupFontLabel() {
-        fontView.addSubview(fontLabel)
+        functionalView.addSubview(fontLabel)
         fontLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.height.equalTo(15)
+            make.top.equalTo(colorView.snp.bottom).offset(10)
+            make.left.equalToSuperview().inset(20)
         }
     }
-    
+
+    func setupFontView() {
+        fontView.backgroundColor = .clear
+        functionalView.addSubview(fontView)
+        fontView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(fontLabel.snp.bottom).offset(10)
+            make.bottom.equalToSuperview()
+
+        }
+    }
+
+
     func setupFontCollectionView() {
         fontCollectionView.dataSource = self
         fontCollectionView.delegate = self
+        fontCollectionView.backgroundColor = .clear
         fontView.addSubview(fontCollectionView)
         fontCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(fontLabel.snp.bottom).offset(10)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(135)
+            make.edges.equalToSuperview()
         }
     }
 }
@@ -173,6 +181,7 @@ extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCell", for: indexPath) as! FontCell
         cell.fontLabel.text = fontTypes[indexPath.item]
+        cell.fontLabel.font = UIFont(name: fontTypes[indexPath.item], size: 14)
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 1.0
@@ -201,5 +210,19 @@ extension TextViewController: UITextFieldDelegate {
         textLabel.text = enteredText
         textView.isHidden = enteredText.isEmpty
         return true
+    }
+    
+    func setGradient() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        
+        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
+        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        
+        gradientLayer.colors = [start, end]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.8)
+        
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }

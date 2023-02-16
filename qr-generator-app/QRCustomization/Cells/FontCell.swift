@@ -23,7 +23,7 @@ class FontCell: UICollectionViewCell {
         addSubview(fontLabel)
         
         fontLabel.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalTo(self)
+            make.center.equalToSuperview()
         }
     }
 }

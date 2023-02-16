@@ -9,6 +9,13 @@ import SnapKit
 import QRCode
 import RealmSwift
 
+/*
+ 
+ 1) Set FunctionalView background color to gray
+ 2) Create custom segmentedControl
+ 3) Create a ColorPicker
+ */
+
 protocol ColorDelegate {
     func qrColorChanged(backgroundColor: String, foregroundColor: String)
 }
@@ -21,6 +28,14 @@ class ColorViewController: UIViewController {
     
     let qrImageView = UIImageView()
     var data = ""
+    
+    let textView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        return view
+    }()
+    
+    let textLabel = UILabel()
     
     var foregroundColor = UIColor()
     var backgroundColor = UIColor()
@@ -62,11 +77,12 @@ class ColorViewController: UIViewController {
     
     let colorsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 50, height: 50)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(ColorCell.self, forCellWithReuseIdentifier: "ColorCell")
         cv.backgroundColor = .clear
-        cv.showsVerticalScrollIndicator = false
+        cv.showsHorizontalScrollIndicator = false
         return cv
     }()
     
@@ -88,7 +104,10 @@ class ColorViewController: UIViewController {
     }
     
     func setupUI() {
+        setGradient()
         setupQRImageView()
+        setupTextView()
+        setupTextLabel()
         setupFunctionalView()
         setupControlView()
         setupDiscardButton()
@@ -118,6 +137,7 @@ class ColorViewController: UIViewController {
         realmData.getDots(doc)
         realmData.getEyes(doc)
         realmData.getLogo(doc)
+        realmData.getText(textView, textLabel)
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -129,7 +149,7 @@ class ColorViewController: UIViewController {
         realmData.getDots(doc)
         realmData.getEyes(doc)
         realmData.getLogo(doc)
-
+        realmData.getText(textView, textLabel)
         let changed = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: changed!)
     }

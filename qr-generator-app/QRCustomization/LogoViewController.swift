@@ -58,14 +58,48 @@ class LogoViewController: UIViewController {
         return button
     }()
     
+    let freeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Free Icons"
+        return label
+    }()
     
-    let logoCollectionView: UICollectionView = {
+    let freeView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    
+    let freelogoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50, height: 50)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(EyesCell.self, forCellWithReuseIdentifier: "DotsCell")
         cv.backgroundColor = .clear
-        cv.showsVerticalScrollIndicator = false
+        cv.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    
+    let paidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Premium Icons"
+        return label
+    }()
+    
+    let paidView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let paidlogoCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50, height: 50)
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(EyesCell.self, forCellWithReuseIdentifier: "DotsCell")
+        cv.backgroundColor = .clear
+        cv.showsHorizontalScrollIndicator = false
         return cv
     }()
     
@@ -79,6 +113,7 @@ class LogoViewController: UIViewController {
     }
     
     func setupUI() {
+        setGradient()
         setupQRImageView()
         setupTextView()
         setupTextLabel()
@@ -86,7 +121,12 @@ class LogoViewController: UIViewController {
         setupControlView()
         setupDiscardButton()
         setupConfirmButton()
-        setupLogoCollectionView()
+        setupFreeLabel()
+        setupFreeView()
+        setupFreeLogoCollectionView()
+        setupPaidLabel()
+        setupPaidView()
+        setupPaidLogoCollectionView()
         setupLogoFromRealm()
     }
     

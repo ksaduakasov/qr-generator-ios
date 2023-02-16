@@ -18,7 +18,7 @@ class TextViewController: UIViewController {
     var realmData = RealmData()
     
     var delegate: TextDelegate?
-
+    
     let qrImageView = UIImageView()
     var data = ""
     
@@ -74,14 +74,21 @@ class TextViewController: UIViewController {
         let attributedPlaceholder = NSMutableAttributedString(attributedString: placeholderString)
         attributedPlaceholder.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: placeholderString.length))
         textField.attributedPlaceholder = attributedPlaceholder
-
-
         return textField
+    }()
+    
+    let toolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [flexibleSpace, doneButton]
+        return toolbar
     }()
     
     let colorView: UIView = {
         let view = UIView()
-//        view.backgroundColor = .green
+        //        view.backgroundColor = .green
         return view
     }()
     
@@ -98,13 +105,13 @@ class TextViewController: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(FontColorCell.self, forCellWithReuseIdentifier: "FontColorCell")
         cv.showsHorizontalScrollIndicator = false
-//        cv.backgroundColor = .yellow
+        //        cv.backgroundColor = .yellow
         return cv
     }()
     
     let fontView: UIView = {
         let view = UIView()
-//        view.backgroundColor = .yellow
+        //        view.backgroundColor = .yellow
         return view
     }()
     
@@ -119,7 +126,7 @@ class TextViewController: UIViewController {
         layout.itemSize = CGSize(width: 150, height: 50)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(FontCell.self, forCellWithReuseIdentifier: "FontCell")
-//        cv.backgroundColor = .green
+        //        cv.backgroundColor = .green
         return cv
     }()
     
@@ -133,16 +140,18 @@ class TextViewController: UIViewController {
         .systemPurple, .systemOrange
     ]
     
-    let fontTypes = ["Arial", "Helvetica", "Verdana", "Times New Roman", "Courier", "Trebuchet MS", "Avenir", "Georgia", "Baskerville", "Gill Sans"]
+    let fontTypes = ["AmericanTypewriter", "Avenir-BookOblique", "Copperplate", "Didot", "GillSans-SemiBold", "IowanOldStyle-Roman", "MarkerFelt-Thin", "Menlo-Regular", "PartyLetPlain", "SnellRoundhand"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         textField.delegate = self
+        textField.inputAccessoryView = toolbar
         setupUI()
     }
     
     func setupUI() {
+        setGradient()
         setupQRImageView()
         setupTextView()
         setupTextLabel()
@@ -151,11 +160,11 @@ class TextViewController: UIViewController {
         setupDiscardButton()
         setupConfirmButton()
         setupTextField()
-        setupColorView()
-        setupFontView()
         setupColorLabel()
+        setupColorView()
         setupFontColorCollectionView()
         setupFontLabel()
+        setupFontView()
         setupFontCollectionView()
         
         setupTextFromRealm()
@@ -203,6 +212,10 @@ class TextViewController: UIViewController {
         }
         delegate?.qrTextChanged(textContent: enteredText, textColor: selectedTextColor.hexString, textFont: selectedTextFont.description)
         dismiss(animated: true)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

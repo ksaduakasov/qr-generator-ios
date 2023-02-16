@@ -59,14 +59,48 @@ class EyesViewController: UIViewController {
         return button
     }()
     
+    let freeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Free Icons"
+        return label
+    }()
     
-    let eyesCollectionView: UICollectionView = {
+    let freeView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    
+    let freeEyesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50, height: 50)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(EyesCell.self, forCellWithReuseIdentifier: "DotsCell")
         cv.backgroundColor = .clear
-        cv.showsVerticalScrollIndicator = false
+        cv.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    
+    let paidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Premium Icons"
+        return label
+    }()
+    
+    let paidView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let paidEyesCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50, height: 50)
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(EyesCell.self, forCellWithReuseIdentifier: "DotsCell")
+        cv.backgroundColor = .clear
+        cv.showsHorizontalScrollIndicator = false
         return cv
     }()
     
@@ -82,6 +116,7 @@ class EyesViewController: UIViewController {
     }
     
     func setupUI() {
+        setGradient()
         setupQRImageView()
         setupTextView()
         setupTextLabel()
@@ -89,7 +124,12 @@ class EyesViewController: UIViewController {
         setupControlView()
         setupDiscardButton()
         setupConfirmButton()
-        setupEyesCollectionView()
+        setupFreeLabel()
+        setupFreeView()
+        setupFreeEyesCollectionView()
+        setupPaidLabel()
+        setupPaidView()
+        setupPaidEyesCollectionView()
         setupEyesFromRealm()
     }
     

@@ -71,14 +71,48 @@ class DotsViewController: UIViewController {
         return button
     }()
     
+    let freeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Free Icons"
+        return label
+    }()
     
-    let pointsCollectionView: UICollectionView = {
+    let freeView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    
+    let freeDotsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50, height: 50)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(DotsCell.self, forCellWithReuseIdentifier: "DotsCell")
         cv.backgroundColor = .clear
-        cv.showsVerticalScrollIndicator = false
+        cv.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    
+    let paidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Premium Icons"
+        return label
+    }()
+    
+    let paidView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let paidDotsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50, height: 50)
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(DotsCell.self, forCellWithReuseIdentifier: "DotsCell")
+        cv.backgroundColor = .clear
+        cv.showsHorizontalScrollIndicator = false
         return cv
     }()
     
@@ -93,6 +127,7 @@ class DotsViewController: UIViewController {
     }
     
     func setupUI() {
+        setGradient()
         setupQRImageView()
         setupTextView()
         setupTextLabel()
@@ -100,7 +135,12 @@ class DotsViewController: UIViewController {
         setupControlView()
         setupDiscardButton()
         setupConfirmButton()
-        setupPointsCollectionView()
+        setupFreeLabel()
+        setupFreeView()
+        setupFreeDotsCollectionView()
+        setupPaidLabel()
+        setupPaidView()
+        setupPaidDotsCollectionView()
         
         setupDotsFromRealm()
     }

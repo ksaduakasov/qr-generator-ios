@@ -15,9 +15,10 @@ extension EyesViewController {
         view.addSubview(qrImageView)
         
         qrImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.right.equalToSuperview().inset(50)
-            make.height.equalTo(300)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(view.bounds.height/15)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(1.5)
+            make.height.equalTo(qrImageView.snp.width)
         }
     }
     
@@ -25,8 +26,9 @@ extension EyesViewController {
         view.addSubview(textView)
         textView.snp.makeConstraints { make in
             make.top.equalTo(qrImageView.snp.bottom)
-            make.left.right.equalToSuperview().inset(50)
-            make.height.equalTo(35)
+            make.left.equalTo(qrImageView.snp.left)
+            make.right.equalTo(qrImageView.snp.right)
+            make.height.equalTo(qrImageView.snp.height).dividedBy(10)
         }
     }
     
@@ -39,21 +41,26 @@ extension EyesViewController {
     }
     
     func setupFunctionalView() {
+        functionalView.backgroundColor = .systemGray6
+        
         view.addSubview(functionalView)
         
         functionalView.snp.makeConstraints { make in
-            make.top.equalTo(textView.snp.bottom).offset(10)
+            make.top.equalTo(qrImageView.snp.bottom).offset(view.bounds.height / 10)
             make.bottom.equalToSuperview()
+            
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
         }
     }
     
     func setupControlView() {
+        controlView.backgroundColor = .white
+        
         functionalView.addSubview(controlView)
         controlView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.height.equalTo(30)
+            make.top.equalToSuperview()
+            make.height.equalToSuperview().dividedBy(8)
             make.left.right.equalToSuperview()
         }
     }
@@ -62,7 +69,7 @@ extension EyesViewController {
         controlView.addSubview(discardButton)
         
         discardButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(50)
+            make.left.equalToSuperview().inset(20)
             make.top.bottom.equalToSuperview()
             
         }
@@ -72,31 +79,89 @@ extension EyesViewController {
         controlView.addSubview(confirmButton)
         
         confirmButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(50)
+            make.right.equalToSuperview().inset(20)
             make.top.bottom.equalToSuperview()
             
         }
     }
     
-    func setupEyesCollectionView() {
-        eyesCollectionView.dataSource = self
-        eyesCollectionView.delegate = self
-        functionalView.addSubview(eyesCollectionView)
-        
-        eyesCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(controlView.snp.bottom).offset(15)
-            make.left.right.bottom.equalToSuperview().inset(30)
+    func setupFreeLabel() {
+        functionalView.addSubview(freeLabel)
+        freeLabel.snp.makeConstraints { make in
+            make.top.equalTo(controlView.snp.bottom).offset(10)
+            make.left.equalToSuperview().inset(20)
+        }
+    }
+    
+    func setupFreeView() {
+        freeView.backgroundColor = .clear
+        functionalView.addSubview(freeView)
+        freeView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(freeLabel.snp.bottom)
+            make.height.equalToSuperview().dividedBy(8)
+        }
+    }
+    
+    func setupFreeEyesCollectionView() {
+        freeEyesCollectionView.dataSource = self
+        freeEyesCollectionView.delegate = self
+        freeEyesCollectionView.backgroundColor = .clear
+        freeView.addSubview(freeEyesCollectionView)
+        freeEyesCollectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func setupPaidLabel() {
+        functionalView.addSubview(paidLabel)
+        paidLabel.snp.makeConstraints { make in
+            make.top.equalTo(freeView.snp.bottom).offset(10)
+            make.left.equalToSuperview().inset(20)
+        }
+    }
+    
+    func setupPaidView() {
+        paidView.backgroundColor = .clear
+        functionalView.addSubview(paidView)
+        paidView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(paidLabel.snp.bottom).offset(10)
+            make.bottom.equalToSuperview()
+            
+        }
+    }
+    
+    func setupPaidEyesCollectionView() {
+        paidEyesCollectionView.dataSource = self
+        paidEyesCollectionView.delegate = self
+        paidEyesCollectionView.backgroundColor = .clear
+        paidView.addSubview(paidEyesCollectionView)
+        paidEyesCollectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }
 
 
 extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == freeEyesCollectionView {
+            return eyesPatterns.count
+        }
         return eyesPatterns.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == freeEyesCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
+            cell.imageView.image = UIImage(named: eyesPatterns[indexPath.item])
+            cell.layer.cornerRadius = 5
+            cell.layer.masksToBounds = true
+            return cell
+        }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
         cell.imageView.image = UIImage(named: eyesPatterns[indexPath.item])
         cell.layer.cornerRadius = 5
@@ -105,13 +170,28 @@ extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == freeEyesCollectionView {
+            let pattern: QRCodeEyeShapeGenerator = eyesClasses[indexPath.item]
+            eyesSelected = eyesPatterns[indexPath.item]
+            qrImageView.image = changeQRPattern(pattern)
+        }
         let pattern: QRCodeEyeShapeGenerator = eyesClasses[indexPath.item]
         eyesSelected = eyesPatterns[indexPath.item]
         qrImageView.image = changeQRPattern(pattern)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 500, height: 500)
+    func setGradient() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        
+        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
+        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        
+        gradientLayer.colors = [start, end]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.8)
+        
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 
