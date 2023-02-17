@@ -79,8 +79,18 @@ extension ColorViewController {
     }
     
     func setupColorSelectionSegmentedControl() {
-        controlView.addSubview(colorSelectionSegmentedControl)
-        colorSelectionSegmentedControl.snp.makeConstraints { make in
+        anotherSegment.type = .normal
+        anotherSegment.selectorType = .bottomBar
+        anotherSegment.buttonTitles = "Foreground, Background"
+        anotherSegment.textColor = .black
+        anotherSegment.selectorTextColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        anotherSegment.selectorColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        anotherSegment.SelectedFont = UIFont(name: "ChalkboardSE-Bold", size: 15)!
+        anotherSegment.normalFont = UIFont(name: "ChalkboardSE-Regular", size: 15)!
+        anotherSegment.selectedSegmentIndex = 0
+        
+        controlView.addSubview(anotherSegment)
+        anotherSegment.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.height.equalToSuperview()
             make.centerX.equalToSuperview()
@@ -111,12 +121,14 @@ extension ColorViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.color = colors[indexPath.item]
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
+        cell.layer.borderWidth = 0.5
+        cell.layer.borderColor = UIColor.black.cgColor
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedColor = colors[indexPath.row]
-        switch (colorSelectionSegmentedControl.selectedSegmentIndex)  {
+        switch (anotherSegment.selectedSegmentIndex)  {
         case 0:
             foregroundColor = selectedColor
         case 1:

@@ -58,8 +58,13 @@ class QRViewController: UIViewController {
         return view
     }()
     
+    let middleView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     let colorButton: UIButton = {
-        let button = UIButton()
+        let button = HexagonButton()
         button.setTitle("Color", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(openColorVC), for: .touchUpInside)
@@ -67,7 +72,7 @@ class QRViewController: UIViewController {
     }()
     
     let dotsButton: UIButton = {
-        let button = UIButton()
+        let button = HexagonButton()
         button.setTitle("Dots", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(openDotsVC), for: .touchUpInside)
@@ -75,15 +80,18 @@ class QRViewController: UIViewController {
     }()
     
     let eyesButton: UIButton = {
-        let button = UIButton()
+        let button = HexagonButton()
         button.setTitle("Eyes", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(openEyesVC), for: .touchUpInside)
+        button.transform = CGAffineTransform.identity
+
+
         return button
     }()
     
     let logoButton: UIButton = {
-        let button = UIButton()
+        let button = HexagonButton()
         button.setTitle("Logo", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(openLogoVC), for: .touchUpInside)
@@ -91,7 +99,7 @@ class QRViewController: UIViewController {
     }()
     
     let textButton: UIButton = {
-        let button = UIButton()
+        let button = HexagonButton()
         button.setTitle("Text", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(openTextVC), for: .touchUpInside)

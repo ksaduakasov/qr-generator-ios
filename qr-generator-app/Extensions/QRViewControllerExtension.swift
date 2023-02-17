@@ -57,8 +57,7 @@ extension QRViewController {
         buttonInnerView.backgroundColor = .white
         buttonsView.addSubview(buttonInnerView)
         buttonInnerView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview()
+            make.center.equalToSuperview()
             make.height.equalTo(buttonsView.snp.height).dividedBy(1.2)
             make.left.right.equalToSuperview().inset(20)
         }
@@ -67,87 +66,92 @@ extension QRViewController {
         aboveView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.height.equalToSuperview().dividedBy(2)
+            make.height.equalToSuperview().dividedBy(3)
         }
         
         buttonInnerView.addSubview(belowView)
         belowView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.height.equalToSuperview().dividedBy(2)
+            make.height.equalToSuperview().dividedBy(3)
         }
+        
+        buttonInnerView.addSubview(middleView)
+        middleView.snp.makeConstraints { make in
+            make.top.equalTo(aboveView.snp.bottom)
+            make.bottom.equalTo(belowView.snp.top)
+            make.left.right.equalToSuperview()
+        }
+        
+        
+        
+        
         
     }
     
     func setupColorButton() {
-        colorButton.layer.cornerRadius = 5
-        colorButton.layer.masksToBounds = true
-        colorButton.backgroundColor = .green
         aboveView.addSubview(colorButton)
         
         colorButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(-50)
-            make.bottom.equalToSuperview().inset(10)
+            make.centerX.equalToSuperview().offset(-110)
+            make.bottom.equalToSuperview()
             make.width.equalTo(eyesButton.snp.width)
             make.height.equalTo(eyesButton.snp.width)
         }
+        
+        
     }
     
     func setupDotsButton() {
-        dotsButton.layer.cornerRadius = 5
-        dotsButton.layer.masksToBounds = true
-        dotsButton.backgroundColor = .green
         aboveView.addSubview(dotsButton)
         
         dotsButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(50)
-            make.bottom.equalToSuperview().inset(10)
+            make.centerX.equalToSuperview().offset(110)
+            make.bottom.equalToSuperview()
             make.width.equalTo(eyesButton.snp.width)
             make.height.equalTo(eyesButton.snp.width)
         }
+        
+    
     }
     
     func setupEyesButton() {
-        eyesButton.layer.cornerRadius = 5
-        eyesButton.layer.masksToBounds = true
-        eyesButton.backgroundColor = .green
-        belowView.addSubview(eyesButton)
+        middleView.addSubview(eyesButton)
         
         eyesButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(-100)
+            make.center.equalToSuperview()
             make.height.equalTo(eyesButton.snp.width)
-            make.top.equalToSuperview().offset(10)
             make.width.equalToSuperview().dividedBy(5)
         }
+        
+    
     }
     
     func setupTextButton() {
-        textButton.layer.cornerRadius = 5
-        textButton.layer.masksToBounds = true
-        textButton.backgroundColor = .green
         belowView.addSubview(textButton)
         
         textButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(100)
+            make.centerX.equalToSuperview().offset(110)
             make.height.equalTo(eyesButton.snp.width)
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview()
             make.width.equalToSuperview().dividedBy(5)
         }
+        
+    
     }
     
     
     func setupLogoButton() {
-        logoButton.layer.cornerRadius = 5
-        logoButton.layer.masksToBounds = true
-        logoButton.backgroundColor = .green
         belowView.addSubview(logoButton)
 
         logoButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.centerX.equalToSuperview().offset(-110)
             make.height.equalTo(eyesButton.snp.width)
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview()
             make.width.equalToSuperview().dividedBy(5)
         }
+        
+    
     }
     
     func openTemplateViewController() {

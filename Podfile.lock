@@ -5,22 +5,26 @@ PODS:
   - RealmSwift (10.35.1):
     - Realm (= 10.35.1)
   - SnapKit (5.6.0)
+  - WMSegmentControl (2.3)
 
 DEPENDENCIES:
   - RealmSwift
   - SnapKit
+  - WMSegmentControl
 
 SPEC REPOS:
   trunk:
     - Realm
     - RealmSwift
     - SnapKit
+    - WMSegmentControl
 
 SPEC CHECKSUMS:
   Realm: ee5a67274a2c338dec50f5e01a811b6b8d657a10
   RealmSwift: 82f822142caa1e6ab96d3ea30bc83233e3d78ea3
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  WMSegmentControl: 15120246d0fdbb7530d7fa03e90c3ec6f4fa85bd
 
-PODFILE CHECKSUM: f1e4bc993063ad93e3a715843bc4720ffe22060e
+PODFILE CHECKSUM: 749450860a4d21fe2474a497fd6cc67abdae877b
 
 COCOAPODS: 1.11.3

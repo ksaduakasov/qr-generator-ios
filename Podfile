@@ -6,6 +6,7 @@ target 'qr-generator-app' do
   use_frameworks!
   pod 'SnapKit'
   pod 'RealmSwift'
+  pod 'WMSegmentControl'
   # Pods for qr-generator-app
 
 end

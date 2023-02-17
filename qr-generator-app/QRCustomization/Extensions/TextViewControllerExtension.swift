@@ -56,7 +56,7 @@ extension TextViewController {
         
         functionalView.snp.makeConstraints { make in
             make.top.equalTo(qrImageView.snp.bottom).offset(view.bounds.height / 10)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
@@ -105,20 +105,21 @@ extension TextViewController {
         colorLabel.snp.makeConstraints { make in
             make.top.equalTo(textField.snp.bottom).offset(10)
             make.left.equalToSuperview().inset(20)
+            make.height.equalTo(20)
         }
     }
-
+    
     func setupColorView() {
-        colorView.backgroundColor = .clear
+        colorView.backgroundColor = .systemGray6
         functionalView.addSubview(colorView)
         colorView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(colorLabel.snp.bottom)
-            make.height.equalToSuperview().dividedBy(8)
+            make.top.equalTo(colorLabel.snp.bottom).offset(5)
+            make.height.equalToSuperview().dividedBy(7)
         }
     }
-
-
+    
+    
     func setupFontColorCollectionView() {
         fontColorCollectionView.dataSource = self
         fontColorCollectionView.delegate = self
@@ -135,30 +136,124 @@ extension TextViewController {
         fontLabel.snp.makeConstraints { make in
             make.top.equalTo(colorView.snp.bottom).offset(10)
             make.left.equalToSuperview().inset(20)
+            make.height.equalTo(20)
         }
     }
-
+    
     func setupFontView() {
-        fontView.backgroundColor = .clear
+        fontView.backgroundColor = .systemGray6
         functionalView.addSubview(fontView)
         fontView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(fontLabel.snp.bottom).offset(10)
+            make.top.equalTo(fontLabel.snp.bottom).offset(5)
             make.bottom.equalToSuperview()
-
+            
         }
     }
-
-
-    func setupFontCollectionView() {
-        fontCollectionView.dataSource = self
-        fontCollectionView.delegate = self
-        fontCollectionView.backgroundColor = .clear
-        fontView.addSubview(fontCollectionView)
-        fontCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+    
+    func setupAboveView() {
+        fontView.addSubview(aboveView)
+        
+        aboveView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.equalToSuperview().dividedBy(2)
+            
         }
     }
+    
+    func setupBelowView() {
+        fontView.addSubview(belowView)
+
+        belowView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalToSuperview().dividedBy(2)
+        }
+    }
+    
+    func setupFontButtons() {
+        fontButton1.setTitle("American", for: .normal)
+        fontButton2.setTitle("Avenir", for: .normal)
+        fontButton3.setTitle(fontTypes[2], for: .normal)
+        fontButton1.titleLabel?.font = UIFont(name: fontTypes[0], size: 15)
+        fontButton1.setTitleColor(.black, for: .normal)
+        fontButton2.titleLabel?.font = UIFont(name: fontTypes[1], size: 15)
+        fontButton2.setTitleColor(.black, for: .normal)
+        fontButton3.titleLabel?.font = UIFont(name: fontTypes[2], size: 15)
+        fontButton3.setTitleColor(.black, for: .normal)
+
+        aboveView.addSubview(fontButton1)
+        aboveView.addSubview(fontButton2)
+        aboveView.addSubview(fontButton3)
+
+        fontButton1.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().inset(5)
+            make.left.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3.2)
+        }
+
+        fontButton2.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().inset(5)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3.2)
+
+        }
+
+        fontButton3.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview().inset(5)
+            make.right.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3.2)
+        }
+        
+        fontButton1.layer.cornerRadius = view.frame.width / 30
+        fontButton2.layer.cornerRadius = view.frame.width / 30
+        fontButton3.layer.cornerRadius = view.frame.width / 30
+
+        fontButton4.setTitle(fontTypes[3], for: .normal)
+        fontButton5.setTitle(fontTypes[4], for: .normal)
+        fontButton6.setTitle(fontTypes[5], for: .normal)
+        fontButton4.titleLabel?.font = UIFont(name: fontTypes[3], size: 15)
+        fontButton4.setTitleColor(.black, for: .normal)
+        fontButton5.titleLabel?.font = UIFont(name: fontTypes[4], size: 12)
+        fontButton5.setTitleColor(.black, for: .normal)
+        fontButton6.titleLabel?.font = UIFont(name: fontTypes[5], size: 12)
+        fontButton6.setTitleColor(.black, for: .normal)
+        
+        belowView.addSubview(fontButton4)
+        belowView.addSubview(fontButton5)
+        belowView.addSubview(fontButton6)
+        
+        fontButton4.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview()
+            make.left.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3.2)
+        }
+
+        fontButton5.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3.2)
+
+        }
+
+        fontButton6.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview()
+            make.right.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3.2)
+        }
+        
+        fontButton4.layer.cornerRadius = view.frame.width / 30
+        fontButton5.layer.cornerRadius = view.frame.width / 30
+        fontButton6.layer.cornerRadius = view.frame.width / 30
+    }
+
 }
 
 extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -170,7 +265,6 @@ extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == fontColorCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontColorCell", for: indexPath) as! FontColorCell
             cell.backgroundColor = colors[indexPath.item]
             cell.layer.cornerRadius = 5
@@ -178,26 +272,12 @@ extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.layer.borderWidth = 0.5
             cell.layer.borderColor = UIColor.black.cgColor
             return cell
-        }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCell", for: indexPath) as! FontCell
-        cell.fontLabel.text = fontTypes[indexPath.item]
-        cell.fontLabel.font = UIFont(name: fontTypes[indexPath.item], size: 14)
-        cell.layer.cornerRadius = 5
-        cell.layer.masksToBounds = true
-        cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor.black.cgColor
-        return cell
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == fontColorCollectionView {
             selectedTextColor = colors[indexPath.row]
             textLabel.textColor = selectedTextColor
-        } else if collectionView == fontCollectionView {
-            selectedTextFont = UIFont(name: fontTypes[indexPath.row], size: 20)!
-            textLabel.font = selectedTextFont
-        }
-        
     }
     
 }

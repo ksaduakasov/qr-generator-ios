@@ -73,7 +73,7 @@ class LogoViewController: UIViewController {
     let freelogoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 50, height: 50)
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(EyesCell.self, forCellWithReuseIdentifier: "DotsCell")
         cv.backgroundColor = .clear
@@ -94,12 +94,12 @@ class LogoViewController: UIViewController {
     
     let paidlogoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 50, height: 50)
+        layout.scrollDirection = .vertical
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(EyesCell.self, forCellWithReuseIdentifier: "DotsCell")
         cv.backgroundColor = .clear
-        cv.showsHorizontalScrollIndicator = false
+        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     

@@ -107,12 +107,12 @@ class DotsViewController: UIViewController {
     
     let paidDotsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 50, height: 50)
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 100, height: 100)
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(DotsCell.self, forCellWithReuseIdentifier: "DotsCell")
         cv.backgroundColor = .clear
-        cv.showsHorizontalScrollIndicator = false
+        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     

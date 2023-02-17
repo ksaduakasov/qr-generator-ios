@@ -144,7 +144,7 @@ extension EyesViewController {
 }
 
 
-extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == freeEyesCollectionView {
@@ -167,6 +167,15 @@ extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == paidEyesCollectionView {
+            let width = collectionView.bounds.width / 5
+            return CGSize(width: width, height: width)
+        }
+        let height = collectionView.bounds.height
+        return CGSize(width: height, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -43,6 +43,7 @@
 		E8EA9482299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9481299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift */; };
 		E8EA9484299CE28700CB36D9 /* QRCodeLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9483299CE28700CB36D9 /* QRCodeLogo.swift */; };
 		E8EA9489299E335F00CB36D9 /* OptionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9488299E335F00CB36D9 /* OptionsCell.swift */; };
+		E8EA948C299FA2DD00CB36D9 /* HexagonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA948B299FA2DC00CB36D9 /* HexagonButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		E8EA9481299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA9483299CE28700CB36D9 /* QRCodeLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeLogo.swift; sourceTree = "<group>"; };
 		E8EA9488299E335F00CB36D9 /* OptionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsCell.swift; sourceTree = "<group>"; };
+		E8EA948B299FA2DC00CB36D9 /* HexagonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexagonButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		E8858CA52994F46B00E30828 /* qr-generator-app */ = {
 			isa = PBXGroup;
 			children = (
+				E8EA948A299FA2AF00CB36D9 /* Models */,
 				E8EA9487299E333F00CB36D9 /* Cells */,
 				E8EA947E299C0E8C00CB36D9 /* Extensions */,
 				E8858CBD2994F5F500E30828 /* WelcomeViewController.swift */,
@@ -239,6 +242,14 @@
 				E8EA9488299E335F00CB36D9 /* OptionsCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		E8EA948A299FA2AF00CB36D9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E8EA948B299FA2DC00CB36D9 /* HexagonButton.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,6 +383,7 @@
 				E8EA9469299BA08300CB36D9 /* QRCodeColor.swift in Sources */,
 				E831588C29981ED900BA51ED /* FontColorCell.swift in Sources */,
 				E8EA9477299C0D3400CB36D9 /* EyesViewControllerExtension.swift in Sources */,
+				E8EA948C299FA2DD00CB36D9 /* HexagonButton.swift in Sources */,
 				E8EA9467299B984900CB36D9 /* UIColor.swift in Sources */,
 				E8EA9482299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift in Sources */,
 				E8EA9473299C0C9F00CB36D9 /* ColorViewControllerExtension.swift in Sources */,

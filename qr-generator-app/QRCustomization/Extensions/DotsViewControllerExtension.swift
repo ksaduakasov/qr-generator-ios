@@ -143,7 +143,7 @@ extension DotsViewController {
     }
 }
 
-extension DotsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension DotsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == freeDotsCollectionView {
             return pointPatterns.count
@@ -165,6 +165,15 @@ extension DotsViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == paidDotsCollectionView {
+            let width = collectionView.bounds.width / 5
+            return CGSize(width: width, height: width)
+        }
+        let height = collectionView.bounds.height
+        return CGSize(width: height, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

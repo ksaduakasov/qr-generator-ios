@@ -8,10 +8,9 @@ import UIKit
 import SnapKit
 import QRCode
 import RealmSwift
+import WMSegmentControl
 
 /*
- 
- 1) Set FunctionalView background color to gray
  2) Create custom segmentedControl
  3) Create a ColorPicker
  */
@@ -66,6 +65,8 @@ class ColorViewController: UIViewController {
         button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return button
     }()
+    
+    let anotherSegment = WMSegment()
     
     
     let colorSelectionSegmentedControl: UISegmentedControl = {
