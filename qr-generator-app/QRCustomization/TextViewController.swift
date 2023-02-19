@@ -100,7 +100,6 @@ class TextViewController: UIViewController {
     
     let fontColorCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 50, height: 50)
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(FontColorCell.self, forCellWithReuseIdentifier: "FontColorCell")

@@ -256,7 +256,7 @@ extension TextViewController {
 
 }
 
-extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == fontColorCollectionView {
             return colors.count
@@ -275,6 +275,11 @@ extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width / 7
+        return CGSize(width: width, height: width)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             selectedTextColor = colors[indexPath.row]
             textLabel.textColor = selectedTextColor
@@ -286,7 +291,6 @@ extension TextViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let updatedText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
         enteredText = updatedText
-        print(enteredText)
         textLabel.text = enteredText
         textView.isHidden = enteredText.isEmpty
         return true

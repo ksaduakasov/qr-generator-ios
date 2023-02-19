@@ -73,7 +73,7 @@ class DotsViewController: UIViewController {
     
     let freeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Free Icons"
+        label.text = "Free Dots Styles"
         return label
     }()
     
@@ -96,7 +96,7 @@ class DotsViewController: UIViewController {
     
     let paidLabel: UILabel = {
         let label = UILabel()
-        label.text = "Premium Icons"
+        label.text = "Premium Dots Styles"
         return label
     }()
     
@@ -116,8 +116,11 @@ class DotsViewController: UIViewController {
         return cv
     }()
     
-    let pointPatterns: [String] = ["square","circle","curvePixel","squircle","pointy"]
-    let pointClasses: [QRCodePixelShapeGenerator] = [QRCode.PixelShape.Square(), QRCode.PixelShape.Circle(), QRCode.PixelShape.CurvePixel(), QRCode.PixelShape.Squircle(), QRCode.PixelShape.Pointy()]
+    let freePointPatterns: [String] = ["square","pointy"]
+    let freePointClasses: [QRCodePixelShapeGenerator] = [QRCode.PixelShape.Square(), QRCode.PixelShape.Pointy()]
+    
+    let paidPointPatterns: [String] = ["circle","curvePixel","squircle"]
+    let paidPointClasses: [QRCodePixelShapeGenerator] = [QRCode.PixelShape.Circle(), QRCode.PixelShape.CurvePixel(), QRCode.PixelShape.Squircle()]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -61,7 +61,7 @@ class EyesViewController: UIViewController {
     
     let freeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Free Icons"
+        label.text = "Free Eyes Patterns"
         return label
     }()
     
@@ -84,7 +84,7 @@ class EyesViewController: UIViewController {
     
     let paidLabel: UILabel = {
         let label = UILabel()
-        label.text = "Premium Icons"
+        label.text = "Premium Eyes Patterns"
         return label
     }()
     
@@ -104,9 +104,13 @@ class EyesViewController: UIViewController {
         return cv
     }()
     
-    let eyesPatterns: [String] = ["eye_square","eye_circle", "eye_barsHorizontal", "eye_barsVertical", "eye_corneredPixels", "eye_leaf", "eye_pixels", "eye_roundedouter", "eye_roundedpointingin", "eye_roundedRect", "eye_squircle"]
+    let freeEyesPatterns: [String] = ["eye_square", "eye_roundedouter", "eye_roundedRect"]
     
-    let eyesClasses: [QRCodeEyeShapeGenerator] = [QRCode.EyeShape.Square(), QRCode.EyeShape.Circle(), QRCode.EyeShape.BarsHorizontal(), QRCode.EyeShape.BarsVertical(), QRCode.EyeShape.CorneredPixels(), QRCode.EyeShape.Leaf(), QRCode.EyeShape.Pixels(), QRCode.EyeShape.RoundedOuter(), QRCode.EyeShape.RoundedPointingIn(), QRCode.EyeShape.RoundedRect(), QRCode.EyeShape.Squircle()]
+    let freeEyesClasses: [QRCodeEyeShapeGenerator] = [QRCode.EyeShape.Square(), QRCode.EyeShape.RoundedOuter(),  QRCode.EyeShape.RoundedRect()]
+    
+    let paidEyesPatterns: [String] = ["eye_circle", "eye_barsHorizontal", "eye_barsVertical", "eye_corneredPixels", "eye_leaf", "eye_pixels", "eye_roundedpointingin", "eye_squircle"]
+    
+    let paidEyesClasses: [QRCodeEyeShapeGenerator] = [QRCode.EyeShape.Circle(), QRCode.EyeShape.BarsHorizontal(), QRCode.EyeShape.BarsVertical(), QRCode.EyeShape.CorneredPixels(), QRCode.EyeShape.Leaf(), QRCode.EyeShape.Pixels(), QRCode.EyeShape.RoundedOuter(), QRCode.EyeShape.RoundedRect()]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -23,6 +23,8 @@ class LogoViewController: UIViewController {
     var data = ""
     var selectedLogo: UIImage?
     
+    var imagePicker = UIImagePickerController()
+    
     let textView: UIView = {
         let view = UIView()
         view.isHidden = true
@@ -55,6 +57,17 @@ class LogoViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
         button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
+        return button
+    }()
+    
+    let removeLogoButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.title = "Remove logo"
+        config.buttonSize = .large
+        config.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        config.baseForegroundColor = UIColor.black
+        let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(removeLogo), for: .touchUpInside)
         return button
     }()
     
@@ -103,7 +116,7 @@ class LogoViewController: UIViewController {
         return cv
     }()
     
-    let logoTemplates: [String] = ["eye_square","eye_circle", "eye_barsHorizontal", "eye_barsVertical", "eye_corneredPixels", "eye_leaf", "eye_pixels", "eye_roundedouter", "eye_roundedpointingin", "eye_roundedRect", "eye_squircle", "square","circle","curvePixel","roundedRect","horizontal","vertical","roundedPath","squircle","pointy", "eye_colorstyles"]
+    let logoTemplates: [UIImage] = [UIImage(named:"eye_square")!,UIImage(named:"eye_circle")!, UIImage(named:"eye_barsHorizontal")!, UIImage(named:"eye_barsVertical")!, UIImage(named:"eye_corneredPixels")!, UIImage(named:"eye_leaf")!]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +134,7 @@ class LogoViewController: UIViewController {
         setupControlView()
         setupDiscardButton()
         setupConfirmButton()
+        setupRemoveLogoButton()
         setupFreeLabel()
         setupFreeView()
         setupFreeLogoCollectionView()
@@ -154,17 +168,17 @@ class LogoViewController: UIViewController {
         return UIImage(cgImage: generated!)
     }
     
-    func QRWithLogo(_ imageName: String) -> UIImage? {
+    func QRWithLogo(_ image: UIImage?) -> UIImage? {
         let doc = QRCode.Document(utf8String: data, errorCorrection: .high)
         realmData.getColor(doc)
         realmData.getDots(doc)
         realmData.getEyes(doc)
         realmData.getText(self.textView, self.textLabel)
-        if imageName.isEmpty {
+        if image == nil {
             doc.logoTemplate = nil
         } else {
             doc.logoTemplate = QRCode.LogoTemplate.SquareCenter(
-                image: (UIImage(named: imageName)?.cgImage)!,
+                image: (image?.cgImage)!,
                 inset: 8)
         }
         let qrCodeWithLogo = doc.uiImage(dimension: 300)
@@ -199,6 +213,11 @@ class LogoViewController: UIViewController {
         }
         delegate?.qrLogoChanged(logo: imageData)
         dismiss(animated: true)
+    }
+    
+    @objc func removeLogo() {
+        selectedLogo = nil
+        qrImageView.image = QRWithLogo(nil)
     }
     
 }

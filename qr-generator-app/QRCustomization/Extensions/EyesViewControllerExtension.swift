@@ -88,8 +88,8 @@ extension EyesViewController {
     func setupFreeLabel() {
         functionalView.addSubview(freeLabel)
         freeLabel.snp.makeConstraints { make in
-            make.top.equalTo(controlView.snp.bottom).offset(10)
-            make.left.equalToSuperview().inset(20)
+            make.top.equalTo(controlView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -99,7 +99,7 @@ extension EyesViewController {
         freeView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
             make.top.equalTo(freeLabel.snp.bottom)
-            make.height.equalToSuperview().dividedBy(8)
+            make.height.equalToSuperview().dividedBy(5)
         }
     }
     
@@ -116,8 +116,8 @@ extension EyesViewController {
     func setupPaidLabel() {
         functionalView.addSubview(paidLabel)
         paidLabel.snp.makeConstraints { make in
-            make.top.equalTo(freeView.snp.bottom).offset(10)
-            make.left.equalToSuperview().inset(20)
+            make.top.equalTo(freeView.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -148,45 +148,42 @@ extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == freeEyesCollectionView {
-            return eyesPatterns.count
+            return freeEyesPatterns.count
         }
-        return eyesPatterns.count
+        return paidEyesPatterns.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == freeEyesCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
-            cell.imageView.image = UIImage(named: eyesPatterns[indexPath.item])
+            cell.imageView.image = UIImage(named: freeEyesPatterns[indexPath.item])
             cell.layer.cornerRadius = 5
             cell.layer.masksToBounds = true
             return cell
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
-        cell.imageView.image = UIImage(named: eyesPatterns[indexPath.item])
+        cell.imageView.image = UIImage(named: paidEyesPatterns[indexPath.item])
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == paidEyesCollectionView {
-            let width = collectionView.bounds.width / 5
-            return CGSize(width: width, height: width)
-        }
-        let height = collectionView.bounds.height
-        return CGSize(width: height, height: height)
+        let width = collectionView.bounds.width / 5
+        return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == freeEyesCollectionView {
-            let pattern: QRCodeEyeShapeGenerator = eyesClasses[indexPath.item]
-            eyesSelected = eyesPatterns[indexPath.item]
+            let pattern: QRCodeEyeShapeGenerator = freeEyesClasses[indexPath.item]
+            eyesSelected = freeEyesPatterns[indexPath.item]
+            qrImageView.image = changeQRPattern(pattern)
+        } else {
+            let pattern: QRCodeEyeShapeGenerator = paidEyesClasses[indexPath.item]
+            eyesSelected = paidEyesPatterns[indexPath.item]
             qrImageView.image = changeQRPattern(pattern)
         }
-        let pattern: QRCodeEyeShapeGenerator = eyesClasses[indexPath.item]
-        eyesSelected = eyesPatterns[indexPath.item]
-        qrImageView.image = changeQRPattern(pattern)
     }
     
     func setGradient() {

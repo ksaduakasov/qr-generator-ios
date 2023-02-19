@@ -27,6 +27,10 @@
 		E8858CD02994F6C100E30828 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CCF2994F6C100E30828 /* TemplateViewController.swift */; };
 		E8858CD22994F6CC00E30828 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CD12994F6CC00E30828 /* TextViewController.swift */; };
 		E8858CD42994F80700E30828 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CD32994F80700E30828 /* ColorCell.swift */; };
+		E8C1715429A298ED00183AB9 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1715329A298ED00183AB9 /* PresentationController.swift */; };
+		E8C1715629A2B1C500183AB9 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1715529A2B1C500183AB9 /* ImagePickerManager.swift */; };
+		E8C1715829A2B6B100183AB9 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1715729A2B6B100183AB9 /* ResultViewController.swift */; };
+		E8C1715B29A2B82500183AB9 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1715A29A2B82500183AB9 /* UIView.swift */; };
 		E8EA9467299B984900CB36D9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9466299B984900CB36D9 /* UIColor.swift */; };
 		E8EA9469299BA08300CB36D9 /* QRCodeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9468299BA08300CB36D9 /* QRCodeColor.swift */; };
 		E8EA946B299BA08B00CB36D9 /* QRCodeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA946A299BA08B00CB36D9 /* QRCodeDots.swift */; };
@@ -70,6 +74,10 @@
 		E8858CCF2994F6C100E30828 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		E8858CD12994F6CC00E30828 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		E8858CD32994F80700E30828 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		E8C1715329A298ED00183AB9 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		E8C1715529A2B1C500183AB9 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
+		E8C1715729A2B6B100183AB9 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		E8C1715A29A2B82500183AB9 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		E8EA9466299B984900CB36D9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E8EA9468299BA08300CB36D9 /* QRCodeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeColor.swift; sourceTree = "<group>"; };
 		E8EA946A299BA08B00CB36D9 /* QRCodeDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDots.swift; sourceTree = "<group>"; };
@@ -128,6 +136,8 @@
 				E8EA946E299BA09800CB36D9 /* QRCodeText.swift */,
 				E8EA9470299BF71300CB36D9 /* RealmData.swift */,
 				E8EA9483299CE28700CB36D9 /* QRCodeLogo.swift */,
+				E8C1715329A298ED00183AB9 /* PresentationController.swift */,
+				E8C1715529A2B1C500183AB9 /* ImagePickerManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,6 +205,7 @@
 				E8858CCD2994F6BB00E30828 /* LogoViewController.swift */,
 				E8858CCF2994F6C100E30828 /* TemplateViewController.swift */,
 				E8858CD12994F6CC00E30828 /* TextViewController.swift */,
+				E8C1715729A2B6B100183AB9 /* ResultViewController.swift */,
 				E831588F299B969B00BA51ED /* Models */,
 				E8858CC52994F67800E30828 /* Cells */,
 			);
@@ -222,6 +233,7 @@
 				E8EA9478299C0D6100CB36D9 /* LogoViewControllerExtension.swift */,
 				E8EA947A299C0D8700CB36D9 /* TemplateViewControllerExtension.swift */,
 				E8EA947C299C0D9500CB36D9 /* TextViewControllerExtension.swift */,
+				E8C1715A29A2B82500183AB9 /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -376,6 +388,8 @@
 				E8858CBE2994F5F500E30828 /* WelcomeViewController.swift in Sources */,
 				E8EA9479299C0D6100CB36D9 /* LogoViewControllerExtension.swift in Sources */,
 				E8858CA72994F46B00E30828 /* AppDelegate.swift in Sources */,
+				E8C1715B29A2B82500183AB9 /* UIView.swift in Sources */,
+				E8C1715429A298ED00183AB9 /* PresentationController.swift in Sources */,
 				E8EA946B299BA08B00CB36D9 /* QRCodeDots.swift in Sources */,
 				E8EA9475299C0D0400CB36D9 /* DotsViewControllerExtension.swift in Sources */,
 				E8858CCC2994F6AC00E30828 /* EyesViewController.swift in Sources */,
@@ -387,6 +401,7 @@
 				E8EA9467299B984900CB36D9 /* UIColor.swift in Sources */,
 				E8EA9482299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift in Sources */,
 				E8EA9473299C0C9F00CB36D9 /* ColorViewControllerExtension.swift in Sources */,
+				E8C1715629A2B1C500183AB9 /* ImagePickerManager.swift in Sources */,
 				E8EA946F299BA09800CB36D9 /* QRCodeText.swift in Sources */,
 				E8858CD02994F6C100E30828 /* TemplateViewController.swift in Sources */,
 				E8858CCA2994F6A300E30828 /* DotsViewController.swift in Sources */,
@@ -405,6 +420,7 @@
 				E8858CD22994F6CC00E30828 /* TextViewController.swift in Sources */,
 				E831588A299811D900BA51ED /* EyesCell.swift in Sources */,
 				E8EA9471299BF71300CB36D9 /* RealmData.swift in Sources */,
+				E8C1715829A2B6B100183AB9 /* ResultViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

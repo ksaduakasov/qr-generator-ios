@@ -97,33 +97,121 @@ extension ColorViewController {
         }
     }
     
-    func setupcolorsCollectionView() {
+    func setupFreeLabel() {
+        functionalView.addSubview(freeLabel)
+        freeLabel.snp.makeConstraints { make in
+            make.top.equalTo(controlView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    func setupFreeView() {
+        freeView.backgroundColor = .clear
+        functionalView.addSubview(freeView)
+        freeView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(freeLabel.snp.bottom).offset(10)
+            make.height.equalToSuperview().dividedBy(7)
+        }
+    }
+    
+    func setupColorsCollectionView() {
         colorsCollectionView.dataSource = self
         colorsCollectionView.delegate = self
-        functionalView.addSubview(colorsCollectionView)
+        colorsCollectionView.backgroundColor = .clear
+        freeView.addSubview(colorsCollectionView)
         
         colorsCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(controlView.snp.bottom).offset(15)
-            make.left.right.equalToSuperview().inset(30)
-            make.height.equalTo(100)
+            make.edges.equalToSuperview()
         }
+    }
+    
+    func setupPaidLabel() {
+        functionalView.addSubview(paidLabel)
+        paidLabel.snp.makeConstraints { make in
+            make.top.equalTo(freeView.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    func setupPaidView() {
+        freeView.backgroundColor = .clear
+        functionalView.addSubview(paidView)
+        paidView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(paidLabel.snp.bottom).offset(10)
+            make.height.equalToSuperview().dividedBy(7)
+        }
+    }
+    
+    func setupGradientsCollectionView() {
+        gradientsCollectionView.dataSource = self
+        gradientsCollectionView.delegate = self
+        gradientsCollectionView.backgroundColor = .clear
+        paidView.addSubview(gradientsCollectionView)
+        
+        gradientsCollectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func setupPickerButton() {
+        functionalView.addSubview(pickerButton)
+        
+        pickerButton.snp.makeConstraints { make in
+            make.top.equalTo(paidView.snp.bottom).offset(20)
+            make.height.equalToSuperview().dividedBy(7)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(1.8)
+        }
+    }
+    
+    func setGradientsArray() {
+        gradients = [
+            gradientColor(start: UIColor.white, end: UIColor.black),
+            gradientColor(start: UIColor.red, end: UIColor.yellow),
+            gradientColor(start: UIColor.blue, end: UIColor.green)
+            // Add more gradients here
+        ]
+    }
+    
+    func setupColorPicker() {
+        
     }
 }
 
-extension ColorViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ColorViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colors.count
+        if collectionView == colorsCollectionView {
+            return colors.count
+        }
+        return gradients.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == colorsCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell", for: indexPath) as! ColorCell
+            cell.backgroundColor = colors[indexPath.item]
+            cell.color = colors[indexPath.item]
+            cell.layer.cornerRadius = 5
+            cell.layer.masksToBounds = true
+            cell.layer.borderWidth = 0.5
+            cell.layer.borderColor = UIColor.black.cgColor
+            return cell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell", for: indexPath) as! ColorCell
-        cell.backgroundColor = colors[indexPath.item]
-        cell.color = colors[indexPath.item]
+        cell.backgroundColor = gradients[indexPath.item]
+        cell.color = gradients[indexPath.item]
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         cell.layer.borderWidth = 0.5
         cell.layer.borderColor = UIColor.black.cgColor
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width / 7
+        return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -153,6 +241,46 @@ extension ColorViewController: UICollectionViewDelegate, UICollectionViewDataSou
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.8)
         
         view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func gradientColor(start: UIColor, end: UIColor) -> UIColor {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [start.cgColor, end.cgColor]
+        UIGraphicsBeginImageContext(gradientLayer.bounds.size)
+        gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return UIColor(patternImage: image!)
+    }
+}
+
+extension ColorViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        
+    }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        let color = viewController.selectedColor as UIColor
+        switch (anotherSegment.selectedSegmentIndex)  {
+        case 0:
+            foregroundColor = color
+        case 1:
+            backgroundColor = color
+        default:
+            backgroundColor = UIColor.white
+            foregroundColor = UIColor.black
+        }
+        qrImageView.image = changeQRColor(backgroundColor, foregroundColor)
+        textView.backgroundColor = backgroundColor
+    }
+}
+
+
+extension ColorViewController: UIViewControllerTransitioningDelegate {
+    
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        PresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
 

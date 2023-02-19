@@ -89,7 +89,7 @@ extension DotsViewController {
         functionalView.addSubview(freeLabel)
         freeLabel.snp.makeConstraints { make in
             make.top.equalTo(controlView.snp.bottom).offset(10)
-            make.left.equalToSuperview().inset(20)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -98,8 +98,8 @@ extension DotsViewController {
         functionalView.addSubview(freeView)
         freeView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(freeLabel.snp.bottom)
-            make.height.equalToSuperview().dividedBy(8)
+            make.top.equalTo(freeLabel.snp.bottom).offset(10)
+            make.height.equalToSuperview().dividedBy(5)
         }
     }
     
@@ -116,8 +116,8 @@ extension DotsViewController {
     func setupPaidLabel() {
         functionalView.addSubview(paidLabel)
         paidLabel.snp.makeConstraints { make in
-            make.top.equalTo(freeView.snp.bottom).offset(10)
-            make.left.equalToSuperview().inset(20)
+            make.top.equalTo(freeView.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -146,46 +146,42 @@ extension DotsViewController {
 extension DotsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == freeDotsCollectionView {
-            return pointPatterns.count
+            return freePointPatterns.count
         }
-        return pointPatterns.count
+        return paidPointPatterns.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == freeDotsCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! DotsCell
-            cell.imageView.image = UIImage(named: pointPatterns[indexPath.item])
+            cell.imageView.image = UIImage(named: freePointPatterns[indexPath.item])
             cell.layer.cornerRadius = 5
             cell.layer.masksToBounds = true
             return cell
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! DotsCell
-        cell.imageView.image = UIImage(named: pointPatterns[indexPath.item])
+        cell.imageView.image = UIImage(named: paidPointPatterns[indexPath.item])
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == paidDotsCollectionView {
-            let width = collectionView.bounds.width / 5
-            return CGSize(width: width, height: width)
-        }
-        let height = collectionView.bounds.height
-        return CGSize(width: height, height: height)
+        let width = collectionView.bounds.width / 5
+        return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == freeDotsCollectionView {
-            let selectedPattern: QRCodePixelShapeGenerator = pointClasses[indexPath.item]
-            dotsSelected = pointPatterns[indexPath.item]
+            let selectedPattern: QRCodePixelShapeGenerator = freePointClasses[indexPath.item]
+            dotsSelected = freePointPatterns[indexPath.item]
+            qrImageView.image = changeQRPattern(selectedPattern)
+        } else {
+            let selectedPattern: QRCodePixelShapeGenerator = paidPointClasses[indexPath.item]
+            dotsSelected = paidPointPatterns[indexPath.item]
             qrImageView.image = changeQRPattern(selectedPattern)
         }
-        
-        let selectedPattern: QRCodePixelShapeGenerator = pointClasses[indexPath.item]
-        dotsSelected = pointPatterns[indexPath.item]
-        qrImageView.image = changeQRPattern(selectedPattern)
         
     }
     

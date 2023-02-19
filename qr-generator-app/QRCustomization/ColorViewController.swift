@@ -11,7 +11,6 @@ import RealmSwift
 import WMSegmentControl
 
 /*
- 2) Create custom segmentedControl
  3) Create a ColorPicker
  */
 
@@ -20,7 +19,7 @@ protocol ColorDelegate {
 }
 
 class ColorViewController: UIViewController {
-
+    
     var realmData = RealmData()
     
     var delegate: ColorDelegate?
@@ -68,11 +67,15 @@ class ColorViewController: UIViewController {
     
     let anotherSegment = WMSegment()
     
+    let freeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Free Colors"
+        return label
+    }()
     
-    let colorSelectionSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Foreground", "Background"])
-        segmentedControl.selectedSegmentIndex = 0
-        return segmentedControl
+    let freeView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     
@@ -87,6 +90,45 @@ class ColorViewController: UIViewController {
         return cv
     }()
     
+    let paidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Premium Eyes Patterns"
+        return label
+    }()
+    
+    let paidView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let gradientsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.register(ColorCell.self, forCellWithReuseIdentifier: "ColorCell")
+        cv.backgroundColor = .clear
+        cv.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    
+    let pickerButton: UIButton = {
+        var filled = UIButton.Configuration.filled()
+        filled.title = "Set Custom Color"
+        filled.buttonSize = .large
+        filled.subtitle = "with color picker"
+        filled.image = UIImage(systemName: "paintpalette.fill")
+        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        
+        filled.imagePlacement = .trailing
+        filled.imagePadding = 10
+        
+        let button = UIButton(configuration: filled, primaryAction: nil)
+        button.addTarget(self, action: #selector(showColorPicker), for: .touchUpInside)
+        return button
+    }()
+    
+    let picker = UIColorPickerViewController()
+    
     let colors: [UIColor] = [
         .red, .green, .blue, .yellow, .purple, .orange,
         .cyan, .magenta, .brown, .black, .darkGray, .lightGray,
@@ -97,6 +139,8 @@ class ColorViewController: UIViewController {
         .systemPurple, .systemOrange
     ]
     
+    var gradients: [UIColor] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
@@ -106,6 +150,7 @@ class ColorViewController: UIViewController {
     
     func setupUI() {
         setGradient()
+        setGradientsArray()
         setupQRImageView()
         setupTextView()
         setupTextLabel()
@@ -114,8 +159,14 @@ class ColorViewController: UIViewController {
         setupDiscardButton()
         setupConfirmButton()
         setupColorSelectionSegmentedControl()
-        setupcolorsCollectionView()
-        
+        setupFreeLabel()
+        setupFreeView()
+        setupColorsCollectionView()
+        setupPaidLabel()
+        setupPaidView()
+        setupGradientsCollectionView()
+        setupPickerButton()
+        setupColorPicker()
         setupColorsFromRealm()
     }
     
@@ -170,6 +221,17 @@ class ColorViewController: UIViewController {
         delegate?.qrColorChanged(backgroundColor: backgroundColor.hexString, foregroundColor: foregroundColor.hexString)
         dismiss(animated: true)
     }
+    
+    @objc func showColorPicker() {
+        let picker = UIColorPickerViewController()
+        picker.delegate = self
+        picker.modalPresentationStyle = .custom
+        picker.transitioningDelegate = self
+        self.present(picker, animated: true, completion: nil)
+        
+    }
+    
 }
+
 
 

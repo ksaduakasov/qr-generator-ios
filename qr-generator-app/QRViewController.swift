@@ -10,14 +10,6 @@ import CoreImage
 import QRCode
 import RealmSwift
 
-/*
- 
- 1) Make functionalView higher
- 2) Change background to white
- 2) Update functions ierarchy
- 
- */
-
 class QRViewController: UIViewController {
     
     let qrImageView = UIImageView()

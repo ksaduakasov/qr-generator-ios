@@ -14,6 +14,24 @@ class QRContentViewController: UIViewController {
         let title: String
     }
     
+    let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Create"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        return titleLabel
+    }()
+    
+    let backButton: UIBarButtonItem = {
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+        return backButton
+    }()
+    
+    let createButton: UIBarButtonItem = {
+        let createButton = UIBarButtonItem(title: "CREATE", style: .plain, target: self, action: #selector(createButtonTapped))
+        return createButton
+    }()
+    
     let textView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -39,6 +57,15 @@ class QRContentViewController: UIViewController {
         return textField
     }()
     
+    let toolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [flexibleSpace, doneButton]
+        return toolbar
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 80, height: 80)
@@ -59,17 +86,9 @@ class QRContentViewController: UIViewController {
         ContentInfo(image: "phone", title: "Phone"),
         ContentInfo(image: "website", title: "Website"),
         ContentInfo(image: "instagram", title: "Instagram"),
-        ContentInfo(image: "contact", title: "Contact"),
+        ContentInfo(image: "tiktok", title: "TikTok"),
         ContentInfo(image: "facebook", title: "Facebook"),
-        ContentInfo(image: "wifi", title: "Wi-Fi"),
-        ContentInfo(image: "youtube", title: "YouTube"),
-        ContentInfo(image: "text", title: "Text"),
-        ContentInfo(image: "phone", title: "Phone"),
-        ContentInfo(image: "website", title: "Website"),
-        ContentInfo(image: "instagram", title: "Instagram"),
-        ContentInfo(image: "contact", title: "Contact"),
-        ContentInfo(image: "facebook", title: "Facebook"),
-        ContentInfo(image: "wifi", title: "Wi-Fi"),
+        ContentInfo(image: "twitter", title: "Twitter"),
         ContentInfo(image: "youtube", title: "YouTube")
     ]
     
@@ -79,16 +98,15 @@ class QRContentViewController: UIViewController {
         view.backgroundColor = .white
         setGradient()
         
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
-        
         navigationItem.leftBarButtonItem = backButton
+        navigationItem.titleView = titleLabel
+        navigationItem.rightBarButtonItem = createButton
         
-        let saveButton = UIBarButtonItem(title: "CREATE", style: .plain, target: self, action: #selector(createButtonTapped))
-        navigationItem.rightBarButtonItem = saveButton
-        
+        textField.inputAccessoryView = toolbar
+
         view.addSubview(textView)
         textView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left).inset(20)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right).inset(20)
             make.height.equalToSuperview().dividedBy(2.5)
@@ -167,6 +185,10 @@ extension QRContentViewController: UICollectionViewDelegate, UICollectionViewDat
         selectedCell.isActive = true
         textLabel.text = selectedCell.title.text
         textField.isHidden = false
+        if textLabel.text == "Phone" {
+            textField.keyboardType = .numberPad
+        }
+        textField.placeholder = "Please fill in the \(selectedCell.title.text!.lowercased())"
         print(selectedCell.isActive)
     }
     
@@ -200,6 +222,10 @@ extension QRContentViewController {
         let currentPage = sender.currentPage
         let indexPath = IndexPath(item: currentPage*8, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
 }

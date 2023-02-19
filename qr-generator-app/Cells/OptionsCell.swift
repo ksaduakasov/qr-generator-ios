@@ -10,8 +10,8 @@ import UIKit
 class OptionsCell: UICollectionViewCell {
     var isActive: Bool = false {
         didSet {
-            layer.borderWidth = isActive ? 2 : 0
-            layer.borderColor = isActive ? UIColor.cyan.cgColor : UIColor.clear.cgColor
+            layer.borderWidth = isActive ? 3 : 0
+            layer.borderColor = isActive ? UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor : UIColor.clear.cgColor
         }
     }
     
