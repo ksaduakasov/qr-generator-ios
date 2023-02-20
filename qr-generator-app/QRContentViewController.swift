@@ -9,6 +9,8 @@ import SnapKit
 
 class QRContentViewController: UIViewController {
     
+    static var contentType: String = ""
+    
     struct ContentInfo {
         let image: String
         let title: String
@@ -20,16 +22,6 @@ class QRContentViewController: UIViewController {
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return titleLabel
-    }()
-    
-    let backButton: UIBarButtonItem = {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
-        return backButton
-    }()
-    
-    let createButton: UIBarButtonItem = {
-        let createButton = UIBarButtonItem(title: "CREATE", style: .plain, target: self, action: #selector(createButtonTapped))
-        return createButton
     }()
     
     let textView: UIView = {
@@ -96,48 +88,20 @@ class QRContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        setupUI()
+    }
+    
+    func setupUI() {
         setGradient()
-        
-        navigationItem.leftBarButtonItem = backButton
-        navigationItem.titleView = titleLabel
-        navigationItem.rightBarButtonItem = createButton
-        
-        textField.inputAccessoryView = toolbar
-
-        view.addSubview(textView)
-        textView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).inset(20)
-            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).inset(20)
-            make.height.equalToSuperview().dividedBy(2.5)
-        }
-        
-        textView.addSubview(textLabel)
-        textLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().inset(10)
-        }
-        
-        textView.addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(textLabel.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(10)
-            make.height.equalToSuperview().dividedBy(5)
-        }
-        
-        
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.left.equalTo(view.safeAreaLayoutGuide.snp.left).inset(20)
-            make.right.equalTo(view.safeAreaLayoutGuide.snp.right).inset(20)
-            make.height.equalToSuperview().dividedBy(3.5)
-        }
-        
-        
+        setupNavigationItems()
+        setupTextView()
+        setupTextLabel()
+        setupTextField()
+        setupCollectionView()
     }
     
     @objc func backButtonTapped() {
-        // Handle the back button tap
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -153,79 +117,6 @@ class QRContentViewController: UIViewController {
         let qrVC = QRViewController()
         qrVC.data = data
         navigationController?.pushViewController(qrVC, animated: true)
-    }
-    
-}
-
-
-extension QRContentViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "optionsCell", for: indexPath) as! OptionsCell
-        let item = data[indexPath.item]
-        cell.imageLogo.image = UIImage(named: item.image)
-        cell.title.text = item.title
-        
-        cell.backgroundColor = UIColor.white
-        cell.layer.borderColor = UIColor.clear.cgColor
-        cell.layer.cornerRadius = 5
-        cell.layer.shadowOpacity = 0.1
-        cell.layer.shadowRadius = 2
-        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
-        cell.layer.shadowColor = UIColor.black.cgColor
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedCell = collectionView.cellForItem(at: indexPath) as! OptionsCell
-        selectedCell.isActive = true
-        textLabel.text = selectedCell.title.text
-        textField.isHidden = false
-        if textLabel.text == "Phone" {
-            textField.keyboardType = .numberPad
-        }
-        textField.placeholder = "Please fill in the \(selectedCell.title.text!.lowercased())"
-        print(selectedCell.isActive)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let selectedCell = collectionView.cellForItem(at: indexPath) as! OptionsCell
-        selectedCell.isActive = false
-        print(selectedCell.isActive)
-    }
-    
-    
-    
-}
-
-extension QRContentViewController {
-    
-    func setGradient() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
-        
-        gradientLayer.colors = [start, end]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.8)
-        view.layer.addSublayer(gradientLayer)
-        
-    }
-    
-    @objc func pageControlTapped(sender: UIPageControl) {
-        let currentPage = sender.currentPage
-        let indexPath = IndexPath(item: currentPage*8, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
     }
     
 }

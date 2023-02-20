@@ -15,7 +15,7 @@ import RealmSwift
 class RealmData {
     lazy var realm:Realm = {
         let config = Realm.Configuration(
-            schemaVersion: 2)
+            schemaVersion: 4)
         // Use this configuration when opening realms
         Realm.Configuration.defaultConfiguration = config
         let realm = try! Realm()
@@ -203,6 +203,21 @@ class RealmData {
         textObject.textColor = textColor
         textObject.textFont = textFont
         try! realm.commitWrite()
+    }
+    
+    func addQRImage(_ qrImage: Data, _ data: String, _ dataType: String) {
+        let qrCodeImage = QRCodeImage()
+        qrCodeImage.qrCodeImage = qrImage
+        qrCodeImage.qrCodeData = data
+        qrCodeImage.qrCodeDataType = dataType
+        realm.beginWrite()
+        realm.add(qrCodeImage)
+        try! realm.commitWrite()
+    }
+    
+    func getQRImages() -> Results<QRCodeImage> {
+        let qrImages = realm.objects(QRCodeImage.self)
+        return qrImages
     }
     
 }

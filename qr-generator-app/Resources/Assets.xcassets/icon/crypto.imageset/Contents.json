@@ -1,12 +1,10 @@
 {
   "images" : [
     {
-      "filename" : "crypto.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "crypto@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

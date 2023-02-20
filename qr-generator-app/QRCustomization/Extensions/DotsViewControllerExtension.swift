@@ -36,7 +36,7 @@ extension DotsViewController {
         textView.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.height.equalTo(20)
+            make.top.equalToSuperview()
         }
     }
     

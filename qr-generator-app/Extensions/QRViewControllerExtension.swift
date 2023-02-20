@@ -10,6 +10,14 @@ import UIKit
 import QRCode
 
 extension QRViewController {
+    func setNavigationItems() {
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+        let saveButton = UIBarButtonItem(title: "SAVE", style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = saveButton
+        navigationItem.titleView = editLabel
+    }
+    
     func setupImageView() {
         qrImageView.image = generateQRCode(from: data)
         view.addSubview(qrImageView)
@@ -36,7 +44,7 @@ extension QRViewController {
         textView.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.height.equalTo(20)
+            make.top.equalToSuperview()
         }
     }
     
@@ -54,13 +62,15 @@ extension QRViewController {
     }
     
     func setupButtonInnerView() {
-        buttonInnerView.backgroundColor = .white
+        
         buttonsView.addSubview(buttonInnerView)
         buttonInnerView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.height.equalTo(buttonsView.snp.height).dividedBy(1.2)
+            make.top.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(30)
             make.left.right.equalToSuperview().inset(20)
         }
+        
         
         buttonInnerView.addSubview(aboveView)
         aboveView.snp.makeConstraints { make in
@@ -68,6 +78,7 @@ extension QRViewController {
             make.left.right.equalToSuperview()
             make.height.equalToSuperview().dividedBy(3)
         }
+
         
         buttonInnerView.addSubview(belowView)
         belowView.snp.makeConstraints { make in
@@ -75,6 +86,7 @@ extension QRViewController {
             make.left.right.equalToSuperview()
             make.height.equalToSuperview().dividedBy(3)
         }
+
         
         buttonInnerView.addSubview(middleView)
         middleView.snp.makeConstraints { make in
@@ -82,77 +94,140 @@ extension QRViewController {
             make.bottom.equalTo(belowView.snp.top)
             make.left.right.equalToSuperview()
         }
-        
-        
-        
-        
-        
+
     }
     
     func setupColorButton() {
+        colorButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        colorButton.layer.cornerRadius = view.bounds.width / 20
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openColorVC))
+        colorButton.addGestureRecognizer(tapGesture)
+        colorButton.isUserInteractionEnabled = true
         aboveView.addSubview(colorButton)
         
         colorButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview().offset(-110)
-            make.bottom.equalToSuperview()
-            make.width.equalTo(eyesButton.snp.width)
-            make.height.equalTo(eyesButton.snp.width)
+            make.height.equalTo(colorButton.snp.width)
+            make.top.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(5)
         }
         
-        
+        colorButton.addSubview(colorImageView)
+        colorImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(15)
+        }
+        aboveView.addSubview(colorLabel)
+        colorLabel.snp.makeConstraints { make in
+            make.top.equalTo(colorButton.snp.bottom).offset(5)
+            make.centerX.equalToSuperview().offset(-110)
+        }
     }
     
     func setupDotsButton() {
+        dotsButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        dotsButton.layer.cornerRadius = view.bounds.width / 20
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openDotsVC))
+        dotsButton.addGestureRecognizer(tapGesture)
+        dotsButton.isUserInteractionEnabled = true
         aboveView.addSubview(dotsButton)
         
         dotsButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview().offset(110)
-            make.bottom.equalToSuperview()
-            make.width.equalTo(eyesButton.snp.width)
-            make.height.equalTo(eyesButton.snp.width)
-        }
-        
-    
-    }
-    
-    func setupEyesButton() {
-        middleView.addSubview(eyesButton)
-        
-        eyesButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.height.equalTo(eyesButton.snp.width)
+            make.height.equalTo(dotsButton.snp.width)
+            make.top.equalToSuperview()
             make.width.equalToSuperview().dividedBy(5)
         }
         
+        dotsButton.addSubview(dotsImageView)
+        dotsImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(15)
+        }
+        aboveView.addSubview(dotsLabel)
+        dotsLabel.snp.makeConstraints { make in
+            make.top.equalTo(dotsButton.snp.bottom).offset(5)
+            make.centerX.equalToSuperview().offset(110)
+        }
+    }
     
+    func setupEyesButton() {
+        eyesButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        eyesButton.layer.cornerRadius = view.bounds.width / 20
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openEyesVC))
+        eyesButton.addGestureRecognizer(tapGesture)
+        eyesButton.isUserInteractionEnabled = true
+        middleView.addSubview(eyesButton)
+        
+        eyesButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(eyesButton.snp.width)
+            make.top.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(5)
+        }
+        
+        eyesButton.addSubview(eyesImageView)
+        eyesImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(15)
+        }
+        middleView.addSubview(eyesLabel)
+        eyesLabel.snp.makeConstraints { make in
+            make.top.equalTo(eyesButton.snp.bottom).offset(5)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    func setupLogoButton() {
+        logoButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        logoButton.layer.cornerRadius = view.bounds.width / 20
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openLogoVC))
+        logoButton.addGestureRecognizer(tapGesture)
+        logoButton.isUserInteractionEnabled = true
+        belowView.addSubview(logoButton)
+        
+        logoButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview().offset(-110)
+            make.height.equalTo(logoButton.snp.width)
+            make.top.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(5)
+        }
+        
+        logoButton.addSubview(logoImageView)
+        logoImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(15)
+        }
+        belowView.addSubview(logoLabel)
+        logoLabel.snp.makeConstraints { make in
+            make.top.equalTo(logoButton.snp.bottom).offset(5)
+            make.centerX.equalToSuperview().offset(-110)
+        }
     }
     
     func setupTextButton() {
+        textButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        textButton.layer.cornerRadius = view.bounds.width / 20
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openTextVC))
+        textButton.addGestureRecognizer(tapGesture)
+        textButton.isUserInteractionEnabled = true
         belowView.addSubview(textButton)
         
         textButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview().offset(110)
-            make.height.equalTo(eyesButton.snp.width)
+            make.height.equalTo(textButton.snp.width)
             make.top.equalToSuperview()
             make.width.equalToSuperview().dividedBy(5)
         }
         
-    
-    }
-    
-    
-    func setupLogoButton() {
-        belowView.addSubview(logoButton)
-
-        logoButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(-110)
-            make.height.equalTo(eyesButton.snp.width)
-            make.top.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(5)
+        textButton.addSubview(textImageView)
+        textImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(15)
         }
-        
-    
+        belowView.addSubview(textBtnLabel)
+        textBtnLabel.snp.makeConstraints { make in
+            make.top.equalTo(textButton.snp.bottom).offset(5)
+            make.centerX.equalToSuperview().offset(110)
+        }
     }
+    
+    
     
     func openTemplateViewController() {
         let templateVC = TemplateViewController()

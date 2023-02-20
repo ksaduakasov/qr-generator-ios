@@ -12,51 +12,70 @@ class WelcomeViewController: UIViewController {
     
     lazy var realm:Realm = {
         let config = Realm.Configuration(
-            schemaVersion: 2)
+            schemaVersion: 4)
         // Use this configuration when opening realms
         Realm.Configuration.defaultConfiguration = config
         let realm = try! Realm()
         return try! Realm()
     }()
     
-    let button: UIButton = {
-        let button = UIButton()
-        button.setTitle("Go to Table View", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        button.addTarget(self, action: #selector(goToSelection), for: .touchUpInside)
+    let createQRView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let buttonLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Create QR Code"
+        label.textColor = .white
+        return label
+    }()
+    
+    let buttonImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "qr-code")
+        return imageView
+    }()
+    
+    let historyButton: UIButton = {
+        var filled = UIButton.Configuration.filled()
+        filled.title = "Show history"
+        filled.buttonSize = .large
+        filled.image = UIImage(systemName: "archivebox.circle.fill")
+        filled.imagePlacement = .trailing
+        filled.imagePadding = 10
+//        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+
+        let button = UIButton(configuration: filled, primaryAction: nil)
+        button.addTarget(self, action: #selector(openHistory), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setGradient()
         print(realm.configuration.fileURL!)
         setupUI()
     }
     
     func setupUI() {
+        setGradient()
         setupButton()
+        setupButtonImage()
+        setupButtonLabel()
+        setupHistoryButton()
     }
     
     @objc func goToSelection() {
-        let secondVC = QRContentViewController()
-        navigationController?.pushViewController(secondVC, animated: true)
+        let qrContentVC = QRContentViewController()
+        navigationController?.pushViewController(qrContentVC, animated: true)
     }
     
-    func setGradient() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.view.bounds
-        
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
-        
-        gradientLayer.colors = [start, end]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.8)
-        
-        view.layer.insertSublayer(gradientLayer, at: 0)
+    @objc func openHistory() {
+        let historyVC = HistoryViewController()
+        navigationController?.pushViewController(historyVC, animated: true)
     }
+
     
 }
 

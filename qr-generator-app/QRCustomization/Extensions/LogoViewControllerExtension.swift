@@ -36,7 +36,7 @@ extension LogoViewController {
         textView.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.height.equalTo(20)
+            make.top.equalToSuperview()
         }
     }
     
@@ -107,8 +107,8 @@ extension LogoViewController {
         functionalView.addSubview(freeView)
         freeView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(freeLabel.snp.bottom)
-            make.height.equalToSuperview().dividedBy(5)
+            make.top.equalTo(freeLabel.snp.bottom).offset(10)
+            make.height.equalToSuperview().dividedBy(7)
         }
     }
     
@@ -122,32 +122,14 @@ extension LogoViewController {
         }
     }
     
-    func setupPaidLabel() {
-        functionalView.addSubview(paidLabel)
-        paidLabel.snp.makeConstraints { make in
-            make.top.equalTo(freeView.snp.bottom).offset(30)
+    func setupPickerButton() {
+        functionalView.addSubview(pickerButton)
+        
+        pickerButton.snp.makeConstraints { make in
+            make.top.equalTo(freeView.snp.bottom).offset(20)
+            make.height.equalToSuperview().dividedBy(7)
             make.centerX.equalToSuperview()
-        }
-    }
-    
-    func setupPaidView() {
-        paidView.backgroundColor = .clear
-        functionalView.addSubview(paidView)
-        paidView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(paidLabel.snp.bottom).offset(10)
-            make.bottom.equalToSuperview()
-            
-        }
-    }
-    
-    func setupPaidLogoCollectionView() {
-        paidlogoCollectionView.dataSource = self
-        paidlogoCollectionView.delegate = self
-        paidlogoCollectionView.backgroundColor = .clear
-        paidView.addSubview(paidlogoCollectionView)
-        paidlogoCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(1.8)
         }
     }
 }
@@ -155,49 +137,29 @@ extension LogoViewController {
 
 extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == freelogoCollectionView {
-            return logoTemplates.count
-        }
-        return logoTemplates.count
+        return freeLogoTemplates.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == freelogoCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
-            cell.imageView.image = logoTemplates[indexPath.item]
-            cell.layer.cornerRadius = 5
-            cell.layer.masksToBounds = true
-            return cell
-        }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
-        if indexPath.item == 0 {
-            cell.imageView.image = UIImage(systemName: "photo.circle")
-        } else {
-            cell.imageView.image = logoTemplates[indexPath.item]
-        }
-        cell.layer.cornerRadius = 5
+        cell.imageView.image = freeLogoTemplates[indexPath.item]
+        cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         return cell
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width / 5
+        let width = collectionView.bounds.width / 7
         return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == freelogoCollectionView {
-            selectedLogo = logoTemplates[indexPath.row]
-            qrImageView.image = QRWithLogo(logoTemplates[indexPath.row])
-        }
         
-        if indexPath.item == 0 {
-            uploadImage()
-        } else {
-            selectedLogo = logoTemplates[indexPath.row]
-            qrImageView.image = QRWithLogo(selectedLogo)
-        }
+        selectedLogo = freeLogoTemplates[indexPath.row]
+        qrImageView.image = QRWithLogo(freeLogoTemplates[indexPath.row])
         
     }
     
@@ -215,10 +177,10 @@ extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSour
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func uploadImage() {
+    @objc func uploadImage() {
         ImagePickerManager().pickImage(self) { image in
-            self.selectedLogo = image
-            self.qrImageView.image = self.QRWithLogo(image)
+            self.selectedLogo = image.updateImageOrientionUpSide()
+            self.qrImageView.image = self.QRWithLogo(self.selectedLogo)
         }
     }
 }

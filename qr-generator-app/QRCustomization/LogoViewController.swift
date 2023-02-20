@@ -61,19 +61,23 @@ class LogoViewController: UIViewController {
     }()
     
     let removeLogoButton: UIButton = {
-        var config = UIButton.Configuration.filled()
-        config.title = "Remove logo"
-        config.buttonSize = .large
-        config.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
-        config.baseForegroundColor = UIColor.black
-        let button = UIButton(configuration: config)
+        var filled = UIButton.Configuration.filled()
+        filled.title = "Remove logo"
+        filled.buttonSize = .large
+        filled.image = UIImage(systemName: "nosign")
+        filled.imagePlacement = .trailing
+        filled.imagePadding = 10
+//        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+//        filled.baseForegroundColor = UIColor.black
+        
+        let button = UIButton(configuration: filled, primaryAction: nil)
         button.addTarget(self, action: #selector(removeLogo), for: .touchUpInside)
         return button
     }()
     
     let freeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Free Icons"
+        label.text = "Premium Icons"
         return label
     }()
     
@@ -94,29 +98,24 @@ class LogoViewController: UIViewController {
         return cv
     }()
     
-    let paidLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Premium Icons"
-        return label
-    }()
     
-    let paidView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    let paidlogoCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+    let pickerButton: UIButton = {
+        var filled = UIButton.Configuration.filled()
+        filled.title = "Choose photo"
+        filled.buttonSize = .large
+        filled.subtitle = "from your gallery"
+        filled.image = UIImage(systemName: "photo.stack")
+        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
         
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(EyesCell.self, forCellWithReuseIdentifier: "DotsCell")
-        cv.backgroundColor = .clear
-        cv.showsVerticalScrollIndicator = false
-        return cv
+        filled.imagePlacement = .trailing
+        filled.imagePadding = 10
+        
+        let button = UIButton(configuration: filled, primaryAction: nil)
+        button.addTarget(self, action: #selector(uploadImage), for: .touchUpInside)
+        return button
     }()
     
-    let logoTemplates: [UIImage] = [UIImage(named:"eye_square")!,UIImage(named:"eye_circle")!, UIImage(named:"eye_barsHorizontal")!, UIImage(named:"eye_barsVertical")!, UIImage(named:"eye_corneredPixels")!, UIImage(named:"eye_leaf")!]
+    let freeLogoTemplates: [UIImage] = [UIImage(named:"wpp")!, UIImage(named:"messenger")!, UIImage(named:"paypal")!, UIImage(named:"crypto")!, UIImage(named:"spotify")!, UIImage(named:"tiktok")!,UIImage(named:"instagram")!, UIImage(named:"twitter")!, UIImage(named:"facebook")!, UIImage(named:"youtube")!]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,9 +137,7 @@ class LogoViewController: UIViewController {
         setupFreeLabel()
         setupFreeView()
         setupFreeLogoCollectionView()
-        setupPaidLabel()
-        setupPaidView()
-        setupPaidLogoCollectionView()
+        setupPickerButton()
         setupLogoFromRealm()
     }
     

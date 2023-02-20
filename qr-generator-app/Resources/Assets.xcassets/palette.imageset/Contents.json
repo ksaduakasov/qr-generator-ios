@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "palette.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -9,7 +10,6 @@
       "scale" : "2x"
     },
     {
-      "filename" : "Paint-Palette-Design-PNG-Photo.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

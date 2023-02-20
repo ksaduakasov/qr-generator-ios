@@ -15,6 +15,14 @@ class QRViewController: UIViewController {
     let qrImageView = UIImageView()
     var data = ""
     
+    let editLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Edit"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        return titleLabel
+    }()
+    
     let textView: UIView = {
         let view = UIView()
         view.isHidden = true
@@ -55,62 +63,101 @@ class QRViewController: UIViewController {
         return view
     }()
     
-    let colorButton: UIButton = {
-        let button = HexagonButton()
-        button.setTitle("Color", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(openColorVC), for: .touchUpInside)
-        return button
+    let colorButton: UIView = {
+        let view = UIView()
+        return view
     }()
     
-    let dotsButton: UIButton = {
-        let button = HexagonButton()
-        button.setTitle("Dots", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(openDotsVC), for: .touchUpInside)
-        return button
+    let colorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Color"
+        label.textColor = .black
+        return label
     }()
     
-    let eyesButton: UIButton = {
-        let button = HexagonButton()
-        button.setTitle("Eyes", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(openEyesVC), for: .touchUpInside)
-        button.transform = CGAffineTransform.identity
-
-
-        return button
+    let colorImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "color")
+        return imageView
     }()
     
-    let logoButton: UIButton = {
-        let button = HexagonButton()
-        button.setTitle("Logo", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(openLogoVC), for: .touchUpInside)
-        return button
+    let dotsButton: UIView = {
+        let view = UIView()
+        
+        return view
     }()
     
-    let textButton: UIButton = {
-        let button = HexagonButton()
-        button.setTitle("Text", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(openTextVC), for: .touchUpInside)
-        return button
+    let dotsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Dots"
+        label.textColor = .black
+        return label
+    }()
+    
+    let dotsImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "circleLogo")
+        return imageView
+    }()
+    
+    let eyesButton: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let eyesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Eyes"
+        label.textColor = .black
+        return label
+    }()
+    
+    let eyesImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "eyeLogo")
+        return imageView
+    }()
+    
+    let logoButton: UIView = {
+        let view = UIView()
+        
+        return view
+    }()
+    
+    let logoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Logo"
+        label.textColor = .black
+        return label
+    }()
+    
+    let logoImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "cleverest")
+        return imageView
+    }()
+    
+    let textButton: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    let textBtnLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Text"
+        label.textColor = .black
+        return label
+    }()
+    
+    let textImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "textButton")
+        return imageView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
-        let saveButton = UIBarButtonItem(title: "SAVE", style: .plain, target: self, action: #selector(saveButtonTapped))
-        navigationItem.rightBarButtonItem = saveButton
-        
-        let titleLabel = UILabel()
-        titleLabel.text = "Edit"
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        navigationItem.titleView = titleLabel
         setupUI()
     }
     
@@ -120,22 +167,28 @@ class QRViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        // Handle the back button tap
-        showQuitAlert()
+        let vc = ResultViewController()
+        vc.data = data
+//        vc.qrImageView = qrImageView
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func setupUI() {
         setGradient()
+        setNavigationItems()
         setupImageView()
         setupTextView()
         setupTextLabel()
         setupButtonsView()
         setupButtonInnerView()
-        setupEyesButton()
-        setupTextButton()
-        setupLogoButton()
         setupColorButton()
         setupDotsButton()
+        setupEyesButton()
+        setupLogoButton()
+        setupTextButton()
+
+        
+        
         //        setupButtonConstraints()
     }
     
@@ -163,9 +216,20 @@ class QRViewController: UIViewController {
             // Delete all data from Realm
             let realm = try! Realm()
             try! realm.write {
-                realm.deleteAll()
+                let color = realm.objects(QRCodeColor.self)
+                let dots = realm.objects(QRCodeDots.self)
+                let eyes = realm.objects(QRCodeEyes.self)
+                let logo = realm.objects(QRCodeLogo.self)
+                let text = realm.objects(QRCodeText.self)
+
+                realm.delete(color)
+                realm.delete(dots)
+                realm.delete(eyes)
+                realm.delete(logo)
+                realm.delete(text)
+
             }
-            self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
             
         }
         alert.addAction(quitAction)
@@ -175,7 +239,7 @@ class QRViewController: UIViewController {
     
     @objc func openColorVC() {
         openColorViewController()
-    
+        
     }
     
     @objc func openDotsVC() {
@@ -196,8 +260,6 @@ class QRViewController: UIViewController {
         openTextViewController()
         
     }
-    
-    
     
     func generateQRCode(from string: String) -> UIImage? {
         let doc = QRCode.Document(utf8String: data, errorCorrection: .high)
