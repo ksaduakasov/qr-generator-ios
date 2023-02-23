@@ -24,7 +24,6 @@
 		E8858CCA2994F6A300E30828 /* DotsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CC92994F6A300E30828 /* DotsViewController.swift */; };
 		E8858CCC2994F6AC00E30828 /* EyesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CCB2994F6AC00E30828 /* EyesViewController.swift */; };
 		E8858CCE2994F6BB00E30828 /* LogoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CCD2994F6BB00E30828 /* LogoViewController.swift */; };
-		E8858CD02994F6C100E30828 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CCF2994F6C100E30828 /* TemplateViewController.swift */; };
 		E8858CD22994F6CC00E30828 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CD12994F6CC00E30828 /* TextViewController.swift */; };
 		E8858CD42994F80700E30828 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8858CD32994F80700E30828 /* ColorCell.swift */; };
 		E8C1715429A298ED00183AB9 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1715329A298ED00183AB9 /* PresentationController.swift */; };
@@ -41,6 +40,10 @@
 		E8C1716C29A3EE8300183AB9 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1716B29A3EE8300183AB9 /* HistoryCell.swift */; };
 		E8C1716E29A4072300183AB9 /* QRPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1716D29A4072300183AB9 /* QRPreviewViewController.swift */; };
 		E8C1717029A4083800183AB9 /* QRPreviewViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1716F29A4083800183AB9 /* QRPreviewViewControllerExtension.swift */; };
+		E8C1717229A4D0F600183AB9 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1717129A4D0F600183AB9 /* LinearGradient.swift */; };
+		E8C1717429A67E6D00183AB9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C1717329A67E6D00183AB9 /* StoreKit.framework */; };
+		E8C1717929A69B8A00183AB9 /* KSPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C1717829A69B8A00183AB9 /* KSPurchase.swift */; };
+		E8C1717F29A6B43500183AB9 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = E8C1717E29A6B43500183AB9 /* StoreKitTestCertificate.cer */; };
 		E8EA9467299B984900CB36D9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9466299B984900CB36D9 /* UIColor.swift */; };
 		E8EA9469299BA08300CB36D9 /* QRCodeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9468299BA08300CB36D9 /* QRCodeColor.swift */; };
 		E8EA946B299BA08B00CB36D9 /* QRCodeDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA946A299BA08B00CB36D9 /* QRCodeDots.swift */; };
@@ -51,7 +54,6 @@
 		E8EA9475299C0D0400CB36D9 /* DotsViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9474299C0D0400CB36D9 /* DotsViewControllerExtension.swift */; };
 		E8EA9477299C0D3400CB36D9 /* EyesViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9476299C0D3400CB36D9 /* EyesViewControllerExtension.swift */; };
 		E8EA9479299C0D6100CB36D9 /* LogoViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9478299C0D6100CB36D9 /* LogoViewControllerExtension.swift */; };
-		E8EA947B299C0D8700CB36D9 /* TemplateViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA947A299C0D8700CB36D9 /* TemplateViewControllerExtension.swift */; };
 		E8EA947D299C0D9500CB36D9 /* TextViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA947C299C0D9500CB36D9 /* TextViewControllerExtension.swift */; };
 		E8EA9480299C0EB200CB36D9 /* QRViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA947F299C0EB200CB36D9 /* QRViewControllerExtension.swift */; };
 		E8EA9482299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EA9481299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift */; };
@@ -81,7 +83,6 @@
 		E8858CC92994F6A300E30828 /* DotsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsViewController.swift; sourceTree = "<group>"; };
 		E8858CCB2994F6AC00E30828 /* EyesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyesViewController.swift; sourceTree = "<group>"; };
 		E8858CCD2994F6BB00E30828 /* LogoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoViewController.swift; sourceTree = "<group>"; };
-		E8858CCF2994F6C100E30828 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		E8858CD12994F6CC00E30828 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		E8858CD32994F80700E30828 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		E8C1715329A298ED00183AB9 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
@@ -98,6 +99,11 @@
 		E8C1716B29A3EE8300183AB9 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		E8C1716D29A4072300183AB9 /* QRPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPreviewViewController.swift; sourceTree = "<group>"; };
 		E8C1716F29A4083800183AB9 /* QRPreviewViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPreviewViewControllerExtension.swift; sourceTree = "<group>"; };
+		E8C1717129A4D0F600183AB9 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
+		E8C1717329A67E6D00183AB9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		E8C1717829A69B8A00183AB9 /* KSPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSPurchase.swift; sourceTree = "<group>"; };
+		E8C1717D29A6B42500183AB9 /* config.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = config.storekit; sourceTree = "<group>"; };
+		E8C1717E29A6B43500183AB9 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		E8EA9466299B984900CB36D9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E8EA9468299BA08300CB36D9 /* QRCodeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeColor.swift; sourceTree = "<group>"; };
 		E8EA946A299BA08B00CB36D9 /* QRCodeDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeDots.swift; sourceTree = "<group>"; };
@@ -108,7 +114,6 @@
 		E8EA9474299C0D0400CB36D9 /* DotsViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA9476299C0D3400CB36D9 /* EyesViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyesViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA9478299C0D6100CB36D9 /* LogoViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoViewControllerExtension.swift; sourceTree = "<group>"; };
-		E8EA947A299C0D8700CB36D9 /* TemplateViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA947C299C0D9500CB36D9 /* TextViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA947F299C0EB200CB36D9 /* QRViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewControllerExtension.swift; sourceTree = "<group>"; };
 		E8EA9481299C0F3500CB36D9 /* WelcomeViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -122,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8C1717429A67E6D00183AB9 /* StoreKit.framework in Frameworks */,
 				E8315886299796CA00BA51ED /* QRCode in Frameworks */,
 				CE5ACA5D3658290D05B3A7DC /* Pods_qr_generator_app.framework in Frameworks */,
 			);
@@ -133,6 +139,7 @@
 		C551C01555FE11787D023562 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E8C1717329A67E6D00183AB9 /* StoreKit.framework */,
 				3474967F85F34D18288BA430 /* Pods_qr_generator_app.framework */,
 			);
 			name = Frameworks;
@@ -195,6 +202,8 @@
 				E8858CBC2994F5D500E30828 /* QRCustomization */,
 				E8858CBB2994F4C100E30828 /* Resources */,
 				E8858CBA2994F49B00E30828 /* Application */,
+				E8C1717D29A6B42500183AB9 /* config.storekit */,
+				E8C1717E29A6B43500183AB9 /* StoreKitTestCertificate.cer */,
 			);
 			path = "qr-generator-app";
 			sourceTree = "<group>";
@@ -226,7 +235,6 @@
 				E8858CC92994F6A300E30828 /* DotsViewController.swift */,
 				E8858CCB2994F6AC00E30828 /* EyesViewController.swift */,
 				E8858CCD2994F6BB00E30828 /* LogoViewController.swift */,
-				E8858CCF2994F6C100E30828 /* TemplateViewController.swift */,
 				E8858CD12994F6CC00E30828 /* TextViewController.swift */,
 				E831588F299B969B00BA51ED /* Models */,
 				E8858CC52994F67800E30828 /* Cells */,
@@ -242,6 +250,7 @@
 				E8315889299811D900BA51ED /* EyesCell.swift */,
 				E831588B29981ED900BA51ED /* FontColorCell.swift */,
 				E831588D29981EE300BA51ED /* FontCell.swift */,
+				E8C1717129A4D0F600183AB9 /* LinearGradient.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -253,7 +262,6 @@
 				E8EA9474299C0D0400CB36D9 /* DotsViewControllerExtension.swift */,
 				E8EA9476299C0D3400CB36D9 /* EyesViewControllerExtension.swift */,
 				E8EA9478299C0D6100CB36D9 /* LogoViewControllerExtension.swift */,
-				E8EA947A299C0D8700CB36D9 /* TemplateViewControllerExtension.swift */,
 				E8EA947C299C0D9500CB36D9 /* TextViewControllerExtension.swift */,
 				E8C1715A29A2B82500183AB9 /* UIView.swift */,
 				E8C1716729A3DC7A00183AB9 /* UIImage.swift */,
@@ -290,6 +298,7 @@
 				E8EA948B299FA2DC00CB36D9 /* HexagonButton.swift */,
 				E8C1716529A3C02100183AB9 /* ImageSaver.swift */,
 				E8C1716929A3E84500183AB9 /* QRCode.swift */,
+				E8C1717829A69B8A00183AB9 /* KSPurchase.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -362,6 +371,7 @@
 			files = (
 				E8858CB32994F46D00E30828 /* LaunchScreen.storyboard in Resources */,
 				E8858CB02994F46D00E30828 /* Assets.xcassets in Resources */,
+				E8C1717F29A6B43500183AB9 /* StoreKitTestCertificate.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +432,7 @@
 				E8C1716A29A3E84500183AB9 /* QRCode.swift in Sources */,
 				E8C1715B29A2B82500183AB9 /* UIView.swift in Sources */,
 				E8C1715D29A396C600183AB9 /* QRContentViewControllerExtension.swift in Sources */,
+				E8C1717929A69B8A00183AB9 /* KSPurchase.swift in Sources */,
 				E8C1715429A298ED00183AB9 /* PresentationController.swift in Sources */,
 				E8EA946B299BA08B00CB36D9 /* QRCodeDots.swift in Sources */,
 				E8EA9475299C0D0400CB36D9 /* DotsViewControllerExtension.swift in Sources */,
@@ -437,13 +448,11 @@
 				E8C1715629A2B1C500183AB9 /* ImagePickerManager.swift in Sources */,
 				E8EA946F299BA09800CB36D9 /* QRCodeText.swift in Sources */,
 				E8C1716E29A4072300183AB9 /* QRPreviewViewController.swift in Sources */,
-				E8858CD02994F6C100E30828 /* TemplateViewController.swift in Sources */,
 				E8858CCA2994F6A300E30828 /* DotsViewController.swift in Sources */,
 				E8858CC82994F69A00E30828 /* ColorViewController.swift in Sources */,
 				E8C1716229A3A1FE00183AB9 /* HistoryViewController.swift in Sources */,
 				E8858CCE2994F6BB00E30828 /* LogoViewController.swift in Sources */,
 				E83158882997B1AC00BA51ED /* DotsCell.swift in Sources */,
-				E8EA947B299C0D8700CB36D9 /* TemplateViewControllerExtension.swift in Sources */,
 				E8EA9480299C0EB200CB36D9 /* QRViewControllerExtension.swift in Sources */,
 				E8EA946D299BA09200CB36D9 /* QRCodeEyes.swift in Sources */,
 				E8C1715F29A39ABD00183AB9 /* ResultViewControllerExtension.swift in Sources */,
@@ -454,6 +463,7 @@
 				E8EA947D299C0D9500CB36D9 /* TextViewControllerExtension.swift in Sources */,
 				E8EA9484299CE28700CB36D9 /* QRCodeLogo.swift in Sources */,
 				E8EA9489299E335F00CB36D9 /* OptionsCell.swift in Sources */,
+				E8C1717229A4D0F600183AB9 /* LinearGradient.swift in Sources */,
 				E8858CC02994F60D00E30828 /* QRViewController.swift in Sources */,
 				E8C1716C29A3EE8300183AB9 /* HistoryCell.swift in Sources */,
 				E8858CD42994F80700E30828 /* ColorCell.swift in Sources */,
@@ -599,25 +609,33 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HLDQ2GS8K3;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 8XH76W839M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "qr-generator-app/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "QR Generator";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "kalbek.qr-generator-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "ios.clevtech.qr-generator-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -628,25 +646,33 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = HLDQ2GS8K3;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 8XH76W839M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "qr-generator-app/Resources/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "QR Generator";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app requires access to the photo library.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "kalbek.qr-generator-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "ios.clevtech.qr-generator-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

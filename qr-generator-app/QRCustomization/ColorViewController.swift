@@ -24,6 +24,14 @@ class ColorViewController: UIViewController {
     
     var delegate: ColorDelegate?
     
+    let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Color"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        return titleLabel
+    }()
+    
     let qrImageView = UIImageView()
     var data = ""
     
@@ -53,6 +61,7 @@ class ColorViewController: UIViewController {
     
     let discardButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return button
@@ -60,6 +69,7 @@ class ColorViewController: UIViewController {
     
     let confirmButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
         button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return button
@@ -70,6 +80,7 @@ class ColorViewController: UIViewController {
     let freeLabel: UILabel = {
         let label = UILabel()
         label.text = "Free Colors"
+        label.textColor = .white
         return label
     }()
     
@@ -92,7 +103,8 @@ class ColorViewController: UIViewController {
     
     let paidLabel: UILabel = {
         let label = UILabel()
-        label.text = "Premium Eyes Patterns"
+        label.text = "Premium Colors"
+        label.textColor = .white
         return label
     }()
     
@@ -101,23 +113,13 @@ class ColorViewController: UIViewController {
         return view
     }()
     
-    let gradientsCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(ColorCell.self, forCellWithReuseIdentifier: "ColorCell")
-        cv.backgroundColor = .clear
-        cv.showsHorizontalScrollIndicator = false
-        return cv
-    }()
-    
     let pickerButton: UIButton = {
         var filled = UIButton.Configuration.filled()
         filled.title = "Set Custom Color"
         filled.buttonSize = .large
         filled.subtitle = "with color picker"
         filled.image = UIImage(systemName: "paintpalette.fill")
-        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        filled.baseBackgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         
         filled.imagePlacement = .trailing
         filled.imagePadding = 10
@@ -130,27 +132,30 @@ class ColorViewController: UIViewController {
     let picker = UIColorPickerViewController()
     
     let colors: [UIColor] = [
-        .red, .green, .blue, .yellow, .purple, .orange,
-        .cyan, .magenta, .brown, .black, .darkGray, .lightGray,
-        .gray, .systemRed, .systemGreen, .systemBlue,
-        .systemYellow, .systemPurple, .systemOrange, .systemPink,
-        .systemTeal, .systemIndigo, .systemGray, .systemPink,
-        .systemRed, .systemGreen, .systemBlue, .systemYellow,
-        .systemPurple, .systemOrange
+        UIColor.systemRed,
+        UIColor.systemGreen,
+        UIColor.systemBlue,
+        UIColor.systemOrange,
+        UIColor.systemYellow,
+        UIColor.systemPink,
+        UIColor.systemPurple,
+        UIColor.systemTeal,
+        UIColor.systemIndigo,
+        UIColor.systemGray,
+        UIColor.black,
+        UIColor.white
     ]
-    
-    var gradients: [UIColor] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        
+        navigationItem.titleView = titleLabel
         setupUI()
     }
     
     func setupUI() {
         setGradient()
-        setGradientsArray()
+        //        setGradientsArray()
         setupQRImageView()
         setupTextView()
         setupTextLabel()
@@ -163,10 +168,7 @@ class ColorViewController: UIViewController {
         setupFreeView()
         setupColorsCollectionView()
         setupPaidLabel()
-        setupPaidView()
-        setupGradientsCollectionView()
         setupPickerButton()
-        setupColorPicker()
         setupColorsFromRealm()
     }
     
@@ -223,11 +225,20 @@ class ColorViewController: UIViewController {
     }
     
     @objc func showColorPicker() {
-        let picker = UIColorPickerViewController()
-        picker.delegate = self
-        picker.modalPresentationStyle = .custom
-        picker.transitioningDelegate = self
-        self.present(picker, animated: true, completion: nil)
+        let purchase = KSPurchase()
+        if !purchase.hasPremium() {
+            let alert = purchase.showAlertToGetPremium()
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            let picker = UIColorPickerViewController()
+            picker.delegate = self
+            picker.modalPresentationStyle = .custom
+            picker.transitioningDelegate = self
+            self.present(picker, animated: true, completion: nil)
+        }
+        
+        
         
     }
     

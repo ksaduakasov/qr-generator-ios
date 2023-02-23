@@ -18,8 +18,9 @@ class QRViewController: UIViewController {
     let editLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.text = "Edit"
+        titleLabel.textColor = .white
         titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return titleLabel
     }()
     
@@ -71,7 +72,7 @@ class QRViewController: UIViewController {
     let colorLabel: UILabel = {
         let label = UILabel()
         label.text = "Color"
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -90,7 +91,7 @@ class QRViewController: UIViewController {
     let dotsLabel: UILabel = {
         let label = UILabel()
         label.text = "Dots"
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -108,7 +109,7 @@ class QRViewController: UIViewController {
     let eyesLabel: UILabel = {
         let label = UILabel()
         label.text = "Eyes"
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -127,7 +128,7 @@ class QRViewController: UIViewController {
     let logoLabel: UILabel = {
         let label = UILabel()
         label.text = "Logo"
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -145,7 +146,7 @@ class QRViewController: UIViewController {
     let textBtnLabel: UILabel = {
         let label = UILabel()
         label.text = "Text"
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -196,8 +197,8 @@ class QRViewController: UIViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

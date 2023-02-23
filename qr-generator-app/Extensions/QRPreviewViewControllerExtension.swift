@@ -13,8 +13,8 @@ extension QRPreviewViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
@@ -25,9 +25,9 @@ extension QRPreviewViewController {
     
     func setupNavigationItems() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
-        backButton.tintColor = UIColor.black
+        backButton.tintColor = UIColor.white
         let createButton = UIBarButtonItem(image: UIImage(systemName: "house.fill"), style: .plain, target: self, action: #selector(homeButtonTapped))
-        createButton.tintColor = .black
+        createButton.tintColor = .white
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = createButton
@@ -58,7 +58,7 @@ extension QRPreviewViewController {
         shareButton.addGestureRecognizer(tapGesture)
         shareButton.isUserInteractionEnabled = true
         
-        shareButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        shareButton.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         shareButton.layer.cornerRadius = view.bounds.width / 14
         shareButton.layer.masksToBounds = true
         view.addSubview(shareButton)
@@ -88,7 +88,7 @@ extension QRPreviewViewController {
         saveQRButton.addGestureRecognizer(tapGesture)
         saveQRButton.isUserInteractionEnabled = true
         
-        saveQRButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        saveQRButton.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         saveQRButton.layer.cornerRadius = view.bounds.width / 14
         saveQRButton.layer.masksToBounds = true
         view.addSubview(saveQRButton)

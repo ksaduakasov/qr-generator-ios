@@ -12,7 +12,9 @@ import QRCode
 extension QRViewController {
     func setNavigationItems() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+        backButton.tintColor = .white
         let saveButton = UIBarButtonItem(title: "SAVE", style: .plain, target: self, action: #selector(saveButtonTapped))
+        saveButton.tintColor = .white
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = saveButton
         navigationItem.titleView = editLabel
@@ -49,7 +51,7 @@ extension QRViewController {
     }
     
     func setupButtonsView() {
-        buttonsView.backgroundColor = .white
+        buttonsView.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
         buttonsView.layer.cornerRadius = 20
         view.addSubview(buttonsView)
         
@@ -98,7 +100,7 @@ extension QRViewController {
     }
     
     func setupColorButton() {
-        colorButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        colorButton.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         colorButton.layer.cornerRadius = view.bounds.width / 20
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openColorVC))
         colorButton.addGestureRecognizer(tapGesture)
@@ -124,7 +126,7 @@ extension QRViewController {
     }
     
     func setupDotsButton() {
-        dotsButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        dotsButton.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         dotsButton.layer.cornerRadius = view.bounds.width / 20
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openDotsVC))
         dotsButton.addGestureRecognizer(tapGesture)
@@ -150,7 +152,7 @@ extension QRViewController {
     }
     
     func setupEyesButton() {
-        eyesButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        eyesButton.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         eyesButton.layer.cornerRadius = view.bounds.width / 20
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openEyesVC))
         eyesButton.addGestureRecognizer(tapGesture)
@@ -176,7 +178,7 @@ extension QRViewController {
     }
     
     func setupLogoButton() {
-        logoButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        logoButton.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         logoButton.layer.cornerRadius = view.bounds.width / 20
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openLogoVC))
         logoButton.addGestureRecognizer(tapGesture)
@@ -202,7 +204,7 @@ extension QRViewController {
     }
     
     func setupTextButton() {
-        textButton.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        textButton.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         textButton.layer.cornerRadius = view.bounds.width / 20
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openTextVC))
         textButton.addGestureRecognizer(tapGesture)
@@ -230,8 +232,8 @@ extension QRViewController {
     
     
     func openTemplateViewController() {
-        let templateVC = TemplateViewController()
-        navigationController?.pushViewController(templateVC, animated: true)
+//        let templateVC = TemplateViewController()
+//        navigationController?.pushViewController(templateVC, animated: true)
     }
     
     func openColorViewController() {

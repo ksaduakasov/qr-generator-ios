@@ -19,6 +19,14 @@ class TextViewController: UIViewController {
     
     var delegate: TextDelegate?
     
+    let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Text"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        return titleLabel
+    }()
+    
     let qrImageView = UIImageView()
     var data = ""
     
@@ -50,6 +58,7 @@ class TextViewController: UIViewController {
     
     let discardButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return button
@@ -57,6 +66,7 @@ class TextViewController: UIViewController {
     
     let confirmButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
         button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return button
@@ -67,7 +77,10 @@ class TextViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.layer.masksToBounds = true
         textField.layer.borderWidth = 0.2
+        textField.layer.borderColor = UIColor.white.cgColor
         textField.textAlignment = .center
+        textField.textColor = .white
+        textField.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         let placeholderString = NSAttributedString(string: "Please fill in the text here...", attributes: [.foregroundColor: UIColor.lightGray])
         let style = NSMutableParagraphStyle()
         style.alignment = .center
@@ -94,6 +107,7 @@ class TextViewController: UIViewController {
     
     let colorLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.text = "Solid color"
         return label
     }()
@@ -102,6 +116,7 @@ class TextViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
         cv.register(FontColorCell.self, forCellWithReuseIdentifier: "FontColorCell")
         cv.showsHorizontalScrollIndicator = false
         //        cv.backgroundColor = .yellow
@@ -110,12 +125,13 @@ class TextViewController: UIViewController {
     
     let fontView: UIView = {
         let view = UIView()
-        //        view.backgroundColor = .yellow
+        view.backgroundColor = .clear
         return view
     }()
     
     let fontLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.text = "Font"
         return label
     }()
@@ -133,55 +149,55 @@ class TextViewController: UIViewController {
     
     let fontButton1: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.addTarget(self, action: #selector(changeFont), for: .touchUpInside)
         button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
     let fontButton2: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.addTarget(self, action: #selector(changeFont), for: .touchUpInside)
         button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
     let fontButton3: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.addTarget(self, action: #selector(changeFont), for: .touchUpInside)
         button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
     let fontButton4: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.addTarget(self, action: #selector(changeFont), for: .touchUpInside)
         button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
     let fontButton5: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.addTarget(self, action: #selector(changeFont), for: .touchUpInside)
         button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
     let fontButton6: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.addTarget(self, action: #selector(changeFont), for: .touchUpInside)
         button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
@@ -207,13 +223,18 @@ class TextViewController: UIViewController {
     }()
     
     let colors: [UIColor] = [
-        .red, .green, .blue, .yellow, .purple, .orange,
-        .cyan, .magenta, .brown, .black, .darkGray, .lightGray,
-        .gray, .systemRed, .systemGreen, .systemBlue,
-        .systemYellow, .systemPurple, .systemOrange, .systemPink,
-        .systemTeal, .systemIndigo, .systemGray, .systemPink,
-        .systemRed, .systemGreen, .systemBlue, .systemYellow,
-        .systemPurple, .systemOrange
+        UIColor.systemRed,
+        UIColor.systemGreen,
+        UIColor.systemBlue,
+        UIColor.systemOrange,
+        UIColor.systemYellow,
+        UIColor.systemPink,
+        UIColor.systemPurple,
+        UIColor.systemTeal,
+        UIColor.systemIndigo,
+        UIColor.systemGray,
+        UIColor.black,
+        UIColor.white
     ]
     
     let fontTypes = ["AmericanTypewriter", "Avenir-BookOblique", "Copperplate", "Didot", "GillSans-SemiBold", "MarkerFelt-Thin", "Menlo-Regular"]
@@ -223,6 +244,7 @@ class TextViewController: UIViewController {
         view.backgroundColor = .lightGray
         textField.delegate = self
         textField.inputAccessoryView = toolbar
+        navigationItem.titleView = titleLabel
         setupUI()
     }
     
@@ -244,6 +266,7 @@ class TextViewController: UIViewController {
         setupAboveView()
         setupBelowView()
         setupFontButtons()
+
         
         setupTextFromRealm()
     }
@@ -276,28 +299,35 @@ class TextViewController: UIViewController {
     }
     
     @objc func changeFont(_ sender: UIButton) {
-        switch sender {
-        case fontButton1:
-            selectedTextFont = UIFont(name: fontTypes[0], size: 20)!
-            textLabel.font = selectedTextFont
-        case fontButton2:
-            selectedTextFont = UIFont(name: fontTypes[1], size: 20)!
-            textLabel.font = selectedTextFont
-        case fontButton3:
-            selectedTextFont = UIFont(name: fontTypes[2], size: 20)!
-            textLabel.font = selectedTextFont
-        case fontButton4:
-            selectedTextFont = UIFont(name: fontTypes[3], size: 20)!
-            textLabel.font = selectedTextFont
-        case fontButton5:
-            selectedTextFont = UIFont(name: fontTypes[4], size: 20)!
-            textLabel.font = selectedTextFont
-        case fontButton6:
-            selectedTextFont = UIFont(name: fontTypes[5], size: 20)!
-            textLabel.font = selectedTextFont
-        default:
-            print(2)
+        let purchase = KSPurchase()
+        if !purchase.hasPremium() {
+            let alert = purchase.showAlertToGetPremium()
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            switch sender {
+            case fontButton1:
+                selectedTextFont = UIFont(name: fontTypes[0], size: 20)!
+                textLabel.font = selectedTextFont
+            case fontButton2:
+                selectedTextFont = UIFont(name: fontTypes[1], size: 20)!
+                textLabel.font = selectedTextFont
+            case fontButton3:
+                selectedTextFont = UIFont(name: fontTypes[2], size: 20)!
+                textLabel.font = selectedTextFont
+            case fontButton4:
+                selectedTextFont = UIFont(name: fontTypes[3], size: 20)!
+                textLabel.font = selectedTextFont
+            case fontButton5:
+                selectedTextFont = UIFont(name: fontTypes[4], size: 20)!
+                textLabel.font = selectedTextFont
+            case fontButton6:
+                selectedTextFont = UIFont(name: fontTypes[5], size: 20)!
+                textLabel.font = selectedTextFont
+            default:
+                print(2)
+            }
         }
+        
     }
     
     @objc func goBack() {

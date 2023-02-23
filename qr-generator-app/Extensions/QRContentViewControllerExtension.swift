@@ -11,7 +11,9 @@ import UIKit
 extension QRContentViewController {
     func setupNavigationItems() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+        backButton.tintColor = .white
         let createButton = UIBarButtonItem(title: "CREATE", style: .plain, target: self, action: #selector(createButtonTapped))
+        createButton.tintColor = .white
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = createButton
         navigationItem.titleView = titleLabel
@@ -64,15 +66,15 @@ extension QRContentViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "optionsCell", for: indexPath) as! OptionsCell
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
         let item = data[indexPath.item]
         cell.imageLogo.image = UIImage(named: item.image)
         cell.title.text = item.title
         
-        cell.backgroundColor = UIColor.white
+        cell.backgroundColor = UIColor(red: 120/255, green: 120/255, blue: 120/255, alpha: 1)
         cell.layer.borderColor = UIColor.clear.cgColor
-        cell.layer.cornerRadius = 5
         cell.layer.shadowOpacity = 0.1
-        cell.layer.shadowRadius = 2
         cell.layer.shadowOffset = CGSize(width: 0, height: 2)
         cell.layer.shadowColor = UIColor.black.cgColor
         return cell
@@ -109,8 +111,8 @@ extension QRContentViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

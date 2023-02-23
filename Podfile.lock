@@ -1,4 +1,11 @@
 PODS:
+  - DynamicBlurView (4.1.0)
+  - GradientView (2.3.4)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
+  - Purchases (3.14.3):
+    - PurchasesCoreSwift (= 3.14.3)
+  - PurchasesCoreSwift (3.14.3)
   - Realm (10.35.1):
     - Realm/Headers (= 10.35.1)
   - Realm/Headers (10.35.1)
@@ -8,23 +15,36 @@ PODS:
   - WMSegmentControl (2.3)
 
 DEPENDENCIES:
+  - GradientView
+  - PopupDialog
+  - Purchases
   - RealmSwift
   - SnapKit
   - WMSegmentControl
 
 SPEC REPOS:
   trunk:
+    - DynamicBlurView
+    - GradientView
+    - PopupDialog
+    - Purchases
+    - PurchasesCoreSwift
     - Realm
     - RealmSwift
     - SnapKit
     - WMSegmentControl
 
 SPEC CHECKSUMS:
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
+  GradientView: 61d79cc948bf66f9d453865794ace916c2ba0918
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
+  Purchases: ba5a570357564da5d5447281190b5ac5ab9b8f3e
+  PurchasesCoreSwift: 78a2001158d7fed44f9796ea50b89152ba727520
   Realm: ee5a67274a2c338dec50f5e01a811b6b8d657a10
   RealmSwift: 82f822142caa1e6ab96d3ea30bc83233e3d78ea3
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   WMSegmentControl: 15120246d0fdbb7530d7fa03e90c3ec6f4fa85bd
 
-PODFILE CHECKSUM: 749450860a4d21fe2474a497fd6cc67abdae877b
+PODFILE CHECKSUM: b673235038f7a9ddef8c5e739a101881a2ce7d3f
 
 COCOAPODS: 1.11.3

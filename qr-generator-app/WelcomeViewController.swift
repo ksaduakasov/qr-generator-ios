@@ -7,6 +7,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
+import Purchases
 
 class WelcomeViewController: UIViewController {
     
@@ -43,11 +44,11 @@ class WelcomeViewController: UIViewController {
         filled.buttonSize = .large
         filled.image = UIImage(systemName: "archivebox.circle.fill")
         filled.imagePlacement = .trailing
-        filled.imagePadding = 10
-//        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
 
-        let button = UIButton(configuration: filled, primaryAction: nil)
+        let button = UIButton()
         button.addTarget(self, action: #selector(openHistory), for: .touchUpInside)
+        button.titleLabel!.text = "Show History"
         return button
     }()
     
@@ -56,14 +57,18 @@ class WelcomeViewController: UIViewController {
         view.backgroundColor = .white
         print(realm.configuration.fileURL!)
         setupUI()
+        
+
+        
     }
-    
+
+        
     func setupUI() {
         setGradient()
         setupButton()
         setupButtonImage()
         setupButtonLabel()
-        setupHistoryButton()
+        setupNavigationItems()
     }
     
     @objc func goToSelection() {

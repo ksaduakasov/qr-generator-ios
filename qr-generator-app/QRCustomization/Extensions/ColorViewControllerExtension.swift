@@ -40,7 +40,7 @@ extension ColorViewController {
     }
     
     func setupFunctionalView() {
-        functionalView.backgroundColor = .systemGray6
+        functionalView.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
         view.addSubview(functionalView)
         functionalView.snp.makeConstraints { make in
             make.top.equalTo(qrImageView.snp.bottom).offset(view.bounds.height / 10)
@@ -51,7 +51,7 @@ extension ColorViewController {
     }
     
     func setupControlView() {
-        controlView.backgroundColor = .white
+        controlView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)
         functionalView.addSubview(controlView)
         controlView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -82,9 +82,9 @@ extension ColorViewController {
         anotherSegment.type = .normal
         anotherSegment.selectorType = .bottomBar
         anotherSegment.buttonTitles = "Foreground, Background"
-        anotherSegment.textColor = .black
-        anotherSegment.selectorTextColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
-        anotherSegment.selectorColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        anotherSegment.textColor = .white
+        anotherSegment.selectorTextColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
+        anotherSegment.selectorColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         anotherSegment.SelectedFont = UIFont(name: "ChalkboardSE-Bold", size: 15)!
         anotherSegment.normalFont = UIFont(name: "ChalkboardSE-Regular", size: 15)!
         anotherSegment.selectedSegmentIndex = 0
@@ -134,79 +134,33 @@ extension ColorViewController {
         }
     }
     
-    func setupPaidView() {
-        freeView.backgroundColor = .clear
-        functionalView.addSubview(paidView)
-        paidView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(paidLabel.snp.bottom).offset(10)
-            make.height.equalToSuperview().dividedBy(7)
-        }
-    }
-    
-    func setupGradientsCollectionView() {
-        gradientsCollectionView.dataSource = self
-        gradientsCollectionView.delegate = self
-        gradientsCollectionView.backgroundColor = .clear
-        paidView.addSubview(gradientsCollectionView)
-        
-        gradientsCollectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
     
     func setupPickerButton() {
         functionalView.addSubview(pickerButton)
         
         pickerButton.snp.makeConstraints { make in
-            make.top.equalTo(paidView.snp.bottom).offset(20)
+            make.top.equalTo(paidLabel.snp.bottom).offset(20)
             make.height.equalToSuperview().dividedBy(7)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().dividedBy(1.8)
         }
     }
-    
-    func setGradientsArray() {
-        gradients = [
-            gradientColor(start: UIColor.white, end: UIColor.black),
-            gradientColor(start: UIColor.red, end: UIColor.yellow),
-            gradientColor(start: UIColor.blue, end: UIColor.green)
-            // Add more gradients here
-        ]
-    }
-    
-    func setupColorPicker() {
-        
-    }
 }
 
 extension ColorViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == colorsCollectionView {
             return colors.count
-        }
-        return gradients.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == colorsCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell", for: indexPath) as! ColorCell
             cell.backgroundColor = colors[indexPath.item]
-            cell.color = colors[indexPath.item]
             cell.layer.cornerRadius = 5
             cell.layer.masksToBounds = true
             cell.layer.borderWidth = 0.5
             cell.layer.borderColor = UIColor.black.cgColor
             return cell
-        }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCell", for: indexPath) as! ColorCell
-        cell.backgroundColor = gradients[indexPath.item]
-        cell.color = gradients[indexPath.item]
-        cell.layer.cornerRadius = 5
-        cell.layer.masksToBounds = true
-        cell.layer.borderWidth = 0.5
-        cell.layer.borderColor = UIColor.black.cgColor
-        return cell
+
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -233,8 +187,8 @@ extension ColorViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

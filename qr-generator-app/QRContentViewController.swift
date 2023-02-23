@@ -21,12 +21,13 @@ class QRContentViewController: UIViewController {
         titleLabel.text = "Create"
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        titleLabel.textColor = .white
         return titleLabel
     }()
     
     let textView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 120/255, green: 120/255, blue: 120/255, alpha: 1)
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         return view
@@ -35,6 +36,7 @@ class QRContentViewController: UIViewController {
     let textLabel: UILabel = {
         let label = UILabel()
         label.text = "Choose the type of content"
+        label.textColor = .white
         return label
     }()
     
@@ -46,6 +48,8 @@ class QRContentViewController: UIViewController {
         attributedPlaceholder.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: placeholderString.length))
         textField.attributedPlaceholder = attributedPlaceholder
         textField.isHidden = true
+        textField.textColor = .white
+        textField.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         return textField
     }()
     
@@ -74,9 +78,9 @@ class QRContentViewController: UIViewController {
     
     
     let data: [ContentInfo] = [
-        ContentInfo(image: "text", title: "Text"),
-        ContentInfo(image: "phone", title: "Phone"),
-        ContentInfo(image: "website", title: "Website"),
+        ContentInfo(image: "comments-regular", title: "Text"),
+        ContentInfo(image: "square-phone-flip-solid", title: "Phone"),
+        ContentInfo(image: "globe-solid", title: "Website"),
         ContentInfo(image: "instagram", title: "Instagram"),
         ContentInfo(image: "tiktok", title: "TikTok"),
         ContentInfo(image: "facebook", title: "Facebook"),

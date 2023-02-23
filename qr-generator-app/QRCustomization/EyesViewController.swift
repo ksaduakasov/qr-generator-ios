@@ -19,6 +19,14 @@ class EyesViewController: UIViewController {
     
     var delegate: EyesDelegate?
     
+    let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Eyes"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        return titleLabel
+    }()
+    
     let qrImageView = UIImageView()
     var data = ""
     
@@ -47,6 +55,7 @@ class EyesViewController: UIViewController {
     
     let discardButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return button
@@ -54,6 +63,7 @@ class EyesViewController: UIViewController {
     
     let confirmButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
         button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return button
@@ -61,6 +71,7 @@ class EyesViewController: UIViewController {
     
     let freeLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.text = "Free Eyes Patterns"
         return label
     }()
@@ -84,6 +95,7 @@ class EyesViewController: UIViewController {
     
     let paidLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.text = "Premium Eyes Patterns"
         return label
     }()
@@ -115,7 +127,7 @@ class EyesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        
+        navigationItem.titleView = titleLabel
         setupUI()
     }
     

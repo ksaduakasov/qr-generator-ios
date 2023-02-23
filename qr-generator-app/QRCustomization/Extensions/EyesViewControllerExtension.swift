@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import QRCode
+import Purchases
 
 extension EyesViewController {
     func setupQRImageView() {
@@ -41,7 +42,7 @@ extension EyesViewController {
     }
     
     func setupFunctionalView() {
-        functionalView.backgroundColor = .systemGray6
+        functionalView.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
         
         view.addSubview(functionalView)
         
@@ -55,7 +56,7 @@ extension EyesViewController {
     }
     
     func setupControlView() {
-        controlView.backgroundColor = .white
+        controlView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)
         
         functionalView.addSubview(controlView)
         controlView.snp.makeConstraints { make in
@@ -98,7 +99,7 @@ extension EyesViewController {
         functionalView.addSubview(freeView)
         freeView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
-            make.top.equalTo(freeLabel.snp.bottom)
+            make.top.equalTo(freeLabel.snp.bottom).offset(10)
             make.height.equalToSuperview().dividedBy(5)
         }
     }
@@ -180,9 +181,17 @@ extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSour
             eyesSelected = freeEyesPatterns[indexPath.item]
             qrImageView.image = changeQRPattern(pattern)
         } else {
-            let pattern: QRCodeEyeShapeGenerator = paidEyesClasses[indexPath.item]
-            eyesSelected = paidEyesPatterns[indexPath.item]
-            qrImageView.image = changeQRPattern(pattern)
+            let purchase = KSPurchase()
+            if !purchase.hasPremium() {
+                let alert = purchase.showAlertToGetPremium()
+                self.present(alert, animated: true, completion: nil)
+                
+            } else {
+                let pattern: QRCodeEyeShapeGenerator = paidEyesClasses[indexPath.item]
+                eyesSelected = paidEyesPatterns[indexPath.item]
+                qrImageView.image = changeQRPattern(pattern)
+            }
+            
         }
     }
     
@@ -190,8 +199,8 @@ extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

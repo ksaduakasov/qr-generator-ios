@@ -14,6 +14,7 @@ class HistoryViewController: UIViewController {
         titleLabel.text = "Create History"
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        titleLabel.textColor = .white
         return titleLabel
     }()
     

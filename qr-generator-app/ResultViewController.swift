@@ -16,6 +16,7 @@ class ResultViewController: UIViewController {
         titleLabel.text = "QR Code Saved"
         titleLabel.textAlignment = .center
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        titleLabel.textColor = .white
         return titleLabel
     }()
     
@@ -34,6 +35,7 @@ class ResultViewController: UIViewController {
         let label = UILabel()
         label.text = "Tools"
         label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .white
         return label
     }()
     
@@ -53,6 +55,7 @@ class ResultViewController: UIViewController {
         let label = UILabel()
         label.text = "Share"
         label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .white
         return label
     }()
     
@@ -72,6 +75,7 @@ class ResultViewController: UIViewController {
         let label = UILabel()
         label.text = "Save"
         label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .white
         return label
     }()
     

@@ -11,6 +11,7 @@ import UIKit
 extension HistoryViewController {
     func setupNavigationItems() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(backButtonTapped))
+        backButton.tintColor = .white
         navigationItem.leftBarButtonItem = backButton
         navigationItem.titleView = titleLabel
     }
@@ -19,8 +20,8 @@ extension HistoryViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
@@ -36,7 +37,7 @@ extension HistoryViewController {
         tableView.register(HistoryCell.self, forCellReuseIdentifier: "historyCell")
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(20)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right).inset(20)
@@ -57,7 +58,9 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         cell.qrImageView.image = UIImage(data: qrImages[indexPath.row].qrCodeImage!)
         cell.typeLabel.text = qrImages[indexPath.row].qrCodeDataType
         cell.contentLabel.text = qrImages[indexPath.row].qrCodeData
-        
+        cell.backgroundColor = .clear
+        cell.selectionStyle = .none
+
         return cell
     }
     

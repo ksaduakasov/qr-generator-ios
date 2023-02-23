@@ -31,6 +31,14 @@ class DotsViewController: UIViewController {
     
     var delegate: DotsDelegate?
     
+    let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Dots"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        return titleLabel
+    }()
+    
     let qrImageView: UIImageView = UIImageView()
     var data = ""
     
@@ -59,6 +67,7 @@ class DotsViewController: UIViewController {
     
     let discardButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return button
@@ -66,6 +75,7 @@ class DotsViewController: UIViewController {
     
     let confirmButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
         button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return button
@@ -73,6 +83,7 @@ class DotsViewController: UIViewController {
     
     let freeLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.text = "Free Dots Styles"
         return label
     }()
@@ -96,6 +107,7 @@ class DotsViewController: UIViewController {
     
     let paidLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.text = "Premium Dots Styles"
         return label
     }()
@@ -125,7 +137,7 @@ class DotsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        
+        navigationItem.titleView = titleLabel
         setupUI()
     }
     

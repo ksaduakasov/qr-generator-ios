@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import QRCode
+import Purchases
 
 extension LogoViewController {
     func setupQRImageView() {
@@ -41,7 +42,7 @@ extension LogoViewController {
     }
     
     func setupFunctionalView() {
-        functionalView.backgroundColor = .systemGray6
+        functionalView.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
         
         view.addSubview(functionalView)
         
@@ -55,7 +56,7 @@ extension LogoViewController {
     }
     
     func setupControlView() {
-        controlView.backgroundColor = .white
+        controlView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)
         
         functionalView.addSubview(controlView)
         controlView.snp.makeConstraints { make in
@@ -126,7 +127,7 @@ extension LogoViewController {
         functionalView.addSubview(pickerButton)
         
         pickerButton.snp.makeConstraints { make in
-            make.top.equalTo(freeView.snp.bottom).offset(20)
+            make.top.equalTo(freeView.snp.bottom).offset(30)
             make.height.equalToSuperview().dividedBy(7)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().dividedBy(1.8)
@@ -157,9 +158,16 @@ extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let purchase = KSPurchase()
+        if !purchase.hasPremium() {
+            let alert = purchase.showAlertToGetPremium()
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            selectedLogo = freeLogoTemplates[indexPath.row]
+            qrImageView.image = QRWithLogo(freeLogoTemplates[indexPath.row])
+        }
         
-        selectedLogo = freeLogoTemplates[indexPath.row]
-        qrImageView.image = QRWithLogo(freeLogoTemplates[indexPath.row])
         
     }
     
@@ -167,8 +175,8 @@ extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
@@ -176,11 +184,5 @@ extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    @objc func uploadImage() {
-        ImagePickerManager().pickImage(self) { image in
-            self.selectedLogo = image.updateImageOrientionUpSide()
-            self.qrImageView.image = self.QRWithLogo(self.selectedLogo)
-        }
-    }
+
 }

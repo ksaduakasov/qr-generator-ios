@@ -7,6 +7,9 @@ target 'qr-generator-app' do
   pod 'SnapKit'
   pod 'RealmSwift'
   pod 'WMSegmentControl'
+  pod 'GradientView'
+  pod 'Purchases'
+  pod 'PopupDialog'
   # Pods for qr-generator-app
 
 end

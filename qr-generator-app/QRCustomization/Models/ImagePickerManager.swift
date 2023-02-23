@@ -4,10 +4,10 @@ import UIKit
 
 class ImagePickerManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    var picker = UIImagePickerController();
-    var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-    var viewController: UIViewController?
-    var pickImageCallback : ((UIImage) -> ())?;
+    lazy var picker = UIImagePickerController()
+    lazy var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+    weak var viewController: UIViewController?
+    var pickImageCallback : ((UIImage) -> ())?
     
     override init(){
         super.init()
@@ -31,13 +31,14 @@ class ImagePickerManager: NSObject, UIImagePickerControllerDelegate, UINavigatio
     }
 
     func pickImage(_ viewController: UIViewController, _ callback: @escaping ((UIImage) -> ())) {
-        pickImageCallback = callback;
-        self.viewController = viewController;
+        pickImageCallback = callback
+        self.viewController = viewController
 
         alert.popoverPresentationController?.sourceView = self.viewController!.view
 
         viewController.present(alert, animated: true, completion: nil)
     }
+    
     func openCamera(){
         alert.dismiss(animated: true, completion: nil)
         if(UIImagePickerController .isSourceTypeAvailable(.camera)){
@@ -63,14 +64,7 @@ class ImagePickerManager: NSObject, UIImagePickerControllerDelegate, UINavigatio
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    //for swift below 4.2
-    //func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    //    picker.dismiss(animated: true, completion: nil)
-    //    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-    //    pickImageCallback?(image)
-    //}
-    
-    // For Swift 4.2+
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         guard let image = info[.originalImage] as? UIImage else {

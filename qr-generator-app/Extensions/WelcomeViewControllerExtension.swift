@@ -10,8 +10,16 @@ import UIKit
 
 
 extension WelcomeViewController {
+    func setupNavigationItems() {
+        let historyButton = UIBarButtonItem(image: UIImage(systemName: "archivebox.circle.fill"), style: .plain, target: self, action: #selector(openHistory))
+        historyButton.tintColor = .white
+        navigationItem.rightBarButtonItem = historyButton
+
+    }
+    
+    
     func setupButton() {
-        createQRView.backgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        createQRView.backgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         createQRView.layer.cornerRadius = view.bounds.width / 20
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(goToSelection))
         createQRView.addGestureRecognizer(tapGesture)
@@ -19,8 +27,7 @@ extension WelcomeViewController {
         view.addSubview(createQRView)
         
         createQRView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-50)
+            make.center.equalToSuperview()
             make.width.equalToSuperview().dividedBy(2.5)
             make.height.equalTo(createQRView.snp.width)
         }
@@ -58,8 +65,8 @@ extension WelcomeViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

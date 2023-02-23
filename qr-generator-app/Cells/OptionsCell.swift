@@ -11,15 +11,13 @@ class OptionsCell: UICollectionViewCell {
     var isActive: Bool = false {
         didSet {
             layer.borderWidth = isActive ? 3 : 0
-            layer.borderColor = isActive ? UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor : UIColor.clear.cgColor
+            layer.borderColor = isActive ? UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1).cgColor : UIColor.clear.cgColor
         }
     }
     
     let imageLogo: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 18
-        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -28,6 +26,7 @@ class OptionsCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
     

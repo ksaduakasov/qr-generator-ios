@@ -51,12 +51,12 @@ extension TextViewController {
     }
     
     func setupFunctionalView() {
-        functionalView.backgroundColor = .systemGray6
+        functionalView.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
         view.addSubview(functionalView)
         
         functionalView.snp.makeConstraints { make in
             make.top.equalTo(qrImageView.snp.bottom).offset(view.bounds.height / 10)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalToSuperview()
             
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left)
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right)
@@ -64,7 +64,7 @@ extension TextViewController {
     }
     
     func setupControlView() {
-        controlView.backgroundColor = .white
+        controlView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)
         functionalView.addSubview(controlView)
         controlView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -110,7 +110,7 @@ extension TextViewController {
     }
     
     func setupColorView() {
-        colorView.backgroundColor = .systemGray6
+        colorView.backgroundColor = .clear
         functionalView.addSubview(colorView)
         colorView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
@@ -141,12 +141,12 @@ extension TextViewController {
     }
     
     func setupFontView() {
-        fontView.backgroundColor = .systemGray6
+        fontView.backgroundColor = .clear
         functionalView.addSubview(fontView)
         fontView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
             make.top.equalTo(fontLabel.snp.bottom).offset(5)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             
         }
     }
@@ -281,8 +281,16 @@ extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let purchase = KSPurchase()
+        if !purchase.hasPremium() {
+            let alert = purchase.showAlertToGetPremium()
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
             selectedTextColor = colors[indexPath.row]
             textLabel.textColor = selectedTextColor
+        }
+            
     }
     
 }
@@ -300,8 +308,8 @@ extension TextViewController: UITextFieldDelegate {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.view.bounds
         
-        let start = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1).cgColor
-        let end = UIColor(red: 244/255, green: 245/255, blue: 248/255, alpha: 1).cgColor
+        let start = UIColor(red: 50/255, green: 47/255, blue: 82/255, alpha: 1).cgColor
+        let end = UIColor(red: 64/255, green: 64/255, blue: 64/255, alpha: 1).cgColor
         
         gradientLayer.colors = [start, end]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

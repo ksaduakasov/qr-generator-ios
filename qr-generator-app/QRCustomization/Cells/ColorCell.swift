@@ -5,10 +5,10 @@
 //  Created by Kalbek Saduakassov on 07.02.2023.
 //
 import UIKit
+import GradientView
 
 class ColorCell: UICollectionViewCell {
-    var color: UIColor?
-    let colorView = UIView()
+    let colorView = GradientView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,9 +22,5 @@ class ColorCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(with color: UIColor) {
-        colorView.backgroundColor = color
     }
 }

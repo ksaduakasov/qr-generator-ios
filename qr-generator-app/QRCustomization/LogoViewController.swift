@@ -19,6 +19,14 @@ class LogoViewController: UIViewController {
     
     var delegate: LogoDelegate?
     
+    let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Logo"
+        titleLabel.textAlignment = .center
+        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        return titleLabel
+    }()
+    
     let qrImageView = UIImageView()
     var data = ""
     var selectedLogo: UIImage?
@@ -48,6 +56,7 @@ class LogoViewController: UIViewController {
     
     let discardButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return button
@@ -55,6 +64,7 @@ class LogoViewController: UIViewController {
     
     let confirmButton: UIButton = {
         let button = UIButton()
+        button.tintColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
         button.addTarget(self, action: #selector(saveChanges), for: .touchUpInside)
         return button
@@ -67,8 +77,7 @@ class LogoViewController: UIViewController {
         filled.image = UIImage(systemName: "nosign")
         filled.imagePlacement = .trailing
         filled.imagePadding = 10
-//        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
-//        filled.baseForegroundColor = UIColor.black
+        filled.baseBackgroundColor = UIColor(red: 88/255, green: 51/255, blue: 122/255, alpha: 1)
         
         let button = UIButton(configuration: filled, primaryAction: nil)
         button.addTarget(self, action: #selector(removeLogo), for: .touchUpInside)
@@ -78,6 +87,7 @@ class LogoViewController: UIViewController {
     let freeLabel: UILabel = {
         let label = UILabel()
         label.text = "Premium Icons"
+        label.textColor = .white
         return label
     }()
     
@@ -105,7 +115,7 @@ class LogoViewController: UIViewController {
         filled.buttonSize = .large
         filled.subtitle = "from your gallery"
         filled.image = UIImage(systemName: "photo.stack")
-        filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
+        filled.baseBackgroundColor = UIColor(red: 238/255, green: 188/255, blue: 0/255, alpha: 1)
         
         filled.imagePlacement = .trailing
         filled.imagePadding = 10
@@ -115,12 +125,12 @@ class LogoViewController: UIViewController {
         return button
     }()
     
-    let freeLogoTemplates: [UIImage] = [UIImage(named:"wpp")!, UIImage(named:"messenger")!, UIImage(named:"paypal")!, UIImage(named:"crypto")!, UIImage(named:"spotify")!, UIImage(named:"tiktok")!,UIImage(named:"instagram")!, UIImage(named:"twitter")!, UIImage(named:"facebook")!, UIImage(named:"youtube")!]
+    let freeLogoTemplates: [UIImage] = [UIImage(named:"wpp")!, UIImage(named:"messenger")!, UIImage(named:"paypal")!, UIImage(named:"crypto")!, UIImage(named:"spotify")!, UIImage(named:"tiktok1")!,UIImage(named:"instagram1")!, UIImage(named:"twitter1")!, UIImage(named:"facebook1")!, UIImage(named:"youtube1")!]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
-        
+        navigationItem.titleView = titleLabel
         setupUI()
     }
     
@@ -215,6 +225,22 @@ class LogoViewController: UIViewController {
     @objc func removeLogo() {
         selectedLogo = nil
         qrImageView.image = QRWithLogo(nil)
+    }
+    
+    
+    @objc func uploadImage() {
+        let purchase = KSPurchase()
+        if !purchase.hasPremium() {
+            let alert = purchase.showAlertToGetPremium()
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            ImagePickerManager().pickImage(self) { [weak self] image in
+                self?.selectedLogo = image.updateImageOrientionUpSide()
+                self?.qrImageView.image = self?.QRWithLogo(self?.selectedLogo)
+            }
+        }
+        
     }
     
 }
