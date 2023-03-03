@@ -8,12 +8,15 @@ import UIKit
 import SnapKit
 import QRCode
 import RealmSwift
+import PopupDialog
 
 protocol TextDelegate {
     func qrTextChanged(textContent: String, textColor: String, textFont: String)
 }
 
 class TextViewController: UIViewController {
+    
+    let storeKit = StoreKitManger()
     
     var realmData = RealmData()
     
@@ -299,9 +302,8 @@ class TextViewController: UIViewController {
     }
     
     @objc func changeFont(_ sender: UIButton) {
-        let purchase = KSPurchase()
-        if !purchase.hasPremium() {
-            let alert = purchase.showAlertToGetPremium()
+        if !storeKit.isPurchasedText {
+            let alert = showAlert()
             self.present(alert, animated: true, completion: nil)
         } else {
             switch sender {
@@ -349,6 +351,32 @@ class TextViewController: UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+     func showAlert() -> PopupDialog {
+        let title = "You are trying to use a Premium feature!"
+        let message = "Unlock access for customizing the text of your QR code. Purchase once - use forever!"
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
+        
+        let buttonTwo = DefaultButton(title: "Unlock the Text Customization!") { [weak self] in
+            print("What a beauty!")
+            let product = self?.storeKit.storeProducts[4]
+            Task {
+                print(try? await self?.storeKit.purchase(product!))
+                self?.storeKit.isPurchasedText = (try? await self?.storeKit.isPurchased(product!)) ?? false
+            }
+
+        }
+        
+        // Create buttons
+        let buttonOne = CancelButton(title: "No, thank you!", height: 200) {
+            print("You canceled the car dialog.")
+        }
+        
+        popup.addButtons([buttonTwo, buttonOne])
+        return popup
     }
 }
 

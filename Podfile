@@ -8,7 +8,6 @@ target 'qr-generator-app' do
   pod 'RealmSwift'
   pod 'WMSegmentControl'
   pod 'GradientView'
-  pod 'Purchases'
   pod 'PopupDialog'
   # Pods for qr-generator-app
 

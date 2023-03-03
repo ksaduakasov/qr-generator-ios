@@ -281,11 +281,9 @@ extension TextViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let purchase = KSPurchase()
-        if !purchase.hasPremium() {
-            let alert = purchase.showAlertToGetPremium()
+        if !storeKit.isPurchasedText {
+            let alert = showAlert()
             self.present(alert, animated: true, completion: nil)
-            
         } else {
             selectedTextColor = colors[indexPath.row]
             textLabel.textColor = selectedTextColor

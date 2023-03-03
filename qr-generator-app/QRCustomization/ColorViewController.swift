@@ -9,6 +9,8 @@ import SnapKit
 import QRCode
 import RealmSwift
 import WMSegmentControl
+import PopupDialog
+import StoreKit
 
 /*
  3) Create a ColorPicker
@@ -19,6 +21,7 @@ protocol ColorDelegate {
 }
 
 class ColorViewController: UIViewController {
+    let storeKit = StoreKitManger()
     
     var realmData = RealmData()
     
@@ -225,11 +228,10 @@ class ColorViewController: UIViewController {
     }
     
     @objc func showColorPicker() {
-        let purchase = KSPurchase()
-        if !purchase.hasPremium() {
-            let alert = purchase.showAlertToGetPremium()
-            self.present(alert, animated: true, completion: nil)
             
+        if !storeKit.isPurchasedColor {
+            let alert = showAlert()
+            self.present(alert, animated: true, completion: nil)
         } else {
             let picker = UIColorPickerViewController()
             picker.delegate = self
@@ -238,8 +240,32 @@ class ColorViewController: UIViewController {
             self.present(picker, animated: true, completion: nil)
         }
         
+    }
+    
+    fileprivate func showAlert() -> PopupDialog {
+        let title = "You are trying to use a Premium feature!"
+        let message = "The Color picker provides access for extended variety of color options. Purchase once - use forever!"
         
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
         
+        let buttonTwo = DefaultButton(title: "Unlock the Premium Colors!") { [weak self] in
+            print("Colors are unlocked!")
+            let product = self?.storeKit.storeProducts[0]
+            Task {
+                print(try? await self?.storeKit.purchase(product!))
+                self?.storeKit.isPurchasedColor = (try? await self?.storeKit.isPurchased(product!)) ?? false
+            }
+
+        }
+        
+        // Create buttons
+        let buttonOne = CancelButton(title: "No, thank you!", height: 200) {
+            print("You canceled the premium dialog.")
+        }
+        
+        popup.addButtons([buttonTwo, buttonOne])
+        return popup
     }
     
 }

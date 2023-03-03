@@ -11,7 +11,7 @@ import UIKit
 
 extension WelcomeViewController {
     func setupNavigationItems() {
-        let historyButton = UIBarButtonItem(image: UIImage(systemName: "archivebox.circle.fill"), style: .plain, target: self, action: #selector(openHistory))
+        let historyButton = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(openSettings))
         historyButton.tintColor = .white
         navigationItem.rightBarButtonItem = historyButton
 
@@ -53,11 +53,11 @@ extension WelcomeViewController {
     }
     
     func setupHistoryButton() {
-        view.addSubview(historyButton)
-        historyButton.snp.makeConstraints { make in
-            make.top.equalTo(createQRView.snp.bottom).offset(80)
-            make.centerX.equalToSuperview()
-        }
+//        view.addSubview(historyButton)
+//        historyButton.snp.makeConstraints { make in
+//            make.top.equalTo(createQRView.snp.bottom).offset(80)
+//            make.centerX.equalToSuperview()
+//        }
     }
     
     

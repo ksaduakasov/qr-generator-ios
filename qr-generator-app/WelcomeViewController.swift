@@ -7,7 +7,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
-import Purchases
+import StoreKit
 
 class WelcomeViewController: UIViewController {
     
@@ -38,11 +38,11 @@ class WelcomeViewController: UIViewController {
         return imageView
     }()
     
-    let historyButton: UIButton = {
+    let restoreButton: UIButton = {
         var filled = UIButton.Configuration.filled()
-        filled.title = "Show history"
+        filled.title = "Restore Purchases"
         filled.buttonSize = .large
-        filled.image = UIImage(systemName: "archivebox.circle.fill")
+        filled.image = UIImage(systemName: "purchased.circle")
         filled.imagePlacement = .trailing
         filled.baseBackgroundColor = UIColor(red: 110/255, green: 212/255, blue: 207/255, alpha: 1)
 
@@ -57,9 +57,6 @@ class WelcomeViewController: UIViewController {
         view.backgroundColor = .white
         print(realm.configuration.fileURL!)
         setupUI()
-        
-
-        
     }
 
         
@@ -79,6 +76,11 @@ class WelcomeViewController: UIViewController {
     @objc func openHistory() {
         let historyVC = HistoryViewController()
         navigationController?.pushViewController(historyVC, animated: true)
+    }
+    
+    @objc func openSettings() {
+        let settingsVC = SettingsViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
 
     

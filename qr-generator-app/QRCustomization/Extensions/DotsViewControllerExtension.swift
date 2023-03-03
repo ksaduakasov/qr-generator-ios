@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import QRCode
-import Purchases
 
 extension DotsViewController {
     func setupQRImageView() {
@@ -179,11 +178,9 @@ extension DotsViewController: UICollectionViewDelegate, UICollectionViewDataSour
             dotsSelected = freePointPatterns[indexPath.item]
             qrImageView.image = changeQRPattern(selectedPattern)
         } else {
-            let purchase = KSPurchase()
-            if !purchase.hasPremium() {
-                let alert = purchase.showAlertToGetPremium()
+            if !storeKit.isPurchasedDots {
+                let alert = showAlert()
                 self.present(alert, animated: true, completion: nil)
-                
             } else {
                 let selectedPattern: QRCodePixelShapeGenerator = paidPointClasses[indexPath.item]
                 dotsSelected = paidPointPatterns[indexPath.item]

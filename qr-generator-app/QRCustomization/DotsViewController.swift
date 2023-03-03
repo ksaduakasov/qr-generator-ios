@@ -8,6 +8,7 @@
 import UIKit
 import QRCode
 import RealmSwift
+import PopupDialog
 
 //enum Dots {
 //    case square
@@ -26,6 +27,8 @@ protocol DotsDelegate {
 }
 
 class DotsViewController: UIViewController {
+    
+    let storeKit = StoreKitManger()
     
     var realmData = RealmData()
     
@@ -178,7 +181,7 @@ class DotsViewController: UIViewController {
         realmData.getEyes(doc)
         realmData.getLogo(doc)
         realmData.getText(self.textView, self.textLabel)
-
+        
         let generated = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: generated!)
     }
@@ -190,7 +193,7 @@ class DotsViewController: UIViewController {
         realmData.getEyes(doc)
         realmData.getLogo(doc)
         realmData.getText(self.textView, self.textLabel)
-
+        
         let changed = doc.cgImage(CGSize(width: 800, height: 800))
         return UIImage(cgImage: changed!)
     }
@@ -209,6 +212,32 @@ class DotsViewController: UIViewController {
         }
         delegate?.qrDotsChanged(dotsPattern: dotsSelected)
         dismiss(animated: true)
+    }
+    
+     func showAlert() -> PopupDialog {
+         let title = "You are trying to use a Premium feature!"
+         let message = "Unlock access for premium customization of your QR code. Purchase once - use forever!"
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
+        
+        let buttonTwo = DefaultButton(title: "Unlock the Premium Dots!") { [weak self] in
+            print("What a beauty!")
+            let product = self?.storeKit.storeProducts[1]
+            Task {
+                print(try? await self?.storeKit.purchase(product!))
+                self?.storeKit.isPurchasedDots = (try? await self?.storeKit.isPurchased(product!)) ?? false
+            }
+            
+        }
+        
+        // Create buttons
+        let buttonOne = CancelButton(title: "No, thank you!", height: 200) {
+            print("You canceled the car dialog.")
+        }
+        
+        popup.addButtons([buttonTwo, buttonOne])
+        return popup
     }
     
     

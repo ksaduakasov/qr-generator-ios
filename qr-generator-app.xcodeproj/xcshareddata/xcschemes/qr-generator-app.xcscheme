@@ -51,7 +51,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../qr-generator-app/config.storekit">
+         identifier = "../qr-generator-app/Config.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction

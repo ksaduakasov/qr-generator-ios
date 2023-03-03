@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import QRCode
-import Purchases
 
 extension LogoViewController {
     func setupQRImageView() {
@@ -144,7 +143,7 @@ extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DotsCell", for: indexPath) as! EyesCell
-        cell.imageView.image = freeLogoTemplates[indexPath.item]
+        cell.imageView.image = UIImage(named: freeLogoTemplates[indexPath.item])
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
         return cell
@@ -158,14 +157,12 @@ extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let purchase = KSPurchase()
-        if !purchase.hasPremium() {
-            let alert = purchase.showAlertToGetPremium()
+        if !storeKit.isPurchasedLogo {
+            let alert = showAlert()
             self.present(alert, animated: true, completion: nil)
-            
         } else {
-            selectedLogo = freeLogoTemplates[indexPath.row]
-            qrImageView.image = QRWithLogo(freeLogoTemplates[indexPath.row])
+            selectedLogo = UIImage(named: freeLogoTemplates[indexPath.row])
+            qrImageView.image = QRWithLogo(UIImage(named: freeLogoTemplates[indexPath.row]))
         }
         
         
@@ -184,5 +181,5 @@ extension LogoViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-
+    
 }

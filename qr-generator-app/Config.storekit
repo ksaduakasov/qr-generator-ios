@@ -1,0 +1,118 @@
+{
+  "identifier" : "42C0C499",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "FD65FF2D",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Add your color to the qr code",
+          "displayName" : "QR code color customization",
+          "locale" : "ar"
+        }
+      ],
+      "productID" : "ios.clevtech.qr_generator_app.color",
+      "referenceName" : "QR code color",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "D1BED36D",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Add your dots to the qr code",
+          "displayName" : "QR code dots cusomization",
+          "locale" : "ar"
+        }
+      ],
+      "productID" : "ios.clevtech.qr_generator_app.dots",
+      "referenceName" : "QR code dots",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "9015B3B2",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Add your eyes to the qr code",
+          "displayName" : "QR code eyes cusomization",
+          "locale" : "ar"
+        }
+      ],
+      "productID" : "ios.clevtech.qr_generator_app.eyes",
+      "referenceName" : "QR code eyes",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "330BBE75",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Add your logo to the qr code",
+          "displayName" : "QR code logo cusomization",
+          "locale" : "ar"
+        }
+      ],
+      "productID" : "ios.clevtech.qr_generator_app.logo",
+      "referenceName" : "QR code logo",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "CD365D88",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "QR code text cusomization",
+          "displayName" : "QR code text cusomization",
+          "locale" : "ar"
+        }
+      ],
+      "productID" : "ios.clevtech.qr_generator_app.text",
+      "referenceName" : "QR code text",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_askToBuyEnabled" : false
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

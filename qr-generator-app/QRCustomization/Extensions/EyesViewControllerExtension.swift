@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import QRCode
-import Purchases
 
 extension EyesViewController {
     func setupQRImageView() {
@@ -181,17 +180,15 @@ extension EyesViewController: UICollectionViewDelegate, UICollectionViewDataSour
             eyesSelected = freeEyesPatterns[indexPath.item]
             qrImageView.image = changeQRPattern(pattern)
         } else {
-            let purchase = KSPurchase()
-            if !purchase.hasPremium() {
-                let alert = purchase.showAlertToGetPremium()
+            if !storeKit.isPurchasedEyes {
+                let alert = showAlert()
                 self.present(alert, animated: true, completion: nil)
-                
             } else {
                 let pattern: QRCodeEyeShapeGenerator = paidEyesClasses[indexPath.item]
                 eyesSelected = paidEyesPatterns[indexPath.item]
                 qrImageView.image = changeQRPattern(pattern)
             }
-            
+
         }
     }
     

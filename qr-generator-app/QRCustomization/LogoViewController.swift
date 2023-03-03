@@ -8,12 +8,15 @@
 import UIKit
 import QRCode
 import RealmSwift
+import PopupDialog
 
 protocol LogoDelegate {
     func qrLogoChanged(logo: Data?)
 }
 
 class LogoViewController: UIViewController {
+    
+    let storeKit = StoreKitManger()
     
     var realmData = RealmData()
     
@@ -125,7 +128,7 @@ class LogoViewController: UIViewController {
         return button
     }()
     
-    let freeLogoTemplates: [UIImage] = [UIImage(named:"wpp")!, UIImage(named:"messenger")!, UIImage(named:"paypal")!, UIImage(named:"crypto")!, UIImage(named:"spotify")!, UIImage(named:"tiktok1")!,UIImage(named:"instagram1")!, UIImage(named:"twitter1")!, UIImage(named:"facebook1")!, UIImage(named:"youtube1")!]
+    let freeLogoTemplates: [String] = ["wpp", "messenger", "paypal", "crypto", "spotify", "tiktok1","instagram1", "twitter1", "facebook1", "youtube1"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -229,11 +232,9 @@ class LogoViewController: UIViewController {
     
     
     @objc func uploadImage() {
-        let purchase = KSPurchase()
-        if !purchase.hasPremium() {
-            let alert = purchase.showAlertToGetPremium()
+        if !storeKit.isPurchasedLogo {
+            let alert = showAlert()
             self.present(alert, animated: true, completion: nil)
-            
         } else {
             ImagePickerManager().pickImage(self) { [weak self] image in
                 self?.selectedLogo = image.updateImageOrientionUpSide()
@@ -241,6 +242,32 @@ class LogoViewController: UIViewController {
             }
         }
         
+    }
+    
+     func showAlert() -> PopupDialog {
+        let title = "You are trying to use a Premium feature!"
+        let message = "Unlock access for inserting your logo of your QR code. Purchase once - use forever!"
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
+        
+        let buttonTwo = DefaultButton(title: "Unlock the Premium Logos!") { [weak self] in
+            print("What a beauty!")
+            let product = self?.storeKit.storeProducts[3]
+            Task {
+                print(try? await self?.storeKit.purchase(product!))
+                self?.storeKit.isPurchasedLogo = (try? await self?.storeKit.isPurchased(product!)) ?? false
+            }
+
+        }
+        
+        // Create buttons
+        let buttonOne = CancelButton(title: "No, thank you!", height: 200) {
+            print("You canceled the car dialog.")
+        }
+        
+        popup.addButtons([buttonTwo, buttonOne])
+        return popup
     }
     
 }

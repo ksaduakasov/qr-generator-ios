@@ -8,12 +8,15 @@
 import UIKit
 import QRCode
 import RealmSwift
+import PopupDialog
 
 protocol EyesDelegate {
     func qrEyesChanged(eyesPattern: String)
 }
 
 class EyesViewController: UIViewController {
+    
+    let storeKit = StoreKitManger()
     
     var realmData = RealmData()
     
@@ -198,6 +201,32 @@ class EyesViewController: UIViewController {
         }
         delegate?.qrEyesChanged(eyesPattern: eyesSelected)
         dismiss(animated: true)
+    }
+    
+     func showAlert() -> PopupDialog {
+        let title = "Upgrade to Premium!"
+        let message = "Unlock access for premium customization of your QR code. Purchase once - use forever!"
+        
+        // Create the dialog
+        let popup = PopupDialog(title: title, message: message)
+        
+        let buttonTwo = DefaultButton(title: "Unlock the Premium Eyes!") { [weak self] in
+            print("What a beauty!")
+            let product = self?.storeKit.storeProducts[2]
+            Task {
+                print(try? await self?.storeKit.purchase(product!))
+                self?.storeKit.isPurchasedEyes = (try? await self?.storeKit.isPurchased(product!)) ?? false
+            }
+
+        }
+        
+        // Create buttons
+        let buttonOne = CancelButton(title: "No, thank you!", height: 200) {
+            print("You canceled the car dialog.")
+        }
+        
+        popup.addButtons([buttonTwo, buttonOne])
+        return popup
     }
     
 }

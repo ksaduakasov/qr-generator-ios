@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>color</key>
+	<string>ios.clevtech.qr_generator_app.color</string>
+	<key>dots</key>
+	<string>ios.clevtech.qr_generator_app.dots</string>
+	<key>eyes</key>
+	<string>ios.clevtech.qr_generator_app.eyes</string>
+	<key>logo</key>
+	<string>ios.clevtech.qr_generator_app.logo</string>
+	<key>text</key>
+	<string>ios.clevtech.qr_generator_app.text</string>
+</dict>
+</plist>
