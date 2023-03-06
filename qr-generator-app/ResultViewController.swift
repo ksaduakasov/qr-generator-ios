@@ -117,14 +117,26 @@ class ResultViewController: UIViewController {
     }
     
     @objc func homeButtonTapped() {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height + textView.frame.height))
-        
-        let image = renderer.image { context in
-            qrImageView.layer.render(in: context.cgContext)
+        if !textView.isHidden {
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height + textView.frame.height))
+            
+            let image = renderer.image { context in
+                qrImageView.layer.render(in: context.cgContext)
+            }
+            let imageData = image.jpegData(compressionQuality: 1.0)
+            let contentData = self.data
+            realmData.addQRImage(imageData!, data, QRContentViewController.contentType)
+        } else {
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height))
+            
+            let image = renderer.image { context in
+                qrImageView.layer.render(in: context.cgContext)
+            }
+            let imageData = image.jpegData(compressionQuality: 1.0)
+            let contentData = self.data
+            realmData.addQRImage(imageData!, data, QRContentViewController.contentType)
         }
-        let imageData = image.jpegData(compressionQuality: 1.0)
-        let contentData = self.data
-        realmData.addQRImage(imageData!, data, QRContentViewController.contentType)
+        
         
         let realm = try! Realm()
         try! realm.write {
@@ -133,47 +145,79 @@ class ResultViewController: UIViewController {
             let eyes = realm.objects(QRCodeEyes.self)
             let logo = realm.objects(QRCodeLogo.self)
             let text = realm.objects(QRCodeText.self)
-
+            
             realm.delete(color)
             realm.delete(dots)
             realm.delete(eyes)
             realm.delete(logo)
             realm.delete(text)
-
+            
         }
-
+        
         navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func shareButtonTapped() {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height + textView.frame.height))
-        
-        let image = renderer.image { context in
-            qrImageView.layer.render(in: context.cgContext)
+        if !textView.isHidden {
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height + textView.frame.height))
+            let image = renderer.image { context in
+                qrImageView.layer.render(in: context.cgContext)
+            }
+            let imageShare = [image]
+            let activityViewController = UIActivityViewController(activityItems: imageShare , applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        } else {
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height))
+            
+            let image = renderer.image { context in
+                qrImageView.layer.render(in: context.cgContext)
+            }
+            let imageShare = [image]
+            let activityViewController = UIActivityViewController(activityItems: imageShare , applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
         }
         
-        let imageShare = [image]
-        let activityViewController = UIActivityViewController(activityItems: imageShare , applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+        
     }
     
     @objc func saveButtonTapped() {
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height + textView.frame.height))
-        
-        let image = renderer.image { context in
-            qrImageView.layer.render(in: context.cgContext)
+        if !textView.isHidden {
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height + textView.frame.height))
+            let image = renderer.image { context in
+                qrImageView.layer.render(in: context.cgContext)
+            }
+            print("saveButtonTapped")
+            let imageSaver = ImageSaver()
+            imageSaver.writeToPhotoAlbum(image: image)
+            let alert = UIAlertController(title: nil, message: "QR code successfully saved", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            // Present the alert
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: qrImageView.frame.width, height: qrImageView.frame.height))
+            let image = renderer.image { context in
+                qrImageView.layer.render(in: context.cgContext)
+            }
+            print("saveButtonTapped")
+            let imageSaver = ImageSaver()
+            imageSaver.writeToPhotoAlbum(image: image)
+            let alert = UIAlertController(title: nil, message: "QR code successfully saved", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            // Present the alert
+            self.present(alert, animated: true, completion: nil)
         }
         
-        print("saveButtonTapped")
-        let imageSaver = ImageSaver()
-        imageSaver.writeToPhotoAlbum(image: image)
-        let alert = UIAlertController(title: nil, message: "QR code successfully saved", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Got it", style: .default, handler: nil)
-        alert.addAction(okAction)
+        
+        
+        
 
-        // Present the alert
-        self.present(alert, animated: true, completion: nil)
         
     }
     

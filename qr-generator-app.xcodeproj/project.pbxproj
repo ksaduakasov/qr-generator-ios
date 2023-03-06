@@ -161,11 +161,11 @@
 		E81FD11529B1CBE3003273E3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E81FD11629B1CBE3003273E3 /* WelcomeViewControllerExtension.swift */,
+				E81FD11C29B1CBE3003273E3 /* Models */,
 				E81FD11729B1CBE3003273E3 /* Cells */,
+				E81FD11629B1CBE3003273E3 /* WelcomeViewControllerExtension.swift */,
 				E81FD11A29B1CBE3003273E3 /* QRViewControllerExtension.swift */,
 				E81FD11B29B1CBE3003273E3 /* UIColor.swift */,
-				E81FD11C29B1CBE3003273E3 /* Models */,
 				E81FD12129B1CBE3003273E3 /* QRPreviewViewControllerExtension.swift */,
 				E81FD12229B1CBE3003273E3 /* QRContentViewControllerExtension.swift */,
 				E81FD12329B1CBE3003273E3 /* HistoryVIewControllerExtension.swift */,
@@ -635,7 +635,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ios.clevtech.qr-generator-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -672,7 +672,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ios.clevtech.qr-generator-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
